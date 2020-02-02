@@ -1,0 +1,96 @@
+@import '../components/Users/UserPageFriendFollowerList.less';
+@import '../components/Users/UserPageEmail.less';
+
+.user-page {
+	display: grid;
+	grid-auto-rows: minmax(5rem, auto);
+	grid-gap: 2rem;
+	width: 55rem;
+	max-width: 90%;
+	margin: 2rem auto;
+
+	&__section-title {
+		color: @accentColor;
+		text-transform: capitalize;
+	}
+
+	&__button {
+		&:nth-child(1) {
+			margin-bottom: 1rem;
+		}
+	}
+
+	&__image-actions {
+		text-align: center;
+	}
+
+	&__image {
+		position: relative;
+		display: inline-block;
+
+		&_online::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 12%;
+			right: 7%;
+			background-color: @accentColor;
+			width: 1rem;
+			height: 1rem;
+			border-radius: 50%;
+			border: 1px solid fade(@accentColor, 90%);
+			box-shadow: 0 0 10px fade(@accentColor, 90%);
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		margin-top: 1rem;
+	}
+
+	&__info {
+		text-align: center;
+		overflow-wrap: break-all;
+		padding: 0 1.2rem;
+		border-radius: 0.5rem;
+		box-shadow: @boxShadow;
+	}
+
+	&__extra-info {
+		margin: 1rem 0;
+	}
+
+	&__email,
+	&__city {
+		span {
+			color: @accentColor;
+		}
+	}
+}
+
+@media (min-width: 602px) {
+	.user-page {
+		grid-template-columns: 1fr 2fr;
+
+		&__image-actions {
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+
+		&__info {
+			text-align: left;
+			grid-column-start: 2;
+			grid-column-end: 3;
+		}
+
+		&__posts {
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+
+		.post-list {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+}

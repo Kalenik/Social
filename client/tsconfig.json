@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"jsx": "react",
+		"module": "esnext",
+		"lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+		"sourceMap": true,
+		"outDir": "../dist/client",
+		"moduleResolution": "node",
+		"declaration": false,
+		"removeComments": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"strictBindCallApply": true,
+		"strictPropertyInitialization": true,
+		"alwaysStrict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noEmitOnError": true,
+		"noFallthroughCasesInSwitch": true,
+		"allowSyntheticDefaultImports": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["scripts/components/*"],
+			"@contexts/*": ["scripts/contexts/*"],
+			"@helpers/*": ["scripts/helpers/*"],
+			"@interfaces/*": ["scripts/interfaces/*"],
+			"@pages/*": ["scripts/pages/*"],
+			"@reducers/*": ["scripts/reducers/*"],
+			"@services/*": ["scripts/services/*"],
+			"@config": ["scripts/Config.ts"],
+			"@images": ["assets/img"]
+		}
+	},
+	"exclude": ["node_modules"],
+	"include": ["./**/*.tsx", "./**/*.ts"]
+}

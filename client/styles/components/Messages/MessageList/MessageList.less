@@ -1,0 +1,17 @@
+.message-list {
+	position: relative;
+
+	&__typing {
+		position: absolute;
+		bottom: -1.5rem;
+		left: 1rem;
+		color: @accentColor;
+		font-style: italic;
+		opacity: 0;
+		transition: ease-in-out 0.4s;
+
+		&_on {
+			opacity: 1;
+		}
+	}
+}

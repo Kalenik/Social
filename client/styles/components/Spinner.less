@@ -1,0 +1,38 @@
+.spinner {
+	background-color: fade(darken(@backgroundColor, 40%), 40%);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+}
+
+.lds-dual-ring {
+	width: 64px;
+	height: 64px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+
+	&:after {
+		content: ' ';
+		display: block;
+		width: 46px;
+		height: 46px;
+		margin: 1px;
+		border-radius: 50%;
+		border: 5px solid @accentColor;
+		border-color: @accentColor transparent @accentColor transparent;
+		animation: lds-dual-ring 1.2s linear infinite;
+	}
+}
+@keyframes lds-dual-ring {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

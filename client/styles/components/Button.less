@@ -1,0 +1,100 @@
+.btn {
+	position: relative;
+	background: @buttonBG;
+	color: @buttonColor;
+	padding: 1.1rem 1.5rem;
+	font-size: 1.2rem;
+	font-weight: 100;
+	box-shadow: @boxShadow;
+	text-shadow: @textShadow;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	overflow: hidden;
+	transition: color 0.3s ease-in-out;
+	white-space: nowrap;
+
+	span {
+		position: absolute;
+		display: none;
+
+		&:nth-child(1),
+		&:nth-child(3) {
+			left: 0;
+			width: 100%;
+			height: 0.07rem;
+			background: linear-gradient(
+				90deg,
+				transparent,
+				@buttonColor,
+				transparent
+			);
+			animation: animate-tb 2s linear infinite paused;
+		}
+
+		&:nth-child(2),
+		&:nth-child(4) {
+			top: 0;
+			width: 0.07rem;
+			height: 100%;
+			background: linear-gradient(
+				0,
+				transparent,
+				@buttonColor,
+				transparent
+			);
+			animation: animate-rl 2s linear infinite paused;
+		}
+
+		&:nth-child(1) {
+			top: 0;
+		}
+
+		&:nth-child(2) {
+			right: 0;
+		}
+
+		&:nth-child(3) {
+			bottom: 0;
+			animation-direction: reverse;
+		}
+
+		&:nth-child(4) {
+			left: 0;
+			animation-direction: reverse;
+		}
+	}
+
+	&:hover,
+	&:focus {
+		color: @buttonHoverColor;
+
+		span {
+			display: block;
+			animation-play-state: running;
+		}
+	}
+
+	&:active {
+		box-shadow: inset 0 0 20px @shadowColor;
+		transform: translateY(1px);
+	}
+}
+
+@keyframes animate-tb {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes animate-rl {
+	from {
+		transform: translateY(-100%);
+	}
+	to {
+		transform: translateY(100%);
+	}
+}

@@ -1,0 +1,29 @@
+.user-page__friend-follower {
+	&-list {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		list-style: none;
+		padding: 0;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	&-item {
+		padding: 0.5rem;
+	}
+
+	&-link {
+		text-transform: capitalize;
+		font-style: normal;
+		white-space: nowrap;
+	}
+}
+
+@media (min-width: 602px) {
+	.user-page__friend-follower {
+		&-list {
+			flex-direction: row;
+		}
+	}
+}

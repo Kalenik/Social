@@ -1,0 +1,67 @@
+.notice-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0 0.3rem 0.3rem 0.3rem;
+	padding: 0.6rem;
+	border-radius: 0.2rem;
+	background: @infoBGColor;
+	border: 1px solid fade(@infoBGColor, 50%);
+	box-shadow: 0 0 10px fade(@infoBGColor, 50%);
+	color: @textColor;
+	font-size: 0.9rem;
+	opacity: 0.7;
+	animation: fade-in-notice 0.5s;
+	word-break: break-all;
+
+	&_removed {
+		animation: fade-out-notice 0.5s;
+	}
+
+	&_success {
+		background: @successBGColor;
+		border: 1px solid fade(@successBGColor, 50%);
+		box-shadow: 0 0 0.7rem fade(@successBGColor, 50%);
+	}
+
+	&_error {
+		background: @errorBGColor;
+		border: 1px solid fade(@errorBGColor, 50%);
+		box-shadow: 0 0 0.7rem fade(@errorBGColor, 50%);
+	}
+
+	&_hover {
+		&:hover {
+			transition: opacity 0.3s ease-in-out;
+			opacity: 1;
+		}
+	}
+
+	.close-btn {
+		margin-left: 1rem;
+		font-size: 1rem;
+	}
+}
+
+@keyframes fade-in-notice {
+	from {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	to {
+		opacity: 0.7;
+		transform: scale(1);
+	}
+}
+
+@keyframes fade-out-notice {
+	from {
+		opacity: 0.7;
+		transform: translate(0);
+	}
+	to {
+		opacity: 0;
+		transform: translate(100%);
+	}
+}

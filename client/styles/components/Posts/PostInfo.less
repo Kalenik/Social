@@ -1,0 +1,24 @@
+.post-info {
+	&__date {
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		font-size: 1.3rem;
+	}
+
+	&__creator {
+		text-align: right;
+
+		&-link {
+			padding: 0.4rem;
+			margin-left: 0.3rem;
+			border-radius: 50%;
+			border: 1px solid fade(@accentColor, 50%);
+			box-shadow: 0 0 10px fade(@accentColor, 50%);
+		}
+
+		span {
+			color: @accentColor;
+			font-size: 0.8rem;
+		}
+	}
+}

@@ -1,0 +1,173 @@
+@import './reset.css';
+
+@textColor: #ddd;
+@backgroundColor: #333;
+@accentColor: #07e8ff;
+
+@errorBGColor: #d8000c;
+@successBGColor: #4caf50;
+@infoBGColor: #31708f;
+
+@inputErrorMessageColor: #f75f72;
+@inputBorderErrorColor: #f75f72;
+@inputBorderColor: #bbb;
+
+@linkColor: darken(@textColor, 30%);
+@linkHoverColor: lighten(@textColor, 10%);
+@linkMenuHoverBackgroundColor: fade(lighten(@menuBackgroundColor, 10%), 70%);
+@linkMenuActiveBackgroundColor: fade(@accentColor, 80%);
+
+@menuBackgroundColor: fade(darken(@backgroundColor, 10%), 90%);
+
+@modalColor: fade(lighten(@backgroundColor, 5%), 85%);
+
+@shadowColor: rgba(0, 0, 0, 0.25);
+
+@boxShadow: 0 3px 10px @shadowColor;
+@textShadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+
+@buttonColor: darken(@accentColor, 10%);
+@buttonHoverColor: @accentColor;
+@buttonBG: linear-gradient(90deg, rgba(76, 76, 76, 0.2) 50%, transparent 50%);
+
+@navbarZIndex: 100;
+@backToTopButtonZIndex: @navbarZIndex;
+@backdropZIndex: 200;
+@modalZIndex: 300;
+@noticeZIndex: 400;
+
+body,
+h1,
+h2 {
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-weight: 300;
+	letter-spacing: -0.5px;
+}
+
+body {
+	line-height: 1.3;
+	color: @textColor;
+	background-color: @backgroundColor;
+	box-sizing: border-box;
+}
+
+h1,
+h2 {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+h1 {
+	font-size: 1.5rem;
+}
+
+h2 {
+	font-size: 1.4rem;
+}
+
+button,
+a {
+	outline: none;
+}
+
+a {
+	color: @textColor;
+	font-style: italic;
+	text-decoration: none;
+	transition: color 0.3s;
+
+	&:hover,
+	&:focus {
+		color: @accentColor;
+	}
+}
+
+input,
+textarea {
+	width: 100%;
+	padding: 1.1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 0.8rem;
+}
+
+textarea {
+	resize: vertical;
+}
+
+label {
+	font-size: 1.1rem;
+	text-transform: capitalize;
+}
+
+.content {
+	margin: 0 0.5rem;
+}
+
+.page-header {
+	font-weight: lighter;
+	text-align: center;
+}
+
+.image {
+	&_circle {
+		border-radius: 50%;
+	}
+}
+
+@media (min-width: 602px) {
+	.content {
+		margin: 0 2rem;
+	}
+
+	.page-header {
+		text-align: left;
+
+		&_auth,
+		&_edit {
+			text-align: center;
+		}
+	}
+}
+
+@import './components/Button.less';
+@import './components/HamburgerButton.less';
+@import './components/CloseButton.less';
+@import './components/BackToTopButton.less';
+@import './components/ErrorBoundary.less';
+@import './components/Navbar.less';
+@import './components/Backdrop.less';
+@import './components/Modal.less';
+@import './components/Spinner.less';
+@import './components/AuthForm.less';
+@import './components/Form/FormField.less';
+
+@import './components/Notices/NoticeList/NoticeItem/NoticeItem.less';
+@import './components/Notices/NoticeList/NoticeList.less';
+
+@import './components/Posts/PostList/PostItem/PostItem.less';
+@import './components/Posts/PostList/PostList.less';
+@import './components/Posts/PostCreateControl.less';
+@import './components/Posts/PostInfo.less';
+
+@import './components/LikedPosts/LikedPostItem.less';
+@import './components/LikedPosts/LikedPostList.less';
+
+@import './components/Users/UserImage.less';
+@import './components/Users/EditUserForm.less';
+@import './components/Users/UserList/UserItem/UserItem.less';
+@import './components/Users/UserList/UserList.less';
+
+@import './components/Messages/LastMessageList/LastMessageItem/LastMessageItem.less';
+@import './components/Messages/MessageList/MessageItem/MessageItem.less';
+@import './components/Messages/MessageList/MessageList.less';
+@import './components/Messages/MessageForm.less';
+@import './components/Messages/NoMessages.less';
+@import './components/Messages/NoLastMessages.less';
+@import './components/Messages/SendMessageButton.less';
+
+@import './pages/PostPage.less';
+@import './pages/UserPage.less';
+@import './pages/LastMessagesPage.less';
+@import './pages/MessagesPage.less';

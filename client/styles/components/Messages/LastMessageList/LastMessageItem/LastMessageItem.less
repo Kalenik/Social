@@ -1,0 +1,68 @@
+.last-message-item {
+	display: grid;
+	grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+	margin: 1rem auto;
+	padding: 1rem;
+	word-break: break-all;
+	border-radius: 0.5rem;
+	box-shadow: @boxShadow;
+	border: 1px solid @backgroundColor;
+	transition: 0.5s ease-in-out;
+	cursor: pointer;
+	outline: none;
+
+	&:hover,
+	&:focus {
+		border: 1px solid fade(@accentColor, 50%);
+		box-shadow: 0 0 10px fade(@accentColor, 50%);
+	}
+
+	&__image {
+		align-self: center;
+		justify-self: end;
+		grid-row-start: 1;
+		grid-row-end: 3;
+		position: relative;
+
+		&_online::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 12%;
+			right: 2%;
+			background-color: @accentColor;
+			width: 0.5rem;
+			height: 0.5rem;
+			border-radius: 50%;
+			border: 1px solid fade(@accentColor, 90%);
+			box-shadow: 0 0 10px fade(@accentColor, 90%);
+		}
+	}
+
+	&__username {
+		color: @accentColor;
+		align-self: center;
+		margin-left: 1rem;
+	}
+
+	&__message {
+		grid-column-start: 2;
+		grid-column-end: 4;
+		grid-row-start: 2;
+		margin-left: 1rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&_typing {
+			color: @accentColor;
+			font-style: italic;
+		}
+	}
+
+	&__date {
+		justify-self: end;
+		font-size: 0.7rem;
+		color: darken(@textColor, 30%);
+	}
+}
