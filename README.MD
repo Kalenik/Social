@@ -11,6 +11,7 @@ Social network in which you can:
 ## Technologies
 
 Back-end: GraphQL + NodeJs + Express + MongoDB
+
 Front-end: React + Typescript + Less + Webpack
 
 Supports the development and the production environments.
