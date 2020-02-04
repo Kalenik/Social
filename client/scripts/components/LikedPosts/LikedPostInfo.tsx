@@ -1,4 +1,6 @@
+import Button from '@components/Button';
 import Modal from '@components/Modal';
+import HeartMinusSvg from '@components/SVG/HeartMinusSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -63,39 +65,48 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 			});
 	};
 
+	const modalActions = (
+		<Button
+			className='btn liked-post-info__button'
+			onClick={onConfirmHandler}
+		>
+			<HeartMinusSvg className='liked-post-info__heart-minus' />
+		</Button>
+	);
+
 	return (
 		<Modal
 			canCloseModal={canCloseModal}
 			setCloseModal={setCloseModal}
 			title={post.title}
 			onCancel={modalCancelHandler}
-			onConfirm={onConfirmHandler}
-			confirmText='Cancel'
+			actions={modalActions}
 		>
-			<div className='post-info'>
-				<div className='post-info'>
-					<div className='post-info__date'>
+			<div className='liked-post-info'>
+				<div className='liked-post-info__liked-date'>
+					Liked: {processDate(selectedLikedPost.created!)}
+				</div>
+				<div className='liked-post-info__text'>{post.text}</div>
+
+				<div className='liked-post-info__dates-creator'>
+					<div className='liked-post-info__creator'>
+						<span>Created by: </span>
+						<Link
+							className='liked-post-info__creator-link'
+							to={`/user/${creatorName}`}
+						>
+							{creatorName}
+						</Link>
+					</div>
+
+					<div className='liked-post-info__date'>
 						{isPostUpdated ? (
-							<>
-								<p>Updated:</p>
-								<p>{processDate(post.updated!)}</p>
-							</>
+							<p>Updated: {processDate(post.updated!)}</p>
 						) : (
-							<p>{postCreatedDate}</p>
+							<p>Created: {postCreatedDate}</p>
 						)}
 					</div>
 				</div>
-
-				<p>{post.text}</p>
-				<p className='post-info__creator'>
-					<span>Created by </span>
-					<Link
-						className='post-info__creator-link'
-						to={`/user/${creatorName}`}
-					>
-						{creatorName}
-					</Link>
-				</p>
 			</div>
 		</Modal>
 	);

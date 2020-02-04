@@ -9,8 +9,9 @@ interface IModalProps {
 	setCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
 	title?: string;
 	children: React.ReactNode;
+	actions?: JSX.Element;
 	onCancel: () => void;
-	onConfirm?: any;
+	onConfirm?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	confirmText?: string;
 }
 
@@ -19,9 +20,10 @@ const Modal: React.FC<IModalProps> = ({
 	setCloseModal,
 	title,
 	children,
+	actions,
 	onCancel,
 	onConfirm,
-	confirmText
+	confirmText = 'Submit'
 }) => {
 	const closeModalWithAnimation = () => setCloseModal(true);
 
@@ -45,7 +47,13 @@ const Modal: React.FC<IModalProps> = ({
 					</header>
 					<section className='modal__content'>{children}</section>
 					<section className='modal__actions'>
-						<Button onClick={onConfirm}>{confirmText}</Button>
+						{actions
+							? actions
+							: onConfirm && (
+									<Button onClick={onConfirm}>
+										{confirmText}
+									</Button>
+							  )}
 					</section>
 				</div>
 				<Backdrop

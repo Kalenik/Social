@@ -116,7 +116,7 @@ label {
 	}
 }
 
-@media (min-width: 602px) {
+@media screen and (min-width: 602px) {
 	.content {
 		margin: 0 2rem;
 	}
@@ -151,8 +151,9 @@ label {
 @import './components/Posts/PostCreateControl.less';
 @import './components/Posts/PostInfo.less';
 
-@import './components/LikedPosts/LikedPostItem.less';
-@import './components/LikedPosts/LikedPostList.less';
+@import './components/LikedPosts/LikedPostList/LikedPostItem/LikedPostItem.less';
+@import './components/LikedPosts/LikedPostList/LikedPostList.less';
+@import './components/LikedPosts/LikedPostInfo.less';
 
 @import './components/Users/UserImage.less';
 @import './components/Users/EditUserForm.less';
@@ -165,7 +166,6 @@ label {
 @import './components/Messages/MessageForm.less';
 @import './components/Messages/NoMessages.less';
 @import './components/Messages/NoLastMessages.less';
-@import './components/Messages/SendMessageButton.less';
 
 @import './pages/PostPage.less';
 @import './pages/UserPage.less';

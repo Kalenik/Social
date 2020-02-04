@@ -9,7 +9,7 @@ const getUserById = async userId => {
 		return {
 			...user._doc,
 			_id: user.id,
-			createdPosts: getPosts.bind(null, user._doc.createdPosts)
+			createdPosts: getPosts.bind(null, user.createdPosts)
 		};
 	} catch (error) {
 		log.error(error);
@@ -53,10 +53,10 @@ const getPosts = async postIds => {
 const transformUser = user => ({
 	...user._doc,
 	_id: user.id,
-	friends: getUsers.bind(null, user._doc.friends),
-	following: getUsers.bind(null, user._doc.following),
-	followers: getUsers.bind(null, user._doc.followers),
-	createdPosts: getPosts.bind(null, user._doc.createdPosts)
+	friends: getUsers.bind(null, user.friends),
+	following: getUsers.bind(null, user.following),
+	followers: getUsers.bind(null, user.followers),
+	createdPosts: getPosts.bind(null, user.createdPosts)
 });
 
 const transformPost = post => ({
@@ -68,8 +68,8 @@ const transformPost = post => ({
 const transformLikedPost = likedPost => ({
 	...likedPost._doc,
 	_id: likedPost.id,
-	post: getPost.bind(this, likedPost._doc.post),
-	user: getUserById.bind(this, likedPost._doc.user)
+	post: getPost.bind(this, likedPost.post),
+	user: getUserById.bind(this, likedPost.user)
 });
 
 module.exports = {

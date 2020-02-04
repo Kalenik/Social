@@ -1,6 +1,6 @@
 import EditMessageForm from '@components/Forms/EditMessageForm';
 import EditPencilSvg from '@components/SVG/EditPencilSvg';
-import TrachCanSvg from '@components/SVG/TrachCanSvg';
+import TrashCanSvg from '@components/SVG/TrashCanSvg';
 import UserImage from '@components/Users/UserImage';
 import { dateToNumber, processDate } from '@helpers/Utils';
 import React from 'react';
@@ -96,7 +96,7 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 						role='button'
 						tabIndex={0}
 					/>
-					<TrachCanSvg
+					<TrashCanSvg
 						className='message-item__trash-can'
 						onClick={onDeleteMessage.bind(null, messageId)}
 						onKeyPress={onDeleteMessage.bind(null, messageId)}

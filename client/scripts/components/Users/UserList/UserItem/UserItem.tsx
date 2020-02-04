@@ -1,4 +1,7 @@
 import Button from '@components/Button';
+import EyeSvg from '@components/SVG/EyeSvg';
+import UserMinusSvg from '@components/SVG/UserMinusSvg';
+import UserPlusSvg from '@components/SVG/UserPlusSvg';
 import UserImage from '@components/Users/UserImage';
 import AuthContext from '@contexts/authContext';
 import IUser from '@interfaces/IUser';
@@ -60,14 +63,14 @@ const UserItem: React.FC<IUserItemProps> = ({
 							className='btn user-item__button'
 							onClick={unfollowHandler.bind(null, userId)}
 						>
-							Unfollow
+							<UserMinusSvg className='user-item__user-minus' />
 						</Button>
 					) : (
 						<Button
 							className='btn user-item__button'
 							onClick={followHandler.bind(null, userId)}
 						>
-							Follow
+							<UserPlusSvg className='user-item__user-plus' />
 						</Button>
 					))}
 
@@ -75,7 +78,7 @@ const UserItem: React.FC<IUserItemProps> = ({
 					className='btn user-item__button'
 					onClick={goToUserPage.bind(null, user.username!)}
 				>
-					View
+					<EyeSvg className='user-item__eye' />
 				</Button>
 			</div>
 

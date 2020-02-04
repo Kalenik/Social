@@ -1,4 +1,8 @@
+import Button from '@components/Button';
 import Modal from '@components/Modal';
+import HeartPlusSvg from '@components/SVG/HeartPlusSvg';
+import TrashCanSvg from '@components/SVG/TrashCanSvg';
+import XMarkSvg from '@components/SVG/XMarkSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -24,8 +28,6 @@ interface IPostInfoProps {
 	modalCancelHandler: () => void;
 }
 
-type ConfirmTextType = 'Like' | 'Delete' | 'Close';
-
 const PostInfo: React.FC<IPostInfoProps> = ({
 	postId,
 	postTitle,
@@ -39,17 +41,12 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 	const { token, authUserDispatch } = useContext<IAuthContext>(AuthContext),
 		noticeContextDispatch = useContext(NoticeContext),
 		setLoading = useContext(LoadingContext),
-		[canCloseModal, setCloseModal] = useState(false),
-		modalConfirmText: ConfirmTextType = token
-			? isYourPost
-				? 'Delete'
-				: 'Like'
-			: 'Close';
+		[canCloseModal, setCloseModal] = useState(false);
 
 	const createdDate = processDate(postCreated),
 		isUpdated = dateToNumber(postUpdated) > dateToNumber(postCreated);
 
-	const likePostHandler = () =>
+	const likePostHandler = (): Promise<void> =>
 		LikedPostService.likePost(token, postId).then((likedPost: ILikedPost) =>
 			noticeContextDispatch(
 				addSuccessNoticesActionCreator(
@@ -58,7 +55,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			)
 		);
 
-	const deletePostHandler = () =>
+	const deletePostHandler = (): Promise<void> =>
 		PostService.deletePost(token, postId).then(() => {
 			deletePost(postId);
 
@@ -69,7 +66,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			);
 		});
 
-	const onConfirmHandler = () => {
+	const onConfirmHandler = (): void => {
 		if (!token) {
 			setCloseModal(true);
 			return;
@@ -87,29 +84,38 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			});
 	};
 
+	const modalActions = (
+		<Button className='btn post-info__button' onClick={onConfirmHandler}>
+			{token ? (
+				isYourPost ? (
+					<TrashCanSvg className='post-info__trash-can' />
+				) : (
+					<HeartPlusSvg className='post-info__heart-plus' />
+				)
+			) : (
+				<XMarkSvg className='post-info__x-mark' />
+			)}
+		</Button>
+	);
+
 	return (
 		<Modal
 			canCloseModal={canCloseModal}
 			setCloseModal={setCloseModal}
 			title={postTitle}
 			onCancel={modalCancelHandler}
-			onConfirm={onConfirmHandler}
-			confirmText={modalConfirmText}
+			actions={modalActions}
 		>
 			<div className='post-info'>
+				<div className='post-info__text'>{postText}</div>
 				<div className='post-info__date'>
 					{isUpdated ? (
-						<>
-							<p>Updated:</p>
-							<p>{processDate(postUpdated)}</p>
-						</>
+						<p>Updated: {processDate(postUpdated)}</p>
 					) : (
-						<p>{createdDate}</p>
+						<p> Created: {createdDate}</p>
 					)}
 				</div>
 			</div>
-
-			<p>{postText}</p>
 		</Modal>
 	);
 };

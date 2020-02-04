@@ -2,6 +2,7 @@ import Button from '@components/Button';
 import Form from '@components/FormComponents/Form';
 import TextareaField from '@components/FormComponents/TextareaField';
 import useMessageTypingHandler from '@components/Messages/useMessageTypingHandler';
+import PaperPlaneSvg from '@components/SVG/PaperPlaneSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -62,10 +63,9 @@ const SendMessageForm: React.FC<ISendMessageFormProps> = ({
 				maxLength={100}
 			/>
 			<div className='message-form__actions'>
-				<Button
-					className='btn send-message-btn message-form__button'
-					type='submit'
-				/>
+				<Button className='btn message-form__button' type='submit'>
+					<PaperPlaneSvg className='message-form__paper-plane' />
+				</Button>
 			</div>
 		</Form>
 	);

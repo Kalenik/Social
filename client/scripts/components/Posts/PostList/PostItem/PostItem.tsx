@@ -1,4 +1,6 @@
 import Button from '@components/Button';
+import EditPencilSvg from '@components/SVG/EditPencilSvg';
+import EyeSvg from '@components/SVG/EyeSvg';
 import { dateToNumber, processDate } from '@helpers/Utils';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -6,6 +8,7 @@ import { Link } from 'react-router-dom';
 interface IPostItemProps {
 	postId: string;
 	title: string;
+	text: string;
 	created: string;
 	updated: string;
 	creatorName: string;
@@ -18,6 +21,7 @@ interface IPostItemProps {
 const PostItem: React.FC<IPostItemProps> = ({
 	postId,
 	title,
+	text,
 	created,
 	updated,
 	creatorName,
@@ -29,18 +33,21 @@ const PostItem: React.FC<IPostItemProps> = ({
 	const createdDate = processDate(created),
 		isUpdated = dateToNumber(updated) > dateToNumber(created);
 
+	const processText = (text: string): string =>
+		text.length > 100 ? text.slice(0, 99) + '...' : text;
+
 	return (
 		<li key={postId} className='post-item'>
 			<div className='post-item__content'>
-				<h1>{title}</h1>
-				{isUpdated ? (
-					<>
-						<p>Updated:</p>
-						<p>{processDate(updated)}</p>
-					</>
-				) : (
-					<p>{createdDate}</p>
-				)}
+				<h1 className='post-item__title'>{title}</h1>
+				<div className='post-item__text'>{processText(text)}</div>
+				<div className='post-item__date'>
+					{isUpdated ? (
+						<p>Updated: {processDate(updated)}</p>
+					) : (
+						<p>Created: {createdDate}</p>
+					)}
+				</div>
 			</div>
 			<div className='post-item__actions'>
 				{isYourPost && (
@@ -48,14 +55,14 @@ const PostItem: React.FC<IPostItemProps> = ({
 						className='btn post-item__button'
 						onClick={showPostEditor.bind(null, postId)}
 					>
-						Edit
+						<EditPencilSvg className='post-item__pencil' />
 					</Button>
 				)}
 				<Button
 					className='btn post-item__button'
 					onClick={showPostInfo.bind(null, postId)}
 				>
-					View
+					<EyeSvg className='post-item__eye' />
 				</Button>
 			</div>
 			{isBadgeShow &&

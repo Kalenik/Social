@@ -1,6 +1,7 @@
 import PostEditor from '@components/Posts/PostEditor';
 import PostInfo from '@components/Posts/PostInfo';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
+import { dateToNumber } from '@helpers/Utils';
 import IPost from '@interfaces/IPost';
 import React, { useContext, useState } from 'react';
 import PostItem from './PostItem/PostItem';
@@ -24,6 +25,10 @@ const PostList: React.FC<IPostListProps> = ({
 		[selectedPost, setSelectedPost] = useState<IPost | null>(null),
 		[isPostInfoShow, setPostInfoShow] = useState(false),
 		[isPostEditorShow, setPostEditorShow] = useState(false);
+
+	const sortedPosts = posts
+		.concat()
+		.sort((a, b) => dateToNumber(b.created!) - dateToNumber(a.created!));
 
 	const closePostInfo = (): void => {
 		setSelectedPost(null);
@@ -75,10 +80,11 @@ const PostList: React.FC<IPostListProps> = ({
 				</>
 			)}
 			<ul className='post-list'>
-				{posts.map(
+				{sortedPosts.map(
 					({
 						_id = '',
 						title = '',
+						text = '',
 						created,
 						updated,
 						creator
@@ -87,6 +93,7 @@ const PostList: React.FC<IPostListProps> = ({
 							key={_id}
 							postId={_id}
 							title={title}
+							text={text}
 							created={created!}
 							updated={updated!}
 							creatorName={creator?.username || ''}

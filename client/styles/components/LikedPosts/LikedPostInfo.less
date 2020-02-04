@@ -1,0 +1,62 @@
+.liked-post-info {
+	&__text {
+		margin: 1rem 0;
+	}
+
+	&__date,
+	&__liked-date {
+		color: darken(@textColor, 30%);
+		font-size: 0.8rem;
+		text-align: center;
+	}
+
+	&__creator {
+		font-size: 0.8rem;
+		text-align: center;
+		margin-bottom: 1rem;
+
+		&-link {
+			padding: 0.4rem;
+			margin-left: 0.3rem;
+			border-radius: 50%;
+			border: 1px solid fade(@accentColor, 50%);
+			box-shadow: 0 0 10px fade(@accentColor, 50%);
+		}
+	}
+
+	&__button {
+		display: flex;
+		margin: 0 auto;
+		font-size: 1rem;
+
+		&:hover,
+		&:focus {
+			.liked-post-info__heart-minus {
+				fill: @accentColor;
+			}
+		}
+	}
+
+	&__heart-minus {
+		fill: fade(@accentColor, 50%);
+		transition: 0.3s;
+	}
+}
+
+@media screen and (min-width: 450px) {
+	.liked-post-info {
+		&__liked-date {
+			text-align: right;
+		}
+
+		&__creator {
+			margin-bottom: 0;
+			order: 1;
+		}
+
+		&__dates-creator {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+}

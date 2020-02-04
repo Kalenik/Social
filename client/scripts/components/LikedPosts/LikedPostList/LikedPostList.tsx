@@ -1,4 +1,5 @@
 import LikedPostInfo from '@components/LikedPosts/LikedPostInfo';
+import { dateToNumber } from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
 import React, { useState } from 'react';
 import LikedPostItem from './LikedPostItem/LikedPostItem';
@@ -16,6 +17,10 @@ const LikedPostList: React.FC<ILikedPostListProps> = ({
 		selectedLikedPost,
 		setSelectedLikedPost
 	] = useState<ILikedPost | null>(null);
+
+	const sortedLikedPosts = likedPosts
+		.concat()
+		.sort((a, b) => dateToNumber(b.created!) - dateToNumber(a.created!));
 
 	const deleteLikedPost = (likedPostId: string): void =>
 		setLikedPosts(likedPosts =>
@@ -40,15 +45,17 @@ const LikedPostList: React.FC<ILikedPostListProps> = ({
 			)}
 
 			<ul className='liked-post-list'>
-				{likedPosts.map(({ _id = '', post, created }: ILikedPost) => (
-					<LikedPostItem
-						key={_id}
-						likedPostId={_id}
-						likedPostCreated={created!}
-						showLikedPostInfo={showLikedPostInfo}
-						postTitle={post!.title!}
-					/>
-				))}
+				{sortedLikedPosts.map(
+					({ _id = '', post, created }: ILikedPost) => (
+						<LikedPostItem
+							key={_id}
+							likedPostId={_id}
+							likedPostCreated={created!}
+							showLikedPostInfo={showLikedPostInfo}
+							post={post!}
+						/>
+					)
+				)}
 			</ul>
 		</>
 	);

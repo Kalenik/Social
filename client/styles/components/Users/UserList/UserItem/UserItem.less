@@ -41,21 +41,46 @@
 
 	&__actions {
 		display: flex;
+		width: 100%;
 		margin-top: 1rem;
 	}
 
 	&__button {
+		display: flex;
+		font-size: 1rem;
+		flex-grow: 1;
+		justify-content: center;
+
 		&:nth-child(2) {
 			margin-left: 1rem;
 		}
+
+		&:hover,
+		&:focus {
+			.user-item {
+				&__user-plus,
+				&__user-minus,
+				&__eye {
+					fill: @accentColor;
+				}
+			}
+		}
+	}
+
+	&__user-plus,
+	&__user-minus,
+	&__eye {
+		fill: fade(@accentColor, 50%);
+		transition: 0.3s;
 	}
 }
 
-@media (min-width: 450px) {
+@media screen and (min-width: 450px) {
 	.user-item {
 		flex-direction: row;
 
 		&__actions {
+			width: auto;
 			flex-direction: column;
 			margin-top: 0;
 			margin-left: auto;
@@ -70,7 +95,7 @@
 	}
 }
 
-@media (min-width: 602px) {
+@media screen and (min-width: 602px) {
 	.user-item {
 		&__actions {
 			flex-direction: row;
