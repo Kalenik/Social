@@ -26,7 +26,11 @@ const UsersPage: React.FC = () => {
 			.then(() => setLoading(false));
 	}, []);
 
-	return <UserList users={users} isYourFriendBadgeShow />;
+	return (
+		<div className='users-page'>
+			<UserList users={users} isYourFriendBadgeShow />
+		</div>
+	);
 };
 
 export default UsersPage;

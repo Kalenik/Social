@@ -14,7 +14,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = ({ signUp }) => {
 
 	return (
 		<Form
-			className='auth-form'
+			className='sign-up-form'
 			onSubmit={handleSubmit(({ username, email, password }) =>
 				signUp(username, email, password)
 			)}
@@ -43,7 +43,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = ({ signUp }) => {
 				required
 			/>
 
-			<div className='auth-form__actions'>
+			<div className='sign-up-form__actions'>
 				<Button type='submit'>Sign up</Button>
 			</div>
 		</Form>

@@ -1,6 +1,6 @@
+import Spinner from '@components/Spinner';
 import UserList from '@components/Users/UserList/UserList';
 import AuthContext from '@contexts/authContext';
-import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
 import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
@@ -13,7 +13,7 @@ const FriendFollowerPage: React.FC = () => {
 		{
 			authUser: { username: authUserUsername }
 		} = useContext(AuthContext),
-		setLoading = useContext(LoadingContext),
+		[isLoading, setLoading] = useState(true),
 		[users, setUsers] = useState<Array<IUser>>([]),
 		{
 			url,
@@ -28,8 +28,6 @@ const FriendFollowerPage: React.FC = () => {
 	);
 
 	useEffect(() => {
-		setLoading(true);
-
 		UserService.fetchUserSubscribers(username, subscribersType!)
 			.then((users: Array<IUser>) => setUsers(users))
 			.catch(err =>
@@ -38,16 +36,25 @@ const FriendFollowerPage: React.FC = () => {
 			.then(() => setLoading(false));
 	}, []);
 
-	return (
-		<>
-			<h2 className='page-header'>
-				{isYourPage || username} {subscribersType}
-			</h2>
+	return isLoading ? (
+		<Spinner />
+	) : (
+		<div className='friend-follower-page'>
+			{users.length > 0 ? (
+				<h2 className='friend-follower-page__header'>
+					{isYourPage || username} {subscribersType}
+				</h2>
+			) : (
+				<div className='friend-follower-page__no-users'>
+					no {subscribersType}
+				</div>
+			)}
+
 			<UserList
 				users={users}
 				isYourFriendBadgeShow={isYourFriendBadgeShow}
 			/>
-		</>
+		</div>
 	);
 };
 

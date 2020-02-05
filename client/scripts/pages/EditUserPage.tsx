@@ -3,10 +3,10 @@ import React from 'react';
 
 const EditUserPage: React.FC = () => {
 	return (
-		<>
-			<h2 className='page-header page-header_edit'>Edit your account</h2>
+		<div className='edit-user-page'>
+			<h2 className='edit-user-page__header'>Edit your account</h2>
 			<EditUserForm />
-		</>
+		</div>
 	);
 };
 

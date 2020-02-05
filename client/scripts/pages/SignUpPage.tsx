@@ -38,12 +38,10 @@ const SignUpPage: React.FC = () => {
 	};
 
 	return (
-		<>
-			<h2 className='page-header page-header_auth'>
-				Create your account
-			</h2>
+		<div className='sign-up-page'>
+			<h2 className='sign-up-page__header'>Create your account</h2>
 			<SignUpForm signUp={signUp} />
-		</>
+		</div>
 	);
 };
 

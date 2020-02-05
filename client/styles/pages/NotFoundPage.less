@@ -1,0 +1,24 @@
+.not-found-page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+
+	&__info-text {
+		max-width: 90%;
+		text-align: center;
+		color: darken(@textColor, 30%);
+	}
+}
+
+@media screen and (min-width: 450px) {
+	.not-found-page {
+		&__info-text {
+			font-size: 2rem;
+		}
+	}
+}

@@ -32,10 +32,10 @@ const SignInPage: React.FC = () => {
 	};
 
 	return (
-		<>
-			<h2 className='page-header page-header_auth'>Login to Social</h2>
+		<div className='sign-in-page'>
+			<h2 className='sign-in-page__header'>Login to Social</h2>
 			<SignInForm signIn={signIn} />
-		</>
+		</div>
 	);
 };
 

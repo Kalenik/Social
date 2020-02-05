@@ -106,11 +106,6 @@ label {
 	margin: 0 0.5rem;
 }
 
-.page-header {
-	font-weight: lighter;
-	text-align: center;
-}
-
 .image {
 	&_circle {
 		border-radius: 50%;
@@ -120,15 +115,6 @@ label {
 @media screen and (min-width: 602px) {
 	.content {
 		margin: 0 2rem;
-	}
-
-	.page-header {
-		text-align: left;
-
-		&_auth,
-		&_edit {
-			text-align: center;
-		}
 	}
 }
 
@@ -141,11 +127,18 @@ label {
 @import './components/Backdrop.less';
 @import './components/Modal.less';
 @import './components/Spinner.less';
-@import './components/AuthForm.less';
-@import './components/Form/FormField.less';
+@import './components/FormComponents/FormField.less';
 
 @import './components/Notices/NoticeList/NoticeItem/NoticeItem.less';
 @import './components/Notices/NoticeList/NoticeList.less';
+
+@import './components/Forms/SignInForm.less';
+@import './components/Forms/SignUpForm.less';
+
+@import './components/Users/UserImage.less';
+@import './components/Forms/EditUserForm.less';
+@import './components/Users/UserList/UserItem/UserItem.less';
+@import './components/Users/UserList/UserList.less';
 
 @import './components/Posts/PostList/PostItem/PostItem.less';
 @import './components/Posts/PostList/PostList.less';
@@ -156,21 +149,22 @@ label {
 @import './components/LikedPosts/LikedPostList/LikedPostList.less';
 @import './components/LikedPosts/LikedPostInfo.less';
 
-@import './components/Users/UserImage.less';
-@import './components/Users/EditUserForm.less';
-@import './components/Users/UserList/UserItem/UserItem.less';
-@import './components/Users/UserList/UserList.less';
-
 @import './components/Messages/LastMessageList/LastMessageItem/LastMessageItem.less';
 @import './components/Messages/MessageList/MessageItem/MessageItem.less';
 @import './components/Messages/MessageList/MessageList.less';
-@import './components/Messages/MessageForm.less';
+@import './components/Forms/MessageForm.less';
 @import './components/Messages/NoMessages.less';
 @import './components/Messages/NoLastMessages.less';
 
 @import './pages/HomePage.less';
+@import './pages/SignInPage.less';
+@import './pages/SignUpPage.less';
+@import './pages/UserPage.less';
+@import './pages/UsersPage.less';
+@import './pages/EditUserPage.less';
+@import './pages/FriendFollowerPage.less';
 @import './pages/PostPage.less';
 @import './pages/LikedPostPage.less';
-@import './pages/UserPage.less';
 @import './pages/LastMessagesPage.less';
 @import './pages/MessagesPage.less';
+@import './pages/NotFoundPage.less';

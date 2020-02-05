@@ -14,7 +14,7 @@ const SignInForm: React.FC<ISignInFormProps> = ({ signIn }) => {
 
 	return (
 		<Form
-			className='auth-form'
+			className='sign-in-form'
 			onSubmit={handleSubmit(({ email, password }) =>
 				signIn(email, password)
 			)}
@@ -35,7 +35,7 @@ const SignInForm: React.FC<ISignInFormProps> = ({ signIn }) => {
 				validationRules={register(ValidationRules.password)}
 				required
 			/>
-			<div className='auth-form__actions'>
+			<div className='sign-in-form__actions'>
 				<Button type='submit'>Sign in</Button>
 			</div>
 		</Form>
