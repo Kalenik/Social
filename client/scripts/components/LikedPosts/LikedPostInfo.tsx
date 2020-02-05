@@ -4,7 +4,10 @@ import HeartMinusSvg from '@components/SVG/HeartMinusSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
-import { dateToNumber, processDate } from '@helpers/Utils';
+import {
+	getCreatedOrUpdatedDateString,
+	getTimeOrDateString
+} from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
 import IPost from '@interfaces/IPost';
 import {
@@ -33,10 +36,6 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 		likedPostId: string = selectedLikedPost._id!,
 		post: IPost = selectedLikedPost.post!,
 		creatorName: string = post.creator?.username!;
-
-	const postCreatedDate = processDate(post.created!),
-		isPostUpdated =
-			dateToNumber(post.updated!) > dateToNumber(post.created!);
 
 	const onConfirmHandler = () => {
 		if (!token) {
@@ -84,13 +83,13 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 		>
 			<div className='liked-post-info'>
 				<div className='liked-post-info__liked-date'>
-					Liked: {processDate(selectedLikedPost.created!)}
+					Liked: {getTimeOrDateString(selectedLikedPost.created!)}
 				</div>
 				<div className='liked-post-info__text'>{post.text}</div>
 
 				<div className='liked-post-info__dates-creator'>
 					<div className='liked-post-info__creator'>
-						<span>Created by: </span>
+						Created by:{' '}
 						<Link
 							className='liked-post-info__creator-link'
 							to={`/user/${creatorName}`}
@@ -100,10 +99,9 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 					</div>
 
 					<div className='liked-post-info__date'>
-						{isPostUpdated ? (
-							<p>Updated: {processDate(post.updated!)}</p>
-						) : (
-							<p>Created: {postCreatedDate}</p>
+						{getCreatedOrUpdatedDateString(
+							post.created!,
+							post.updated!
 						)}
 					</div>
 				</div>

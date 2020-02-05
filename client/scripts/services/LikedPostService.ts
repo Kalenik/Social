@@ -65,7 +65,7 @@ export default class LikedPostService {
 
 		return HttpService.postJSON(Config.graphqlPath, options, token).then(
 			({ data: { likedPosts } }) => {
-				if (likedPosts && likedPosts.length > 0) {
+				if (likedPosts) {
 					return likedPosts;
 				} else {
 					const error: Array<Error> = [

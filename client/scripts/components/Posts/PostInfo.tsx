@@ -6,7 +6,7 @@ import XMarkSvg from '@components/SVG/XMarkSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
-import { dateToNumber, processDate } from '@helpers/Utils';
+import { getCreatedOrUpdatedDateString } from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
 import {
 	addErrorNoticesActionCreator,
@@ -42,9 +42,6 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 		noticeContextDispatch = useContext(NoticeContext),
 		setLoading = useContext(LoadingContext),
 		[canCloseModal, setCloseModal] = useState(false);
-
-	const createdDate = processDate(postCreated),
-		isUpdated = dateToNumber(postUpdated) > dateToNumber(postCreated);
 
 	const likePostHandler = (): Promise<void> =>
 		LikedPostService.likePost(token, postId).then((likedPost: ILikedPost) =>
@@ -109,11 +106,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			<div className='post-info'>
 				<div className='post-info__text'>{postText}</div>
 				<div className='post-info__date'>
-					{isUpdated ? (
-						<p>Updated: {processDate(postUpdated)}</p>
-					) : (
-						<p> Created: {createdDate}</p>
-					)}
+					{getCreatedOrUpdatedDateString(postCreated, postUpdated)}
 				</div>
 			</div>
 		</Modal>

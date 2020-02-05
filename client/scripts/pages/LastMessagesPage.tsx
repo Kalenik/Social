@@ -144,8 +144,36 @@ const LastMessagesPage: React.FC = () => {
 			}
 		);
 
+		socket!.on(
+			'updated_message_item_data',
+			(upatedMessageItemData: IMessageItemData) => {
+				const lastMessageItemDataToUpdate = lastMessageListData.find(
+					lastMessageItemData =>
+						lastMessageItemData.username ===
+							upatedMessageItemData.username &&
+						lastMessageItemData.lastMessage._id ===
+							upatedMessageItemData.message._id
+				);
+
+				if (lastMessageItemDataToUpdate) {
+					setLastMessageListData(prevLastMessageListData => [
+						{
+							...lastMessageItemDataToUpdate,
+							lastMessage: upatedMessageItemData.message
+						},
+						...prevLastMessageListData.filter(
+							lastMessageItemData =>
+								lastMessageItemData.username !==
+								upatedMessageItemData.username
+						)
+					]);
+				}
+			}
+		);
+
 		return () => {
 			socket!.removeListener('deleted_message_data');
+			socket!.removeListener('updated_message_item_data');
 		};
 	}, [lastMessageListData]);
 

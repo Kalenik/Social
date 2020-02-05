@@ -2,7 +2,7 @@ import EditMessageForm from '@components/Forms/EditMessageForm';
 import EditPencilSvg from '@components/SVG/EditPencilSvg';
 import TrashCanSvg from '@components/SVG/TrashCanSvg';
 import UserImage from '@components/Users/UserImage';
-import { dateToNumber, processDate } from '@helpers/Utils';
+import { dateToNumber, getTimeOrDateString } from '@helpers/Utils';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 	deactivateUpdateMode,
 	onUpdateMessage
 }) => {
-	const createdDate = processDate(created),
+	const createdDate = getTimeOrDateString(created),
 		isUpdated = dateToNumber(updated) > dateToNumber(created);
 
 	return (
@@ -70,7 +70,7 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 				{isUpdated ? (
 					<>
 						<p>Updated:</p>
-						<p>{processDate(updated)}</p>
+						<p>{getTimeOrDateString(updated)}</p>
 					</>
 				) : (
 					<p>{createdDate}</p>

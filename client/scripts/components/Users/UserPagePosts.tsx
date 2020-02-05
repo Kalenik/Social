@@ -29,6 +29,10 @@ const UserPagePosts: React.FC<IUserPagePostsProps> = ({
 				deletePost={deletePost}
 				editPost={editPost}
 			/>
+
+			{posts.length < 1 && (
+				<div className='user-page__no-posts'>No Posts</div>
+			)}
 		</div>
 	);
 };

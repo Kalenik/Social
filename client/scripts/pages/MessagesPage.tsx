@@ -120,9 +120,19 @@ const MessagesPage: React.FC = () => {
 			}
 		);
 
+		socket!.on(
+			'updated_message_item_data',
+			(upatedMessageItemData: IMessageItemData) => {
+				if (upatedMessageItemData.username === username) {
+					updateMessageInListData(upatedMessageItemData.message);
+				}
+			}
+		);
+
 		return () => {
 			socket!.removeListener('new_message_item_data');
 			socket!.removeListener('deleted_message_data');
+			socket!.removeListener('updated_message_item_data');
 		};
 	}, []);
 

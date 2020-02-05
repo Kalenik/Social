@@ -7,15 +7,16 @@ interface INoMessages {
 
 const NoMessages: React.FC<INoMessages> = ({ username }) => (
 	<div className='no-messages'>
-		<p>
-			You don't have messages with{' '}
-			{<Link to={`/user/${username}`}>{username}</Link>}.
-		</p>
-		<p>
-			If you want send him a message, go on{' '}
-			{<Link to={`/user/${username}`}>his page</Link>} and push "Write
-			Message".
-		</p>
+		<div className='no-messages__text'>
+			<p className='no-messages__first-text-line'>
+				No messages with{' '}
+				{<Link to={`/user/${username}`}>{username}</Link>}.
+			</p>
+			<p>
+				Go on {<Link to={`/user/${username}`}>{username}'s page</Link>}{' '}
+				and push "Write Message".
+			</p>
+		</div>
 	</div>
 );
 

@@ -1,5 +1,5 @@
 import UserImage from '@components/Users/UserImage';
-import { processDate } from '@helpers/Utils';
+import { getTimeOrDateString } from '@helpers/Utils';
 import React from 'react';
 
 interface ILastMessageItemProps {
@@ -53,7 +53,9 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 				{isTyping ? 'typing...' : messageText}
 			</p>
 
-			<p className='last-message-item__date'>{processDate(updated)}</p>
+			<p className='last-message-item__date'>
+				{getTimeOrDateString(updated)}
+			</p>
 		</li>
 	);
 };

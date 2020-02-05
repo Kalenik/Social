@@ -1,5 +1,5 @@
-import { scrollToTop } from '@helpers/Utils';
-import React, { useState } from 'react';
+import { scrollToTop, throttle } from '@helpers/Utils';
+import React, { useEffect, useState } from 'react';
 import AnimationWrapper from './AnimationWrapper';
 import Button from './Button';
 import ArrowUpSvg from './SVG/ArrowUpSvg';
@@ -7,9 +7,12 @@ import ArrowUpSvg from './SVG/ArrowUpSvg';
 const BackToTopButton: React.FC = () => {
 	const [isBttbShow, setBttbShow] = useState<boolean>();
 
-	window.addEventListener('scroll', () =>
-		setBttbShow(window.pageYOffset > 300)
-	);
+	useEffect(() => {
+		window.addEventListener(
+			'scroll',
+			throttle(() => setBttbShow(window.pageYOffset > 300), 400)
+		);
+	}, []);
 
 	return (
 		<AnimationWrapper

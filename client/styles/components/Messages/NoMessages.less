@@ -1,4 +1,28 @@
 .no-messages {
-	margin: 2rem auto;
-	text-align: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+
+	&__text {
+		max-width: 90%;
+		text-align: center;
+		color: darken(@textColor, 30%);
+	}
+
+	&__first-text-line {
+		margin-bottom: 1rem;
+	}
+}
+
+@media screen and (min-width: 450px) {
+	.no-messages {
+		&__text {
+			font-size: 1.5rem;
+		}
+	}
 }

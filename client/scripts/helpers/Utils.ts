@@ -36,7 +36,34 @@ export function scrollToTop(): void {
 	timerId = window.setInterval(scrollStep, delayInMs);
 }
 
-export function processDate(date: string): string {
+export function throttle(func: (...args: any[]) => any, ms: number) {
+	let isThrottled = false,
+		savedArgs: any;
+
+	function wrapper(...wrapperArgs: any[]) {
+		if (isThrottled) {
+			savedArgs = arguments;
+			return;
+		}
+
+		func(wrapperArgs);
+
+		isThrottled = true;
+
+		setTimeout(() => {
+			isThrottled = false;
+
+			if (savedArgs) {
+				wrapper(savedArgs);
+				savedArgs = null;
+			}
+		}, ms);
+	}
+
+	return wrapper;
+}
+
+export function getTimeOrDateString(date: string): string {
 	const receivedDate = new Date(+date);
 
 	return receivedDate.toLocaleDateString() === new Date().toLocaleDateString()
@@ -46,4 +73,17 @@ export function processDate(date: string): string {
 
 export function dateToNumber(date: string): number {
 	return parseInt(date, 10);
+}
+
+export function getCreatedOrUpdatedDateString(
+	createdDate: string,
+	updatedDate: string
+): string {
+	return dateToNumber(updatedDate) > dateToNumber(createdDate)
+		? `Updated: ${getTimeOrDateString(updatedDate)}`
+		: `Created: ${getTimeOrDateString(createdDate)}`;
+}
+
+export function processPostText(text: string): string {
+	return text.length > 100 ? text.slice(0, 99) + '...' : text;
 }

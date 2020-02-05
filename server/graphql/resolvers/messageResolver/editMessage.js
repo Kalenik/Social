@@ -26,7 +26,10 @@ const editMessage = async (args, { req, res, io, userSocketIds }) => {
 		});
 
 		if (!receiverUser) {
-			throw new HttpError(404, `User ${args.receiverName} not found.`);
+			throw new HttpError(
+				404,
+				`User ${editMessageInput.receiverName} not found.`
+			);
 		}
 
 		const messagesFromYou = await Message.findOne({
@@ -36,7 +39,7 @@ const editMessage = async (args, { req, res, io, userSocketIds }) => {
 		if (!messagesFromYou) {
 			throw new HttpError(
 				400,
-				`You don't have messages to ${args.receiverName}`
+				`You don't have messages to ${editMessageInput.receiverName}`
 			);
 		}
 
@@ -60,16 +63,18 @@ const editMessage = async (args, { req, res, io, userSocketIds }) => {
 			resultOfMessageSave.messages[indexOfUpdatingMessage];
 
 		const updatedMessageData = {
-			senderName: senderUser.username,
-			messageId: updatedMessage._id,
-			newMessageText: updatedMessage.messageText,
-			updated: new Date(updatedMessage.updated).getTime().toString()
+			username: senderUser.username,
+			message: {
+				...updatedMessage._doc,
+				created: new Date(updatedMessage.created).getTime().toString(),
+				updated: new Date(updatedMessage.updated).getTime().toString()
+			}
 		};
 
-		const receiverSocketId = userSocketIds[args.receiverName];
+		const receiverSocketId = userSocketIds[editMessageInput.receiverName];
 		io.to(receiverSocketId).emit(
 			'updated_message_item_data',
-			updatedMessageData._doc
+			updatedMessageData
 		);
 
 		return {
