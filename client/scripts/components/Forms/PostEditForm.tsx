@@ -18,7 +18,9 @@ const PostEditForm: React.FC<IPostEditFormProps> = ({
 	errors,
 	register
 }) => (
-	<Form>
+	<Form
+		onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+	>
 		<InputField
 			defaultValue={postTitle}
 			type='text'

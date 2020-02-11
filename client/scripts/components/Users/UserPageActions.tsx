@@ -30,27 +30,27 @@ const UserPageActions: React.FC<IUserPageActionsProps> = ({
 				isFollow ? (
 					<>
 						<UserUnfollowButton
-							className='btn user-page__button'
+							className='user-page__button'
 							userId={userId}
 							userDispatch={userDispatch}
 						/>
 						<UserMessageButton
-							className='btn user-page__button'
+							className='user-page__button'
 							receiverName={username}
 						/>
 					</>
 				) : (
 					<UserFollowButton
-						className='btn user-page__button'
+						className='user-page__button'
 						userId={userId}
 						userDispatch={userDispatch}
 					/>
 				)
 			) : (
 				<>
-					<UserEditButton className='btn user-page__button' />
+					<UserEditButton className='user-page__button' />
 					<UserCreatePostButton
-						className='btn user-page__button'
+						className='user-page__button'
 						userDispatch={userDispatch}
 					/>
 				</>

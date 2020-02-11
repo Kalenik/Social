@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import PlusButton from '@components/Buttons/SvgButtons/PlusButton';
 import PostCreator from '@components/Posts/PostCreator';
 import IPost from '@interfaces/IPost';
 import { addPostActionCreator } from '@reducers/UserReducer/UserActionCreators';
@@ -15,9 +15,7 @@ const UserCreatePostButton: React.FC<IUserCreatePostButtonProps> = ({
 	className
 }) => {
 	const createPostControl = (onClick: () => void): JSX.Element => (
-		<Button className={className} onClick={onClick}>
-			Create Post
-		</Button>
+		<PlusButton className={className} onClick={onClick} />
 	);
 
 	const addPost = (createdPost: IPost): void =>

@@ -1,5 +1,7 @@
 import {
+	cityBaseValidationRules,
 	emailBaseValidationRules,
+	extraInfoBaseValidationRules,
 	passwordBaseValidationRules,
 	userNameBaseValidationRules
 } from './BaseValidationRules';
@@ -13,11 +15,11 @@ export default {
 		...emailBaseValidationRules,
 		required: 'Email is a required'
 	},
+	city: {
+		...cityBaseValidationRules
+	},
 	extraInfo: {
-		maxLength: {
-			value: 200,
-			message: 'Max length is 200'
-		}
+		...extraInfoBaseValidationRules
 	},
 	newPassword: {
 		...passwordBaseValidationRules

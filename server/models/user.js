@@ -53,7 +53,7 @@ const userSchema = new Schema({
 	tokenVersion: {
 		type: Number,
 		require: true,
-		default: 0
+		default: Date.now()
 	}
 });
 

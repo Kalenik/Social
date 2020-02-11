@@ -17,6 +17,10 @@
 	}
 
 	&__image {
+		padding: 0.3rem;
+	}
+
+	&__image-wrapper {
 		position: relative;
 
 		&_online::after {
@@ -46,32 +50,12 @@
 	}
 
 	&__button {
-		display: flex;
-		font-size: 1rem;
 		flex-grow: 1;
 		justify-content: center;
 
 		&:nth-child(2) {
 			margin-left: 1rem;
 		}
-
-		&:hover,
-		&:focus {
-			.user-item {
-				&__user-plus,
-				&__user-minus,
-				&__eye {
-					fill: @accentColor;
-				}
-			}
-		}
-	}
-
-	&__user-plus,
-	&__user-minus,
-	&__eye {
-		fill: fade(@accentColor, 50%);
-		transition: 0.3s;
 	}
 }
 

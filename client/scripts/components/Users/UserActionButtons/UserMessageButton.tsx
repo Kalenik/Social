@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import EmailButton from '@components/Buttons/SvgButtons/EmailButton';
 import MessageSender from '@components/Messages/MessageSender';
 import React from 'react';
 
@@ -12,9 +12,7 @@ const UserMessageButton: React.FC<IUserMessageButtonProps> = ({
 	className
 }) => {
 	const sendMessageControl = (onClick: () => void): JSX.Element => (
-		<Button className={className} onClick={onClick}>
-			Write Message
-		</Button>
+		<EmailButton className={className} onClick={onClick} />
 	);
 
 	return (

@@ -1,4 +1,4 @@
-import CloseButton from '@components/CloseButton';
+import XMarkIconButton from '@components/Buttons/SvgIconButtons/XMarkIconButton';
 import AppNotice from '@contexts/contextProviders/NoticeContextProvider/AppNotice';
 import NoticeContext from '@contexts/noticeContext';
 import React, { useContext, useEffect, useState } from 'react';
@@ -37,7 +37,11 @@ const NoticeItem: React.FC<INoticeItemProps> = ({ notice }) => {
 			}}
 		>
 			{notice.message}
-			<CloseButton click={deleteNoticeActionCreatorItem} />
+			<XMarkIconButton
+				className='notice-item__button'
+				onClick={deleteNoticeActionCreatorItem}
+				onKeyPress={deleteNoticeActionCreatorItem}
+			/>
 		</div>
 	);
 };

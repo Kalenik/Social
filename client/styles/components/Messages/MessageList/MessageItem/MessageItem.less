@@ -9,23 +9,19 @@
 	border-radius: 0.5rem;
 	box-shadow: @boxShadow;
 
-	&__image,
+	&__user-image-wrapper,
 	&__date,
 	&__actions {
 		justify-self: end;
 	}
 
-	&__image,
+	&__user-image-wrapper,
 	&__user-image,
-	&__username-link,
-	&__trash-can,
-	&__edit-pencil,
-	&__edit-off-pencil,
-	&__paper-plane {
+	&__username-link {
 		outline: none;
 	}
 
-	&__image {
+	&__user-image-wrapper {
 		&:focus {
 			.message-item__user-image {
 				border: 1px solid fade(@accentColor, 90%);
@@ -35,17 +31,13 @@
 	}
 
 	&__user-image,
-	&__username-link,
-	&__trash-can,
-	&__edit-pencil,
-	&__edit-off-pencil,
-	&__paper-plane {
+	&__username-link {
 		cursor: pointer;
 		transition: 0.3s ease-in-out;
 	}
 
 	&__user-image {
-		padding: 0.5rem;
+		padding: 0.2rem;
 		border: 1px solid fade(@accentColor, 50%);
 		box-shadow: 0 0 10px fade(@accentColor, 50%);
 
@@ -97,12 +89,6 @@
 	&__paper-plane {
 		width: 1rem;
 		height: 1rem;
-		fill: darken(@textColor, 15%);
-
-		&:hover,
-		&:focus {
-			fill: @accentColor;
-		}
 	}
 
 	&__trash-can {

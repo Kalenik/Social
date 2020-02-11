@@ -34,11 +34,16 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 			<div
 				className={
 					isOnline
-						? 'last-message-item__image last-message-item__image_online'
-						: 'last-message-item__image'
+						? 'last-message-item__user-image-wrapper last-message-item__user-image-wrapper_online'
+						: 'last-message-item__user-image-wrapper'
 				}
 			>
-				<UserImage src={profileImgSrc} width={40} height={40} />
+				<UserImage
+					src={profileImgSrc}
+					className='user-image last-message-item__user-image'
+					width={50}
+					height={50}
+				/>
 			</div>
 
 			<p className='last-message-item__username'>{username}</p>

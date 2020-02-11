@@ -1,8 +1,7 @@
-import Button from '@components/Button';
+import HeartPlusButton from '@components/Buttons/SvgButtons/HeartPlusButton';
+import TrashCanButton from '@components/Buttons/SvgButtons/TrashCanButton';
+import XMarkButton from '@components/Buttons/SvgButtons/XMarkButton';
 import Modal from '@components/Modal';
-import HeartPlusSvg from '@components/SVG/HeartPlusSvg';
-import TrashCanSvg from '@components/SVG/TrashCanSvg';
-import XMarkSvg from '@components/SVG/XMarkSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -43,35 +42,17 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 		setLoading = useContext(LoadingContext),
 		[canCloseModal, setCloseModal] = useState(false);
 
-	const likePostHandler = (): Promise<void> =>
-		LikedPostService.likePost(token, postId).then((likedPost: ILikedPost) =>
-			noticeContextDispatch(
-				addSuccessNoticesActionCreator(
-					`Post: ${likedPost.post?.title} is liked`
-				)
-			)
-		);
-
-	const deletePostHandler = (): Promise<void> =>
-		PostService.deletePost(token, postId).then(() => {
-			deletePost(postId);
-
-			authUserDispatch(deletePostActionCreator(postId));
-
-			noticeContextDispatch(
-				addSuccessNoticesActionCreator(`Post: ${postTitle} is deleted`)
-			);
-		});
-
-	const onConfirmHandler = (): void => {
-		if (!token) {
-			setCloseModal(true);
-			return;
-		}
-
+	const likePostHandler = (): void => {
 		setLoading(true);
 
-		(isYourPost ? deletePostHandler() : likePostHandler())
+		LikedPostService.likePost(token, postId)
+			.then((likedPost: ILikedPost) =>
+				noticeContextDispatch(
+					addSuccessNoticesActionCreator(
+						`Post: ${likedPost.post?.title} is liked`
+					)
+				)
+			)
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))
 			)
@@ -81,18 +62,38 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			});
 	};
 
-	const modalActions = (
-		<Button className='btn post-info__button' onClick={onConfirmHandler}>
-			{token ? (
-				isYourPost ? (
-					<TrashCanSvg className='post-info__trash-can' />
-				) : (
-					<HeartPlusSvg className='post-info__heart-plus' />
-				)
-			) : (
-				<XMarkSvg className='post-info__x-mark' />
-			)}
-		</Button>
+	const deletePostHandler = (): void => {
+		setLoading(true);
+
+		PostService.deletePost(token, postId)
+			.then(() => {
+				deletePost(postId);
+
+				authUserDispatch(deletePostActionCreator(postId));
+
+				noticeContextDispatch(
+					addSuccessNoticesActionCreator(
+						`Post: ${postTitle} is deleted`
+					)
+				);
+			})
+			.catch(err =>
+				noticeContextDispatch(addErrorNoticesActionCreator(err))
+			)
+			.then(() => {
+				setCloseModal(true);
+				setLoading(false);
+			});
+	};
+
+	const modalActions = token ? (
+		isYourPost ? (
+			<TrashCanButton onClick={deletePostHandler} />
+		) : (
+			<HeartPlusButton onClick={likePostHandler} />
+		)
+	) : (
+		<XMarkButton onClick={modalCancelHandler} />
 	);
 
 	return (

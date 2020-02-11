@@ -1,3 +1,4 @@
+import CheckMarkButton from '@components/Buttons/SvgButtons/CheckMarkButton';
 import PostEditForm from '@components/Forms/PostEditForm';
 import Modal from '@components/Modal';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
@@ -58,14 +59,15 @@ const PostEditor: React.FC<IPostEditorProps> = ({
 			});
 	});
 
+	const modalActions = <CheckMarkButton onClick={modalConfirmHandler} />;
+
 	return (
 		<Modal
 			canCloseModal={canCloseModal}
 			setCloseModal={setCloseModal}
 			title='Edit Post'
 			onCancel={modalCancelHandler}
-			onConfirm={modalConfirmHandler}
-			confirmText='Save'
+			actions={modalActions}
 		>
 			<PostEditForm
 				register={register}

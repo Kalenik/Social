@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import KeyButton from '@components/Buttons/SvgButtons/KeyButton';
 import Form from '@components/FormComponents/Form';
 import InputField from '@components/FormComponents/InputField';
 import ValidationRules from '@helpers/validationRules/SignInValidationRules';
@@ -36,7 +36,7 @@ const SignInForm: React.FC<ISignInFormProps> = ({ signIn }) => {
 				required
 			/>
 			<div className='sign-in-form__actions'>
-				<Button type='submit'>Sign in</Button>
+				<KeyButton type='submit' />
 			</div>
 		</Form>
 	);

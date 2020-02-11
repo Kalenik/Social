@@ -37,9 +37,17 @@
 		}
 	}
 
-	.close-btn {
+	&__button {
 		margin-left: 1rem;
-		font-size: 1rem;
+		width: 0.5rem;
+		height: 0.5rem;
+
+		&:hover,
+		&:focus {
+			width: 0.7rem;
+			height: 0.7rem;
+			fill: @textColor;
+		}
 	}
 }
 

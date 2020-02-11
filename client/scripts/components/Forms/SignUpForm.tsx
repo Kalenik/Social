@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import CheckMarkButton from '@components/Buttons/SvgButtons/CheckMarkButton';
 import Form from '@components/FormComponents/Form';
 import InputField from '@components/FormComponents/InputField';
 import ValidationRules from '@helpers/validationRules/SignUpValidationRules';
@@ -44,7 +44,7 @@ const SignUpForm: React.FC<ISignUpFormProps> = ({ signUp }) => {
 			/>
 
 			<div className='sign-up-form__actions'>
-				<Button type='submit'>Sign up</Button>
+				<CheckMarkButton type='submit' />
 			</div>
 		</Form>
 	);

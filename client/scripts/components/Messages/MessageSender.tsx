@@ -1,4 +1,5 @@
-import SendMessageTextarea from '@components/Forms/SendMessageTextarea';
+import PaperPlaneButton from '@components/Buttons/SvgButtons/PaperPlaneButton';
+import SendMessageTextareaForm from '@components/Forms/SendMessageTextareaForm';
 import Modal from '@components/Modal';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
@@ -48,18 +49,21 @@ const MessageSender: React.FC<IMessageSenderProps> = ({
 			});
 	});
 
+	const modalActions = <PaperPlaneButton onClick={modalConfirmHandler} />;
+
 	return token ? (
 		<>
+			{sendMessageControl(sendMessageHandler)}
+
 			{isModalOpen && (
 				<Modal
 					canCloseModal={canCloseModal}
 					setCloseModal={setCloseModal}
 					title='Write message'
 					onCancel={modalCancelHandler}
-					onConfirm={modalConfirmHandler}
-					confirmText='Send'
+					actions={modalActions}
 				>
-					<SendMessageTextarea
+					<SendMessageTextareaForm
 						receiverName={receiverName}
 						register={register}
 						errors={errors}
@@ -67,8 +71,6 @@ const MessageSender: React.FC<IMessageSenderProps> = ({
 					/>
 				</Modal>
 			)}
-
-			{sendMessageControl(sendMessageHandler)}
 		</>
 	) : null;
 };

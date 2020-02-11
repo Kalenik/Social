@@ -19,6 +19,10 @@ export const emailBaseValidationRules = {
 	pattern: {
 		value: emailPattern,
 		message: 'Wrong Email'
+	},
+	maxLength: {
+		value: 100,
+		message: 'Max length is 100'
 	}
 };
 
@@ -30,6 +34,10 @@ export const passwordBaseValidationRules = {
 	pattern: {
 		value: /\d/,
 		message: 'Your password must be have at least 1 number'
+	},
+	maxLength: {
+		value: 100,
+		message: 'Max length is 100'
 	}
 };
 
@@ -44,5 +52,26 @@ export const postTextBaseValidationRules = {
 	maxLength: {
 		value: 300,
 		message: 'Max length is 300'
+	}
+};
+
+export const messageBaseValidationRules = {
+	maxLength: {
+		value: 300,
+		message: 'Max length is 300'
+	}
+};
+
+export const extraInfoBaseValidationRules = {
+	maxLength: {
+		value: 200,
+		message: 'Max length is 200'
+	}
+};
+
+export const cityBaseValidationRules = {
+	maxLength: {
+		value: 100,
+		message: 'Max length is 100'
 	}
 };

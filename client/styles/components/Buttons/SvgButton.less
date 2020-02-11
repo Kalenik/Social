@@ -1,0 +1,46 @@
+.svg-btn {
+	display: inline-flex;
+	font-size: 1rem;
+
+	&:hover,
+	&:focus {
+		.svg-btn {
+			&__paper-plane,
+			&__arrow-up,
+			&__check-mark,
+			&__pencil,
+			&__eye,
+			&__heart-minus,
+			&__heart-plus,
+			&__pictures,
+			&__trash-can,
+			&__user-minus,
+			&__user-plus,
+			&__x-mark,
+			&__key,
+			&__email,
+			&__plus {
+				fill: @accentColor;
+			}
+		}
+	}
+
+	&__paper-plane,
+	&__arrow-up,
+	&__check-mark,
+	&__pencil,
+	&__eye,
+	&__heart-minus,
+	&__heart-plus,
+	&__pictures,
+	&__trash-can,
+	&__user-minus,
+	&__user-plus,
+	&__x-mark,
+	&__key,
+	&__email,
+	&__plus {
+		fill: fade(@accentColor, 50%);
+		transition: 0.3s;
+	}
+}

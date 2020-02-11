@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import UserPlusButton from '@components/Buttons/SvgButtons/UserPlusButton';
 import AuthContext from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -75,11 +75,7 @@ const UserFollowButton: React.FC<IUserFollowButtonProps> = ({
 			.then(() => setLoading(false));
 	};
 
-	return (
-		<Button className={className} onClick={followHandler}>
-			Follow
-		</Button>
-	);
+	return <UserPlusButton className={className} onClick={followHandler} />;
 };
 
 export default UserFollowButton;

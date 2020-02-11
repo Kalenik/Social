@@ -1,8 +1,7 @@
 import { scrollToTop, throttle } from '@helpers/Utils';
 import React, { useEffect, useState } from 'react';
-import AnimationWrapper from './AnimationWrapper';
-import Button from './Button';
-import ArrowUpSvg from './SVG/ArrowUpSvg';
+import AnimationWrapper from '../AnimationWrapper';
+import ArrowUpButton from './SvgButtons/ArrowUpButton';
 
 const BackToTopButton: React.FC = () => {
 	const [isBttbShow, setBttbShow] = useState<boolean>();
@@ -20,9 +19,7 @@ const BackToTopButton: React.FC = () => {
 			className='bttb__animation-wrapper'
 			fadeOutAnimationName='fade-out-bttb'
 		>
-			<Button className='btn bttb' onClick={scrollToTop}>
-				<ArrowUpSvg className='bttb__arrow-up' />
-			</Button>
+			<ArrowUpButton className='bttb' onClick={scrollToTop} />
 		</AnimationWrapper>
 	);
 };

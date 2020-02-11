@@ -1,5 +1,4 @@
-import Button from '@components/Button';
-import EyeSvg from '@components/SVG/EyeSvg';
+import EyeButton from '@components/Buttons/SvgButtons/EyeButton';
 import {
 	getCreatedOrUpdatedDateString,
 	getTimeOrDateString
@@ -31,12 +30,10 @@ const LikedPostItem: React.FC<ILikedPostItemProps> = ({
 			</div>
 		</div>
 		<div className='liked-post-item__actions'>
-			<Button
-				className='btn liked-post-item__button'
+			<EyeButton
+				className='liked-post-item__button'
 				onClick={showLikedPostInfo.bind(null, likedPostId)}
-			>
-				<EyeSvg className='liked-post-item__eye' />
-			</Button>
+			/>
 		</div>
 	</li>
 );

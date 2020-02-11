@@ -15,6 +15,7 @@
 	"dependencies": {
 		"core-js": "^3.6.4",
 		"react": "^16.12.0",
+		"react-avatar-editor": "^12.0.0-beta.0",
 		"react-dom": "^16.12.0",
 		"react-hook-form": "^3.29.2",
 		"react-remove-scroll": "^2.2.0",

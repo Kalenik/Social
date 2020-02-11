@@ -23,24 +23,6 @@
 			box-shadow: 0 0 10px fade(@accentColor, 50%);
 		}
 	}
-
-	&__button {
-		display: flex;
-		margin: 0 auto;
-		font-size: 1rem;
-
-		&:hover,
-		&:focus {
-			.liked-post-info__heart-minus {
-				fill: @accentColor;
-			}
-		}
-	}
-
-	&__heart-minus {
-		fill: fade(@accentColor, 50%);
-		transition: 0.3s;
-	}
 }
 
 @media screen and (min-width: 450px) {

@@ -1,4 +1,4 @@
-import HamburgerMenuButton from '@components/HamburgerMenuButton';
+import HamburgerMenuButton from '@components/Buttons/HamburgerMenuButton';
 import NavItemText from '@components/Navbar/NavItemText';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import React, { useContext, useState } from 'react';
@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
 				<NavLink
 					className='main-navigation__item main-navigation__item_logo'
 					exact
-					to='/'
+					to={username ? '/user/' + username : '/'}
 					onClick={closeMobileMenu}
 					tabIndex={0}
 				>

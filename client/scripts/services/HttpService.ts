@@ -2,6 +2,10 @@ import IErrorResponse, { IGraphQLError } from '@interfaces/IErrorResponse';
 
 export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'DELETE';
 
+interface RequestOptions extends RequestInit {
+	headers?: Headers;
+}
+
 export default class HttpService {
 	private static checkStatus(res: Response) {
 		if (!res) {
@@ -39,7 +43,7 @@ export default class HttpService {
 			  )
 			: [new Error('Server Error')];
 
-	private static processJSON(res: Response) {
+	public static processJSON(res: Response) {
 		if (HttpService.checkJSON(res)) {
 			return res.json();
 		}
@@ -56,30 +60,33 @@ export default class HttpService {
 			: false;
 	}
 
-	private static prepareHeaders(token?: string): Headers {
-		const headers = new Headers();
+	private static prepareHeaders(headers?: Headers, token?: string): Headers {
+		const preparedHeaders = headers ? headers : new Headers();
 
 		if (token) {
-			headers.append('Authorization', 'Bearer ' + token);
+			preparedHeaders.append('Authorization', 'Bearer ' + token);
 		}
 
-		return headers;
+		return preparedHeaders;
 	}
 
-	private static prepareJSONHeaders(token?: string): Headers {
-		const headers = this.prepareHeaders(token);
-		headers.append('Content-Type', 'application/json');
-		return headers;
+	private static prepareJSONHeaders(
+		headers?: Headers,
+		token?: string
+	): Headers {
+		const preparedJSONHeaders = this.prepareHeaders(headers, token);
+		preparedJSONHeaders.append('Content-Type', 'application/json');
+		return preparedJSONHeaders;
 	}
 
 	private static baseRequest(
 		method: HttpMethod,
 		url: string,
-		options: RequestInit = {},
+		options: RequestOptions = {},
 		token?: string
 	): Promise<Response> {
 		options.method = method;
-		options.headers = this.prepareHeaders(token);
+		options.headers = this.prepareHeaders(options.headers, token);
 
 		return fetch(url, options)
 			.catch(err => {
@@ -93,11 +100,11 @@ export default class HttpService {
 	private static baseJSONRequest(
 		method: HttpMethod,
 		url: string,
-		options: RequestInit = {},
+		options: RequestOptions = {},
 		token?: string
 	): Promise<any> {
 		options.method = method;
-		options.headers = this.prepareJSONHeaders(token);
+		options.headers = this.prepareJSONHeaders(options.headers, token);
 
 		return fetch(url, options)
 			.catch(err => {
@@ -111,15 +118,23 @@ export default class HttpService {
 
 	public static post(
 		url: string,
-		options: RequestInit = {},
+		options: RequestOptions = {},
 		token?: string
 	): Promise<Response> {
 		return this.baseRequest('POST', url, options, token);
 	}
 
+	public static delete(
+		url: string,
+		options: RequestOptions = {},
+		token?: string
+	): Promise<Response> {
+		return this.baseRequest('DELETE', url, options, token);
+	}
+
 	public static postJSON(
 		url: string,
-		options: RequestInit = {},
+		options: RequestOptions = {},
 		token?: string
 	): Promise<any> {
 		return this.baseJSONRequest('POST', url, options, token);
@@ -127,7 +142,7 @@ export default class HttpService {
 
 	public static getJSON(
 		url: string,
-		options: RequestInit = {},
+		options: RequestOptions = {},
 		token?: string
 	): Promise<any> {
 		return this.baseJSONRequest('GET', url, options, token);

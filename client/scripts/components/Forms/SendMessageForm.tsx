@@ -1,8 +1,7 @@
-import Button from '@components/Button';
+import PaperPlaneButton from '@components/Buttons/SvgButtons/PaperPlaneButton';
 import Form from '@components/FormComponents/Form';
 import TextareaField from '@components/FormComponents/TextareaField';
 import useMessageTypingHandler from '@components/Messages/useMessageTypingHandler';
-import PaperPlaneSvg from '@components/SVG/PaperPlaneSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -11,7 +10,7 @@ import IMessage from '@interfaces/IMessage';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import MessageService from '@services/MessageService';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import useForm from 'react-hook-form';
 
 interface ISendMessageFormProps {
@@ -27,10 +26,17 @@ const SendMessageForm: React.FC<ISendMessageFormProps> = ({
 		noticeContextDispatch = useContext(NoticeContext),
 		setLoading = useContext(LoadingContext),
 		{ register, errors, handleSubmit, reset } = useForm(),
-		typingHandler = useMessageTypingHandler(receiverName);
+		typingHandler = useMessageTypingHandler(receiverName),
+		isSending = useRef(false);
 
 	const sendMessageHandler = handleSubmit(({ message }) => {
+		if (isSending.current) {
+			return;
+		}
+
 		setLoading(true);
+
+		isSending.current = true;
 
 		MessageService.sendMessage(token, receiverName, message)
 			.then((addedMessage: IMessage) => {
@@ -44,28 +50,32 @@ const SendMessageForm: React.FC<ISendMessageFormProps> = ({
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))
 			)
-			.then(() => setLoading(false));
+			.then(() => {
+				isSending.current = false;
+				setLoading(false);
+			});
 	});
 
 	const onKeyPressHandler = (e: React.KeyboardEvent<HTMLTextAreaElement>) =>
 		e.which === 13 && !e.shiftKey ? sendMessageHandler(e) : typingHandler();
 
 	return (
-		<Form className='message-form' onSubmit={sendMessageHandler}>
+		<Form className='send-message-form' onSubmit={sendMessageHandler}>
 			<TextareaField
 				name='message'
 				isLabelShow={false}
 				placeholder='Write something..'
 				error={errors.message}
 				validationRules={register(ValidationRules.message)}
-				className='form-field message-form__form-field'
+				className='form-field send-message-form__form-field'
 				onKeyPress={onKeyPressHandler}
 				maxLength={100}
 			/>
-			<div className='message-form__actions'>
-				<Button className='btn message-form__button' type='submit'>
-					<PaperPlaneSvg className='message-form__paper-plane' />
-				</Button>
+			<div className='send-message-form__actions'>
+				<PaperPlaneButton
+					className='send-message-form__button'
+					type='submit'
+				/>
 			</div>
 		</Form>
 	);

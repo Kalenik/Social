@@ -49,8 +49,8 @@ const UserPage: React.FC = () => {
 				<div
 					className={
 						connectedUsernames.indexOf(user.username) !== -1
-							? 'user-page__image user-page__image_online'
-							: 'user-page__image'
+							? 'user-page__image-wrapper user-page__image-wrapper_online'
+							: 'user-page__image-wrapper'
 					}
 				>
 					<UserImage

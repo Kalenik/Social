@@ -13,16 +13,18 @@ const config = require('config'),
 	cookieParser = require('cookie-parser'),
 	graphqlHttp = require('express-graphql'),
 	mongoose = require('mongoose'),
+	fileUpload = require('express-fileupload'),
 	graphQlSchema = require('./graphql/schema'),
 	graphQlResolvers = require('./graphql/resolvers'),
 	handleGraphqlError = require('./middleware/handleGraphqlError'),
 	isAuth = require('./middleware/is-auth'),
 	log = require('./helpers/logger/log')(module.filename),
-	userSocketIds = {};
+	userSocketIds = {},
+	file = require('./routes/file');
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+	res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE');
 	res.header(
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
@@ -42,6 +44,10 @@ app.use(bodyParser.json());
 app.use(handleGraphqlError);
 
 app.use(isAuth);
+
+app.use(fileUpload());
+
+app.use('/file', file);
 
 app.use(
 	'/graphql',
@@ -74,16 +80,20 @@ app.use((err, req, res, next) => {
 
 	if (NODE_ENV === 'development') {
 		res.send({
-			error: {
-				message: err.message,
-				stack: err.stack ? err.stack.split('\n') : []
-			}
+			errors: [
+				{
+					message: err.message,
+					stack: err.stack ? err.stack.split('\n') : []
+				}
+			]
 		});
 	} else {
 		res.send({
-			error: {
-				message: res.statusCode < 500 ? err.message : 'Server Error'
-			}
+			errors: [
+				{
+					message: res.statusCode < 500 ? err.message : 'Server Error'
+				}
+			]
 		});
 	}
 

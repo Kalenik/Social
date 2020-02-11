@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import Button from '@components/Buttons/Button';
 import IPost from '@interfaces/IPost';
 import React from 'react';
 import PostCreator from './PostCreator';

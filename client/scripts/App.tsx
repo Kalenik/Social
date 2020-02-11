@@ -1,4 +1,4 @@
-import BackToTopButton from '@components/BackToTopButton';
+import BackToTopButton from '@components/Buttons/BackToTopButton';
 import ErrorBoundary from '@components/ErrorBoundary';
 import SocketContextProvider from '@contexts/contextProviders/SocketContextProvider';
 import React from 'react';

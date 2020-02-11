@@ -24,6 +24,9 @@ const login = async (args, { res }) => {
 			throw new HttpError(401, 'Password is incorrect!');
 		}
 
+		foundUser.tokenVersion = Date.now();
+		await foundUser.save();
+
 		sendRefreshToken(res, createRefreshToken(foundUser));
 
 		return {

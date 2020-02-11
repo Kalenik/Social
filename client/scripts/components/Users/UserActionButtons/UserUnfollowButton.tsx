@@ -1,4 +1,4 @@
-import Button from '@components/Button';
+import UserMinusButton from '@components/Buttons/SvgButtons/UserMinusButton';
 import AuthContext from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -75,11 +75,7 @@ const UserUnfollowButton: React.FC<IUserUnfollowButtonProps> = ({
 			.then(() => setLoading(false));
 	};
 
-	return (
-		<Button className={className} onClick={unfollowHandler}>
-			Unfollow
-		</Button>
-	);
+	return <UserMinusButton className={className} onClick={unfollowHandler} />;
 };
 
 export default UserUnfollowButton;

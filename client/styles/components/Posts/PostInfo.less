@@ -8,30 +8,6 @@
 		font-size: 0.8rem;
 		text-align: center;
 	}
-
-	&__button {
-		display: flex;
-		margin: 0 auto;
-		font-size: 1rem;
-
-		&:hover,
-		&:focus {
-			.post-info {
-				&__trash-can,
-				&__heart-plus,
-				&__x-mark {
-					fill: @accentColor;
-				}
-			}
-		}
-	}
-
-	&__trash-can,
-	&__heart-plus,
-	&__x-mark {
-		fill: fade(@accentColor, 50%);
-		transition: 0.3s;
-	}
 }
 
 @media screen and (min-width: 450px) {

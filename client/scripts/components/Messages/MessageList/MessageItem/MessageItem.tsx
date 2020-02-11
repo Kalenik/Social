@@ -1,6 +1,6 @@
+import EditPencilIconButton from '@components/Buttons/SvgIconButtons/EditPencilSvgIconButton';
+import TrashCanIconButton from '@components/Buttons/SvgIconButtons/TrashCanIconButton';
 import EditMessageForm from '@components/Forms/EditMessageForm';
-import EditPencilSvg from '@components/SVG/EditPencilSvg';
-import TrashCanSvg from '@components/SVG/TrashCanSvg';
 import UserImage from '@components/Users/UserImage';
 import { dateToNumber, getTimeOrDateString } from '@helpers/Utils';
 import React from 'react';
@@ -43,7 +43,7 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 	return (
 		<li className='message-item'>
 			<div
-				className='message-item__image'
+				className='message-item__user-image-wrapper'
 				onClick={goToUserPage.bind(null, username)}
 				onKeyPress={goToUserPage.bind(null, username)}
 				role='button'
@@ -52,8 +52,8 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 				<UserImage
 					src={profileImgSrc}
 					className='message-item__user-image'
-					width={30}
-					height={30}
+					width={40}
+					height={40}
 				/>
 			</div>
 
@@ -89,19 +89,15 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 
 			{isYouMessageItem && !isUpdateMode && (
 				<div className='message-item__actions'>
-					<EditPencilSvg
+					<EditPencilIconButton
 						className='message-item__edit-pencil'
 						onClick={activateUpdateMode.bind(null, messageId)}
 						onKeyPress={activateUpdateMode.bind(null, messageId)}
-						role='button'
-						tabIndex={0}
 					/>
-					<TrashCanSvg
+					<TrashCanIconButton
 						className='message-item__trash-can'
 						onClick={onDeleteMessage.bind(null, messageId)}
 						onKeyPress={onDeleteMessage.bind(null, messageId)}
-						role='button'
-						tabIndex={0}
 					/>
 				</div>
 			)}

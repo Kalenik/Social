@@ -9,10 +9,25 @@
 	height: 100%;
 
 	&__message {
-		color: @accentColor;
-		text-shadow: @textShadow;
 		margin: 0 1rem;
-		font-size: 1.5rem;
-		font-weight: 200;
+		text-align: center;
+		color: darken(@textColor, 40%);
+		font-size: 1rem;
+	}
+}
+
+@media screen and (min-width: 450px) {
+	.error-boundary {
+		&__message {
+			font-size: 2rem;
+		}
+	}
+}
+
+@media screen and (min-width: 602px) {
+	.error-boundary {
+		&__message {
+			font-size: 3rem;
+		}
 	}
 }

@@ -11,6 +11,7 @@ export default class UserService {
 						_id
 						username
 						email
+						profileImgSrc
 					}
 				}
 			`,
@@ -172,6 +173,7 @@ export default class UserService {
 							_id
 							username
 							email
+							profileImgSrc
 						}
 					}
 				}
@@ -284,5 +286,39 @@ export default class UserService {
 				}
 			}
 		);
+	}
+
+	public static uploadAvatar(token: string, formData: FormData) {
+		const options = {
+			body: formData
+		};
+
+		return HttpService.post(Config.host + '/file/upload', options, token)
+			.then(HttpService.processJSON)
+			.then(({ profileImgSrc }) => {
+				if (profileImgSrc) {
+					return profileImgSrc;
+				} else {
+					const error: Array<Error> = [
+						new Error('Upload Avatar is failed')
+					];
+					throw error;
+				}
+			});
+	}
+
+	public static deleteAvatar(token: string) {
+		return HttpService.delete(Config.host + '/file/delete', {}, token)
+			.then(HttpService.processJSON)
+			.then(isDeleted => {
+				if (isDeleted) {
+					return isDeleted;
+				} else {
+					const error: Array<Error> = [
+						new Error('Delete Avatar is failed')
+					];
+					throw error;
+				}
+			});
 	}
 }

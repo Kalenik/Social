@@ -1,3 +1,4 @@
+import CheckMarkButton from '@components/Buttons/SvgButtons/CheckMarkButton';
 import PostCreateForm from '@components/Forms/PostCreateForm';
 import Modal from '@components/Modal';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
@@ -56,22 +57,23 @@ const PostCreator: React.FC<IPostCreatorProps> = ({
 			});
 	});
 
+	const modalActions = <CheckMarkButton onClick={modalConfirmHandler} />;
+
 	return token ? (
 		<>
+			{createPostControl(createPostHandler)}
+
 			{isModalOpen && (
 				<Modal
 					canCloseModal={canCloseModal}
 					setCloseModal={setCloseModal}
 					title='Add Post'
 					onCancel={modalCancelHandler}
-					onConfirm={modalConfirmHandler}
-					confirmText='Confirm'
+					actions={modalActions}
 				>
 					<PostCreateForm register={register} errors={errors} />
 				</Modal>
 			)}
-
-			{createPostControl(createPostHandler)}
 		</>
 	) : null;
 };

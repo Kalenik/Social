@@ -15,8 +15,11 @@
 	}
 
 	&__button {
-		&:nth-child(1) {
-			margin-bottom: 1rem;
+		flex-grow: 1;
+		justify-content: center;
+
+		&:nth-child(2) {
+			margin-left: 1rem;
 		}
 	}
 
@@ -24,7 +27,7 @@
 		text-align: center;
 	}
 
-	&__image {
+	&__image-wrapper {
 		position: relative;
 		display: inline-block;
 
@@ -45,7 +48,6 @@
 
 	&__actions {
 		display: flex;
-		flex-direction: column;
 		margin-top: 1rem;
 	}
 

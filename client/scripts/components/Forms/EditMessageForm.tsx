@@ -1,9 +1,9 @@
+import EditOffPencilIconButton from '@components/Buttons/SvgIconButtons/EditOffPencilIconButton';
+import PaperPlaneIconButton from '@components/Buttons/SvgIconButtons/PaperPlaneIconButton';
 import Form from '@components/FormComponents/Form';
 import TextareaField from '@components/FormComponents/TextareaField';
-import EditOffPencilSvg from '@components/SVG/EditOffPencilSvg';
-import PaperPlaneSvg from '@components/SVG/PaperPlaneSvg';
 import ValidationRules from '@helpers/validationRules/SendMessageValidationRules';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import useForm from 'react-hook-form';
 
 interface IEditMessageFormProps {
@@ -17,7 +17,8 @@ const EditMessageForm: React.FC<IEditMessageFormProps> = ({
 	onUpdateMessage,
 	deactivateUpdateMode
 }) => {
-	const { register, errors, handleSubmit } = useForm();
+	const { register, errors, handleSubmit } = useForm(),
+		isSending = useRef(false);
 
 	const updateMessageHandler = handleSubmit(({ message }) => {
 		if (message === messageText) {
@@ -32,9 +33,16 @@ const EditMessageForm: React.FC<IEditMessageFormProps> = ({
 		e: React.KeyboardEvent<HTMLTextAreaElement>
 	): void => {
 		if (e.which === 13 && !e.shiftKey) {
-			updateMessageHandler(e);
+			!isSending.current ? updateMessageHandler(e) : e.preventDefault();
+			isSending.current = true;
 		}
 	};
+
+	useEffect(() => {
+		return () => {
+			isSending.current = false;
+		};
+	}, []);
 
 	return (
 		<>
@@ -56,19 +64,15 @@ const EditMessageForm: React.FC<IEditMessageFormProps> = ({
 				/>
 			</Form>
 			<div className='message-item__edit-message-actions'>
-				<PaperPlaneSvg
+				<PaperPlaneIconButton
 					className='message-item__paper-plane'
 					onClick={updateMessageHandler}
 					onKeyPress={updateMessageHandler}
-					role='button'
-					tabIndex={0}
 				/>
-				<EditOffPencilSvg
+				<EditOffPencilIconButton
 					className='message-item__edit-off-pencil'
 					onClick={deactivateUpdateMode}
 					onKeyPress={deactivateUpdateMode}
-					role='button'
-					tabIndex={0}
 				/>
 			</div>
 		</>

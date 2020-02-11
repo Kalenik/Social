@@ -1,6 +1,5 @@
-import Button from '@components/Button';
-import EditPencilSvg from '@components/SVG/EditPencilSvg';
-import EyeSvg from '@components/SVG/EyeSvg';
+import EditPencilButton from '@components/Buttons/SvgButtons/EditPencilButton';
+import EyeButton from '@components/Buttons/SvgButtons/EyeButton';
 import { getCreatedOrUpdatedDateString, processPostText } from '@helpers/Utils';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -40,19 +39,15 @@ const PostItem: React.FC<IPostItemProps> = ({
 		</div>
 		<div className='post-item__actions'>
 			{isYourPost && (
-				<Button
-					className='btn post-item__button'
+				<EditPencilButton
+					className='post-item__button'
 					onClick={showPostEditor.bind(null, postId)}
-				>
-					<EditPencilSvg className='post-item__pencil' />
-				</Button>
+				/>
 			)}
-			<Button
-				className='btn post-item__button'
+			<EyeButton
+				className='post-item__button'
 				onClick={showPostInfo.bind(null, postId)}
-			>
-				<EyeSvg className='post-item__eye' />
-			</Button>
+			/>
 		</div>
 		{isBadgeShow &&
 			(isYourPost ? (

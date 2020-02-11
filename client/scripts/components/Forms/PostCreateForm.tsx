@@ -14,7 +14,10 @@ const PostCreateForm: React.FC<IPostCreateFormProps> = ({
 	errors,
 	register
 }) => (
-	<Form>
+	<Form
+		className='post-create-form'
+		onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+	>
 		<InputField
 			type='text'
 			name='title'
@@ -27,9 +30,9 @@ const PostCreateForm: React.FC<IPostCreateFormProps> = ({
 			name='text'
 			label='post'
 			placeholder='Write something..'
-			rows={4}
 			error={errors.text}
 			validationRules={register(ValidationRules.text)}
+			className='form-field post-create-form__form-field'
 			required
 		/>
 	</Form>

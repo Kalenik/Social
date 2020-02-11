@@ -1,5 +1,6 @@
 import Image from '@components/Image';
-import React from 'react';
+import Config from '@config';
+import React, { useEffect, useState } from 'react';
 
 interface IUserImageProps {
 	src?: string;
@@ -13,15 +14,30 @@ const UserImage: React.FC<IUserImageProps> = ({
 	width,
 	height,
 	className = 'user-image'
-}) => (
-	<Image
-		src={src || require('@images/user.svg')}
-		alt='user image'
-		className={className}
-		width={width}
-		height={height}
-		circle
-	/>
-);
+}) => {
+	const [imageSrc, setImageSrc] = useState(
+		src ? Config.host + src : require('@images/user.svg')
+	);
+
+	useEffect(() => {
+		setImageSrc(() =>
+			src ? Config.host + src : require('@images/user.svg')
+		);
+	}, [src]);
+
+	const handleError = () => setImageSrc(() => require('@images/user.svg'));
+
+	return (
+		<Image
+			src={imageSrc}
+			alt='user image'
+			className={className}
+			width={width}
+			height={height}
+			circle
+			onError={handleError}
+		/>
+	);
+};
 
 export default UserImage;

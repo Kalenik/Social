@@ -37,28 +37,9 @@
 	}
 
 	&__button {
-		display: flex;
-		font-size: 1rem;
-
 		&:nth-child(2) {
 			margin-left: 1rem;
 		}
-
-		&:hover,
-		&:focus {
-			.post-item {
-				&__eye,
-				&__pencil {
-					fill: @accentColor;
-				}
-			}
-		}
-	}
-
-	&__eye,
-	&__pencil {
-		fill: fade(@accentColor, 50%);
-		transition: 0.3s;
 	}
 }
 

@@ -1,5 +1,5 @@
 import AnimationWrapper from '@components/AnimationWrapper';
-import Button from '@components/Button';
+import CheckMarkButton from '@components/Buttons/SvgButtons/CheckMarkButton';
 import Form from '@components/FormComponents/Form';
 import InputField from '@components/FormComponents/InputField';
 import TextareaField from '@components/FormComponents/TextareaField';
@@ -102,16 +102,16 @@ const EditUserForm: React.FC = () => {
 				name='city'
 				placeholder='Your City'
 				error={errors.city}
-				validationRules={register}
+				validationRules={register(ValidationRules.city)}
 			/>
 			<TextareaField
 				defaultValue={authUser.extraInfo}
 				name='extraInfo'
 				label='Extra Info'
 				placeholder='Write something about you..'
-				rows={3}
 				error={errors.extraInfo}
 				validationRules={register(ValidationRules.extraInfo)}
+				className='form-field edit-user-form__form-field'
 			/>
 			<InputField
 				type='password'
@@ -139,7 +139,7 @@ const EditUserForm: React.FC = () => {
 			</AnimationWrapper>
 
 			<div className='edit-user-form__actions'>
-				<Button type='submit'>Save</Button>
+				<CheckMarkButton type='submit' />
 			</div>
 		</Form>
 	);

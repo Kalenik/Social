@@ -1,6 +1,5 @@
 .bttb {
-	padding: 0.8rem;
-	font-size: 1rem;
+	padding: 0.5rem;
 	z-index: @backToTopButtonZIndex;
 
 	&__animation-wrapper {
@@ -15,20 +14,6 @@
 
 		&_hidden {
 			display: none;
-		}
-	}
-
-	&__arrow-up {
-		width: 1rem;
-		height: 1rem;
-		fill: fade(@accentColor, 50%);
-		transition: 0.3s;
-	}
-
-	&:hover,
-	&:focus {
-		.bttb__arrow-up {
-			fill: @accentColor;
 		}
 	}
 }
@@ -58,10 +43,5 @@
 @media screen and (min-width: 450px) {
 	.bttb {
 		padding: 1rem;
-
-		&__arrow-up {
-			width: 1.5rem;
-			height: 1.5rem;
-		}
 	}
 }

@@ -17,7 +17,10 @@ const Home = lazy(() => import('@pages/Home')),
 	FriendFollowerPage = lazy(() => import('@pages/FriendFollowerPage'));
 
 const Main: React.FC = () => {
-	const { token } = useContext<IAuthContext>(AuthContext);
+	const {
+		token,
+		authUser: { username }
+	} = useContext<IAuthContext>(AuthContext);
 
 	return (
 		// order is important
@@ -25,7 +28,11 @@ const Main: React.FC = () => {
 			<Suspense fallback={<Spinner />}>
 				<Switch>
 					<Route exact path='/'>
-						{token ? <UserPage /> : <Home />}
+						{token ? (
+							<Redirect to={'/user/' + username} exact />
+						) : (
+							<Home />
+						)}
 					</Route>
 
 					{token && (

@@ -1,7 +1,6 @@
-import Button from '@components/Button';
-import EyeSvg from '@components/SVG/EyeSvg';
-import UserMinusSvg from '@components/SVG/UserMinusSvg';
-import UserPlusSvg from '@components/SVG/UserPlusSvg';
+import EyeButton from '@components/Buttons/SvgButtons/EyeButton';
+import UserMinusButton from '@components/Buttons/SvgButtons/UserMinusButton';
+import UserPlusButton from '@components/Buttons/SvgButtons/UserPlusButton';
 import UserImage from '@components/Users/UserImage';
 import AuthContext from '@contexts/authContext';
 import IUser from '@interfaces/IUser';
@@ -38,14 +37,15 @@ const UserItem: React.FC<IUserItemProps> = ({
 				<div
 					className={
 						isOnline
-							? 'user-item__image user-item__image_online'
-							: 'user-item__image'
+							? 'user-item__image-wrapper user-item__image-wrapper_online'
+							: 'user-item__image-wrapper'
 					}
 				>
 					<UserImage
 						src={user.profileImgSrc}
-						width={70}
-						height={70}
+						className='user-image user-item__image'
+						width={75}
+						height={75}
 					/>
 				</div>
 
@@ -59,27 +59,21 @@ const UserItem: React.FC<IUserItemProps> = ({
 				{token &&
 					!isYou &&
 					(isFollowing || isFriend ? (
-						<Button
-							className='btn user-item__button'
+						<UserMinusButton
+							className='user-item__button'
 							onClick={unfollowHandler.bind(null, userId)}
-						>
-							<UserMinusSvg className='user-item__user-minus' />
-						</Button>
+						/>
 					) : (
-						<Button
-							className='btn user-item__button'
+						<UserPlusButton
+							className='user-item__button'
 							onClick={followHandler.bind(null, userId)}
-						>
-							<UserPlusSvg className='user-item__user-plus' />
-						</Button>
+						/>
 					))}
 
-				<Button
-					className='btn user-item__button'
+				<EyeButton
+					className='user-item__button'
 					onClick={goToUserPage.bind(null, user.username!)}
-				>
-					<EyeSvg className='user-item__eye' />
-				</Button>
+				/>
 			</div>
 
 			{isFriend && isYourFriendBadgeShow && (

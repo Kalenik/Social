@@ -16,19 +16,19 @@ const editUser = async (args, { req, res }) => {
 			throw new HttpError(404, "Can't update nonexistent User");
 		}
 
-		const editUser = args.editUserInput;
+		const editUserInput = args.editUserInput;
 
-		if (!editUser.username) {
+		if (!editUserInput.username) {
 			throw new HttpError(400, 'Username is a required');
 		}
 
-		if (!editUser.email) {
+		if (!editUserInput.email) {
 			throw new HttpError(400, 'Email is a required');
 		}
 
-		if (editUser.username !== user.username) {
+		if (editUserInput.username !== user.username) {
 			const foundUserByName = await User.findOne({
-				username: editUser.username
+				username: editUserInput.username
 			});
 
 			if (foundUserByName) {
@@ -38,24 +38,24 @@ const editUser = async (args, { req, res }) => {
 				);
 			}
 
-			user.username = editUser.username;
+			user.username = editUserInput.username;
 		}
 
-		if (editUser.email !== user.email) {
+		if (editUserInput.email !== user.email) {
 			const foundUserByEmail = await User.findOne({
-				email: editUser.email
+				email: editUserInput.email
 			});
 
 			if (foundUserByEmail) {
 				throw new HttpError(400, 'User with this Email alredy exists');
 			}
 
-			user.email = editUser.email;
+			user.email = editUserInput.email;
 		}
 
-		if (editUser.currentPassword) {
+		if (editUserInput.currentPassword) {
 			const isCurrentPasswordCorrect = await bcrypt.compare(
-				editUser.currentPassword,
+				editUserInput.currentPassword,
 				user.password
 			);
 
@@ -64,19 +64,19 @@ const editUser = async (args, { req, res }) => {
 			}
 
 			const hashedNewPassword = await bcrypt.hash(
-				editUser.newPassword,
+				editUserInput.newPassword,
 				12
 			);
 
 			user.password = hashedNewPassword;
 		}
 
-		if (editUser.city !== user.city) {
-			user.city = editUser.city;
+		if (editUserInput.city !== user.city) {
+			user.city = editUserInput.city;
 		}
 
-		if (editUser.extraInfo !== user.extraInfo) {
-			user.extraInfo = editUser.extraInfo;
+		if (editUserInput.extraInfo !== user.extraInfo) {
+			user.extraInfo = editUserInput.extraInfo;
 		}
 
 		const rezultOfUserSave = await user.save();

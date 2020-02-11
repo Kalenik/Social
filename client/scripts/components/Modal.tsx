@@ -1,8 +1,8 @@
 import React from 'react';
 import { RemoveScroll } from 'react-remove-scroll'; /* wraped content is scrollable, everything else is not. */
 import Backdrop from './Backdrop';
-import Button from './Button';
-import CloseButton from './CloseButton';
+import Button from './Buttons/Button';
+import XMarkIconButton from './Buttons/SvgIconButtons/XMarkIconButton';
 
 interface IModalProps {
 	canCloseModal: boolean;
@@ -43,7 +43,11 @@ const Modal: React.FC<IModalProps> = ({
 				>
 					<header className='modal__header'>
 						<h1>{title}</h1>
-						<CloseButton click={closeModalWithAnimation} />
+						<XMarkIconButton
+							className='modal__button'
+							onClick={closeModalWithAnimation}
+							onKeyPress={closeModalWithAnimation}
+						/>
 					</header>
 					<section className='modal__content'>{children}</section>
 					<section className='modal__actions'>

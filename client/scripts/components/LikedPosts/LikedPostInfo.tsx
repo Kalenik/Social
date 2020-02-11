@@ -1,6 +1,5 @@
-import Button from '@components/Button';
+import HeartMinusButton from '@components/Buttons/SvgButtons/HeartMinusButton';
 import Modal from '@components/Modal';
-import HeartMinusSvg from '@components/SVG/HeartMinusSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
@@ -64,14 +63,7 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 			});
 	};
 
-	const modalActions = (
-		<Button
-			className='btn liked-post-info__button'
-			onClick={onConfirmHandler}
-		>
-			<HeartMinusSvg className='liked-post-info__heart-minus' />
-		</Button>
-	);
+	const modalActions = <HeartMinusButton onClick={onConfirmHandler} />;
 
 	return (
 		<Modal
