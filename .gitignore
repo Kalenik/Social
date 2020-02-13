@@ -6,4 +6,4 @@
 **/nodemon.json
 **/error.log
 **/config
-**/avatars
+**/static/images/avatars
