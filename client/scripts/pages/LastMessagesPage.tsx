@@ -1,4 +1,5 @@
 import LastMessageList from '@components/Messages/LastMessageList/LastMessageList';
+import LastMessageListDataFilter from '@components/Messages/LastMessageListDataFilter';
 import NoLastMessages from '@components/Messages/NoLastMessages';
 import Spinner from '@components/Spinner';
 import AuthContext from '@contexts/authContext';
@@ -25,7 +26,11 @@ const LastMessagesPage: React.FC = () => {
 		{ token } = useContext(AuthContext),
 		[lastMessageListData, setLastMessageListData] = useState<
 			Array<ILastMessageItemData>
-		>([]);
+		>([]),
+		[
+			filteredLastMessageListData,
+			setFilteredLastMessageListData
+		] = useState(lastMessageListData);
 
 	const fetchLastMessagesData = () =>
 		MessageService.fetchLastMessagesData(token)
@@ -181,7 +186,15 @@ const LastMessagesPage: React.FC = () => {
 		<Spinner />
 	) : lastMessageListData.length > 0 ? (
 		<div className='last-messages-page'>
-			<LastMessageList lastMessageListData={lastMessageListData} />
+			<LastMessageListDataFilter
+				lastMessageListData={lastMessageListData}
+				filteredLastMessageListData={filteredLastMessageListData}
+				setFilteredLastMessageListData={setFilteredLastMessageListData}
+			/>
+
+			<LastMessageList
+				lastMessageListData={filteredLastMessageListData}
+			/>
 		</div>
 	) : (
 		<NoLastMessages />

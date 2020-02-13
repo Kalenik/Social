@@ -3,11 +3,14 @@ import IPost from '@interfaces/IPost';
 import React from 'react';
 
 interface IPostPagePostsProps {
-	posts: Array<IPost>;
+	filteredPosts: Array<IPost>;
 	setPosts: React.Dispatch<React.SetStateAction<IPost[]>>;
 }
 
-const PostPagePosts: React.FC<IPostPagePostsProps> = ({ posts, setPosts }) => {
+const PostPagePosts: React.FC<IPostPagePostsProps> = ({
+	filteredPosts,
+	setPosts
+}) => {
 	const deletePost = (deletedPostId: string): void =>
 		setPosts(posts => posts.filter(e => e._id !== deletedPostId));
 
@@ -19,7 +22,7 @@ const PostPagePosts: React.FC<IPostPagePostsProps> = ({ posts, setPosts }) => {
 	return (
 		<div className='post-page__posts'>
 			<PostList
-				posts={posts}
+				posts={filteredPosts}
 				deletePost={deletePost}
 				editPost={editPost}
 				isBadgeShow

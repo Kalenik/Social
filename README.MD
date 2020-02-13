@@ -48,12 +48,6 @@ $ npm run start:client
 
 Client: http://localhost:3001
 
-To build App for development
-
-```sh
-$ npm run build:dev
-```
-
 To build App for production
 
 ```sh

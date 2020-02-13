@@ -8,11 +8,9 @@
 		"install": "npm run install:client && npm run install:server",
 		"start:client": "cd ./client && npm start",
 		"start:server": "cd ./server && npm start",
-		"build:client:dev": "cd ./client && npm run build:dev",
-		"build:client:prod": "cd ./client && npm run build:prod",
 		"build:client:stats": "cd ./client && npm run build:stats",
+		"build:client:prod": "cd ./client && npm run build:prod",
 		"build:server": "cd ./server && npm run build",
-		"build:dev": "npm run build:client:dev && npm run build:server",
 		"build:prod": "npm run build:client:prod && npm run build:server"
 	},
 	"author": "Kalenik Pavel"

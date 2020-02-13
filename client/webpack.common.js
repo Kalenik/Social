@@ -64,24 +64,6 @@ module.exports = {
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/
-			},
-
-			{
-				test: /\.less$/,
-				use: [
-					{
-						loader: MiniCssExtractPlugin.loader
-					},
-					{
-						loader: 'css-loader' // translates CSS into CommonJS
-					},
-					{
-						loader: 'postcss-loader'
-					},
-					{
-						loader: 'less-loader' // compiles Less to CSS
-					}
-				]
 			}
 		]
 	},

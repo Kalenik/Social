@@ -1,6 +1,7 @@
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import NotFoundPage from '@pages/NotFoundPage';
-import React, { lazy, Suspense, useContext } from 'react';
+import React, { lazy, Suspense, useContext, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Spinner from './Spinner';
 
@@ -18,9 +19,18 @@ const Home = lazy(() => import('@pages/Home')),
 
 const Main: React.FC = () => {
 	const {
-		token,
-		authUser: { username }
-	} = useContext<IAuthContext>(AuthContext);
+			token,
+			authUser: { username }
+		} = useContext<IAuthContext>(AuthContext),
+		{ pathname } = useLocation();
+
+	useEffect(() => {
+		document.title =
+			'Social' +
+			(pathname !== '/'
+				? pathname.replace(/\/\w/g, m => ' | ' + m[1].toUpperCase())
+				: '');
+	}, [pathname]);
 
 	return (
 		// order is important

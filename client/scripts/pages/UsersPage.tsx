@@ -1,6 +1,7 @@
+import Spinner from '@components/Spinner';
+import UserFilter from '@components/Users/UserFilter';
 import UserList from '@components/Users/UserList/UserList';
 import AuthContext from '@contexts/authContext';
-import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
 import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
@@ -9,15 +10,14 @@ import React, { useContext, useEffect, useState } from 'react';
 
 const UsersPage: React.FC = () => {
 	const noticeContextDispatch = useContext(NoticeContext),
-		setLoading = useContext(LoadingContext),
 		{
 			authUser: { _id: exceptUserId }
 		} = useContext(AuthContext),
-		[users, setUsers] = useState<Array<IUser>>([]);
+		[isLoading, setLoading] = useState(true),
+		[users, setUsers] = useState<Array<IUser>>([]),
+		[filteredUsers, setFilteredUsers] = useState(users);
 
 	useEffect(() => {
-		setLoading(true);
-
 		UserService.fetchUsers(exceptUserId)
 			.then((users: Array<IUser>) => setUsers(users))
 			.catch(err =>
@@ -26,9 +26,21 @@ const UsersPage: React.FC = () => {
 			.then(() => setLoading(false));
 	}, []);
 
-	return (
+	return isLoading ? (
+		<Spinner />
+	) : (
 		<div className='users-page'>
-			<UserList users={users} isYourFriendBadgeShow />
+			<UserFilter
+				users={users}
+				filteredUsers={filteredUsers}
+				setFilteredUsers={setFilteredUsers}
+			/>
+
+			<UserList users={filteredUsers} isYourFriendBadgeShow />
+
+			{users.length < 1 && (
+				<div className='users-page__no-users'>No Users</div>
+			)}
 		</div>
 	);
 };

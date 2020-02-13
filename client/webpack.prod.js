@@ -40,6 +40,23 @@ module.exports = merge(common, {
 				]
 			},
 			{
+				test: /\.less$/,
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader
+					},
+					{
+						loader: 'css-loader' // translates CSS into CommonJS
+					},
+					{
+						loader: 'postcss-loader'
+					},
+					{
+						loader: 'less-loader' // compiles Less to CSS
+					}
+				]
+			},
+			{
 				test: /\.html$/,
 				use: [
 					{

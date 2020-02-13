@@ -24,6 +24,23 @@ module.exports = merge(common, {
 						}
 					}
 				]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					{
+						loader: 'style-loader'
+					},
+					{
+						loader: 'css-loader' // translates CSS into CommonJS
+					},
+					{
+						loader: 'postcss-loader'
+					},
+					{
+						loader: 'less-loader' // compiles Less to CSS
+					}
+				]
 			}
 		]
 	},
@@ -44,7 +61,6 @@ module.exports = merge(common, {
 		new webpack.DefinePlugin({
 			NODE_ENV: JSON.stringify('development')
 		}),
-		new MiniCssExtractPlugin({ filename: 'styles/[name].css' }),
 		new webpack.HotModuleReplacementPlugin()
 	]
 });

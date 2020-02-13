@@ -28,7 +28,7 @@ export default class PostService {
 
 		return HttpService.postJSON(Config.graphqlPath, options).then(
 			({ data: { posts } }) => {
-				if (posts && posts.length > 0) {
+				if (posts) {
 					return posts;
 				} else {
 					const error: Array<Error> = [

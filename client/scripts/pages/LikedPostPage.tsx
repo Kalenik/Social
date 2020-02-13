@@ -1,3 +1,4 @@
+import LikedPostFilter from '@components/LikedPosts/LikedPostFilter';
 import LikedPostList from '@components/LikedPosts/LikedPostList/LikedPostList';
 import Spinner from '@components/Spinner';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
@@ -11,7 +12,8 @@ const LikedPostPage: React.FC = () => {
 	const { token } = useContext<IAuthContext>(AuthContext),
 		noticeContextDispatch = useContext(NoticeContext),
 		[isLoading, setLoading] = useState(true),
-		[likedPosts, setLikedPosts] = useState<Array<ILikedPost>>([]);
+		[likedPosts, setLikedPosts] = useState<Array<ILikedPost>>([]),
+		[filteredLikedPosts, setFilteredLikedPosts] = useState(likedPosts);
 
 	useEffect(() => {
 		LikedPostService.fetchLikedPosts(token)
@@ -26,13 +28,21 @@ const LikedPostPage: React.FC = () => {
 		<Spinner />
 	) : (
 		<div className='liked-post-page'>
-			<LikedPostList
+			<LikedPostFilter
 				likedPosts={likedPosts}
+				filteredLikedPosts={filteredLikedPosts}
+				setFilteredLikedPosts={setFilteredLikedPosts}
+			/>
+
+			<LikedPostList
+				likedPosts={filteredLikedPosts}
 				setLikedPosts={setLikedPosts}
 			/>
 
 			{likedPosts.length < 1 && (
-				<div className='liked-post-page__no-posts'>No Liked Posts</div>
+				<div className='liked-post-page__no-liked-posts'>
+					No Liked Posts
+				</div>
 			)}
 		</div>
 	);

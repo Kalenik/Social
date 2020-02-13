@@ -1,8 +1,23 @@
 .post-page {
+	width: 40rem;
+	max-width: 90%;
+	margin: 2rem auto;
+
 	.post-list {
 		grid-gap: 1.5rem;
-		width: 40rem;
-		max-width: 90%;
-		margin: 2rem auto;
+	}
+
+	&__no-posts {
+		text-align: center;
+		color: darken(@textColor, 60%);
+		font-size: 2rem;
+	}
+}
+
+@media screen and (min-width: 450px) {
+	.post-page {
+		&__no-posts {
+			font-size: 3rem;
+		}
 	}
 }

@@ -1,0 +1,16 @@
+.item-filter {
+	border: 1px solid transparent;
+	border-radius: 0.5rem;
+	box-shadow: @boxShadow;
+	color: @accentColor;
+	background-color: @backgroundColor;
+	font-size: 1.3rem;
+	font-weight: 100;
+	transition: 0s ease-in-out;
+
+	&:focus {
+		outline: none;
+		border: 1px solid fade(@accentColor, 70%);
+		box-shadow: 0 0 10px fade(@accentColor, 70%);
+	}
+}
