@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="" />
+		<title>Social</title>
+		<style>
+			.spinner {
+				background-color: #1f1f1f;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 500;
+			}
+
+			.lds-dual-ring {
+				width: 64px;
+				height: 64px;
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.lds-dual-ring::after {
+				content: ' ';
+				display: block;
+				width: 46px;
+				height: 46px;
+				margin: 1px;
+				border-radius: 50%;
+				border: 5px solid #07e8ff;
+				border-color: #07e8ff transparent #07e8ff transparent;
+				animation: lds-dual-ring 1.2s linear infinite;
+			}
+
+			@keyframes lds-dual-ring {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<noscript>
+			You need to enable JavaScript to run this app.
+		</noscript>
+		<div id="root">
+			<div class="spinner">
+				<div class="lds-dual-ring"></div>
+			</div>
+		</div>
+	</body>
+</html>
