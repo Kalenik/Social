@@ -5,7 +5,7 @@ import AuthContext from '@contexts/authContext';
 import NoticeContext from '@contexts/noticeContext';
 import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import UserService from '@services/UserService';
+import fetchUsers from '@services/UserService/fetchUsers';
 import React, { useContext, useEffect, useState } from 'react';
 
 const UsersPage: React.FC = () => {
@@ -18,7 +18,7 @@ const UsersPage: React.FC = () => {
 		[filteredUsers, setFilteredUsers] = useState(users);
 
 	useEffect(() => {
-		UserService.fetchUsers(exceptUserId)
+		fetchUsers(exceptUserId)
 			.then((users: Array<IUser>) => setUsers(users))
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))

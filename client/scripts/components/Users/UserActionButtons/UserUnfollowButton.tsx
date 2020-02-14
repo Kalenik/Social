@@ -14,7 +14,7 @@ import {
 	deleteFriendActionCreator
 } from '@reducers/UserReducer/UserActionCreators';
 import { userReducerActionType } from '@reducers/UserReducer/UserReducer';
-import UserService from '@services/UserService';
+import unfollowUser from '@services/UserService/unfollowUser';
 import React, { useContext } from 'react';
 
 interface IUserUnfollowButtonProps {
@@ -39,7 +39,7 @@ const UserUnfollowButton: React.FC<IUserUnfollowButtonProps> = ({
 	const unfollowHandler = (): void => {
 		setLoading(true);
 
-		UserService.unfollowUser(token, userId)
+		unfollowUser(token, userId)
 			.then(({ username, subscriberType }) => {
 				if (subscriberType === 'follower') {
 					authUserDispatch(deleteFriendActionCreator(userId));

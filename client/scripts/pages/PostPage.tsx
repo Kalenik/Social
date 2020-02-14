@@ -5,7 +5,7 @@ import Spinner from '@components/Spinner';
 import NoticeContext from '@contexts/noticeContext';
 import IPost from '@interfaces/IPost';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import PostService from '@services/PostService';
+import fetchPosts from '@services/PostService/fetchPosts';
 import React, { useContext, useEffect, useState } from 'react';
 
 const PostPage: React.FC = () => {
@@ -15,7 +15,7 @@ const PostPage: React.FC = () => {
 		[filteredPosts, setFilteredPosts] = useState(posts);
 
 	useEffect(() => {
-		PostService.fetchPosts()
+		fetchPosts()
 			.then((posts: Array<IPost>) => {
 				setPosts(posts);
 			})

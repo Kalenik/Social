@@ -10,7 +10,8 @@ import {
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
-import UserService from '@services/UserService';
+import userServiceDeleteAvatar from '@services/UserService/deleteAvatar';
+import uploadAvatar from '@services/UserService/uploadAvatar';
 import dataURLToFile from '@utils/dataURLToFile';
 import React, { useContext, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
@@ -39,7 +40,7 @@ const EditUserProfileImageForm: React.FC = () => {
 
 		setLoading(true);
 
-		UserService.uploadAvatar(token, formData)
+		uploadAvatar(token, formData)
 			.then((profileImgSrc: string) => {
 				authUserDispatch(setUserActionCreator({ profileImgSrc }));
 
@@ -67,7 +68,7 @@ const EditUserProfileImageForm: React.FC = () => {
 	const deleteAvatar = (): void => {
 		setLoading(true);
 
-		UserService.deleteAvatar(token)
+		userServiceDeleteAvatar(token)
 			.then(() => {
 				authUserDispatch(setUserActionCreator({ profileImgSrc: '' }));
 

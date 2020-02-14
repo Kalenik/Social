@@ -15,7 +15,8 @@ import {
 	deleteFollowingActionCreator,
 	deleteFriendActionCreator
 } from '@reducers/UserReducer/UserActionCreators';
-import UserService from '@services/UserService';
+import followUser from '@services/UserService/followUser';
+import unfollowUser from '@services/UserService/unfollowUser';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import UserItem from './UserItem/UserItem';
@@ -41,7 +42,7 @@ const UserList: React.FC<IUserListProps> = ({
 	const followHandler = (userId: string): void => {
 		setLoading(true);
 
-		UserService.followUser(token, userId)
+		followUser(token, userId)
 			.then(({ username, subscriberType }) => {
 				if (subscriberType === 'friend') {
 					authUserDispatch(deleteFollowerActionCreator(userId));
@@ -75,7 +76,7 @@ const UserList: React.FC<IUserListProps> = ({
 	const unfollowHandler = (userId: string): void => {
 		setLoading(true);
 
-		UserService.unfollowUser(token, userId)
+		unfollowUser(token, userId)
 			.then(({ username, subscriberType }) => {
 				if (subscriberType === 'follower') {
 					authUserDispatch(deleteFriendActionCreator(userId));

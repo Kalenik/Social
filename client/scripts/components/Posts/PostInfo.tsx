@@ -11,8 +11,8 @@ import {
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { deletePostActionCreator } from '@reducers/UserReducer/UserActionCreators';
-import LikedPostService from '@services/LikedPostService';
-import PostService from '@services/PostService';
+import likePost from '@services/LikedPostService/likePost';
+import postServiceDeletePost from '@services/PostService/deletePost';
 import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
 import React, { useContext, useState } from 'react';
 
@@ -45,7 +45,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 	const likePostHandler = (): void => {
 		setLoading(true);
 
-		LikedPostService.likePost(token, postId)
+		likePost(token, postId)
 			.then((likedPost: ILikedPost) =>
 				noticeContextDispatch(
 					addSuccessNoticesActionCreator(
@@ -65,7 +65,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 	const deletePostHandler = (): void => {
 		setLoading(true);
 
-		PostService.deletePost(token, postId)
+		postServiceDeletePost(token, postId)
 			.then(() => {
 				deletePost(postId);
 

@@ -13,7 +13,7 @@ import {
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
-import UserService from '@services/UserService';
+import userServiceEditUser from '@services/UserService/editUser';
 import React, { useContext } from 'react';
 import useForm from 'react-hook-form';
 
@@ -34,7 +34,7 @@ const EditUserForm: React.FC = () => {
 	): void => {
 		setLoading(true);
 
-		UserService.editUser(
+		userServiceEditUser(
 			token,
 			username,
 			email,

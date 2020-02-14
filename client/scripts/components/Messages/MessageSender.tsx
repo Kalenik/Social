@@ -8,7 +8,7 @@ import {
 	addErrorNoticesActionCreator,
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
-import MessageService from '@services/MessageService';
+import sendMessage from '@services/MessageService/sendMessage';
 import React, { useContext, useState } from 'react';
 import useForm from 'react-hook-form';
 
@@ -34,7 +34,7 @@ const MessageSender: React.FC<IMessageSenderProps> = ({
 	const modalConfirmHandler = handleSubmit(({ message }) => {
 		setLoading(true);
 
-		MessageService.sendMessage(token, receiverName, message)
+		sendMessage(token, receiverName, message)
 			.then(() => {
 				noticeContextDispatch(
 					addSuccessNoticesActionCreator(`Message is sent`)

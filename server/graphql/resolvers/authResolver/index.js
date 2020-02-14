@@ -1,13 +1,13 @@
 const createUser = require('./createUser'),
 	login = require('./login'),
-	refreshToken = require('./refreshToken'),
+	refreshTokens = require('./refreshTokens'),
 	deleteRefreshToken = require('./deleteRefreshToken'),
 	revokeRefreshToken = require('./revokeRefreshToken');
 
 module.exports = {
 	createUser,
 	login,
-	refreshToken,
+	refreshTokens,
 	deleteRefreshToken,
 	revokeRefreshToken
 };

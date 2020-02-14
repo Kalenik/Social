@@ -10,7 +10,7 @@ import ILastMessageData from '@interfaces/ILastMessageData';
 import ILastMessageItemData from '@interfaces/ILastMessageItemData';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import MessageService from '@services/MessageService';
+import fetchLastMessagesData from '@services/MessageService/fetchLastMessagesData';
 import dateToNumber from '@utils/dateToNumber';
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -32,8 +32,8 @@ const LastMessagesPage: React.FC = () => {
 			setFilteredLastMessageListData
 		] = useState(lastMessageListData);
 
-	const fetchLastMessagesData = () =>
-		MessageService.fetchLastMessagesData(token)
+	const getLastMessagesData = () =>
+		fetchLastMessagesData(token)
 			.then(
 				({
 					lastMessagesDataFromYou,
@@ -108,7 +108,7 @@ const LastMessagesPage: React.FC = () => {
 			.then(() => setLoading(false));
 
 	useEffect(() => {
-		fetchLastMessagesData();
+		getLastMessagesData();
 
 		socket!.on(
 			'new_message_item_data',
@@ -144,7 +144,7 @@ const LastMessagesPage: React.FC = () => {
 								deletedMessageId
 					)
 				) {
-					fetchLastMessagesData();
+					getLastMessagesData();
 				}
 			}
 		);

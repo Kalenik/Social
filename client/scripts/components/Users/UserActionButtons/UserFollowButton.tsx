@@ -14,7 +14,7 @@ import {
 	deleteFollowingActionCreator
 } from '@reducers/UserReducer/UserActionCreators';
 import { userReducerActionType } from '@reducers/UserReducer/UserReducer';
-import UserService from '@services/UserService';
+import followUser from '@services/UserService/followUser';
 import React, { useContext } from 'react';
 
 interface IUserFollowButtonProps {
@@ -39,7 +39,7 @@ const UserFollowButton: React.FC<IUserFollowButtonProps> = ({
 	const followHandler = (): void => {
 		setLoading(true);
 
-		UserService.followUser(token, userId)
+		followUser(token, userId)
 			.then(({ username, subscriberType }) => {
 				if (subscriberType === 'friend') {
 					authUserDispatch(deleteFollowerActionCreator(userId));

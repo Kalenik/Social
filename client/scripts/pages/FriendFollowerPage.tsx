@@ -4,7 +4,7 @@ import AuthContext from '@contexts/authContext';
 import NoticeContext from '@contexts/noticeContext';
 import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import UserService from '@services/UserService';
+import fetchUserSubscribers from '@services/UserService/fetchUserSubscribers';
 import React, { useContext, useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router';
 
@@ -28,7 +28,7 @@ const FriendFollowerPage: React.FC = () => {
 	);
 
 	useEffect(() => {
-		UserService.fetchUserSubscribers(username, subscribersType!)
+		fetchUserSubscribers(username, subscribersType!)
 			.then((users: Array<IUser>) => setUsers(users))
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))

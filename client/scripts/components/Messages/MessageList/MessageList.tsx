@@ -6,7 +6,8 @@ import IMessage from '@interfaces/IMessage';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import IUserTypingData from '@interfaces/IUserTypingData';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import MessageService from '@services/MessageService';
+import deleteMessage from '@services/MessageService/deleteMessage';
+import editMessage from '@services/MessageService/editMessage';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import MessageItem from './MessageItem/MessageItem';
@@ -43,12 +44,7 @@ const MessageList: React.FC<IMessageListProps> = ({
 	const onUpdateMessage = (newMessageText: string) => {
 		setLoading(true);
 
-		MessageService.editMessage(
-			token,
-			receiverName,
-			messageIdInUpdateMode,
-			newMessageText
-		)
+		editMessage(token, receiverName, messageIdInUpdateMode, newMessageText)
 			.then((updatedMessage: IMessage) =>
 				updateMessageInListData(updatedMessage)
 			)
@@ -64,7 +60,7 @@ const MessageList: React.FC<IMessageListProps> = ({
 	const onDeleteMessage = (messageId: string) => {
 		setLoading(true);
 
-		MessageService.deleteMessage(token, receiverName, messageId)
+		deleteMessage(token, receiverName, messageId)
 			.then(() => deleteMessageFromListData(messageId))
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))

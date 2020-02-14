@@ -5,7 +5,8 @@ import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
 import userReducer, { initialUser } from '@reducers/UserReducer/UserReducer';
-import AuthService from '@services/AuthService';
+import authServiceLogout from '@services/AuthService/logout';
+import refreshTokens from '@services/AuthService/refreshTokens';
 import React, {
 	useContext,
 	useEffect,
@@ -34,7 +35,7 @@ const AuthContextProvider: React.FC<IAuthContextProvider> = ({ children }) => {
 
 		clearTimeout(refreshTokenTimerId.current);
 
-		AuthService.logout(token)
+		authServiceLogout(token)
 			.then((loggedOut: boolean) => {
 				if (loggedOut) {
 					setToken('');
@@ -54,7 +55,7 @@ const AuthContextProvider: React.FC<IAuthContextProvider> = ({ children }) => {
 	};
 
 	const refreshToken = (): Promise<void> =>
-		AuthService.refreshToken()
+		refreshTokens()
 			.then(({ user, accessToken, tokenExpiration }) =>
 				processAuthResponce(user, accessToken, tokenExpiration)
 			)

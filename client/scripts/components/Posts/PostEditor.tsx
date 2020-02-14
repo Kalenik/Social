@@ -10,7 +10,7 @@ import {
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { editPostActionCreator } from '@reducers/UserReducer/UserActionCreators';
-import PostService from '@services/PostService';
+import postServiceEditPost from '@services/PostService/editPost';
 import React, { useContext, useState } from 'react';
 import useForm from 'react-hook-form';
 
@@ -38,7 +38,7 @@ const PostEditor: React.FC<IPostEditorProps> = ({
 	const modalConfirmHandler = handleSubmit(({ title, text }) => {
 		setLoading(true);
 
-		PostService.editPost(token, postId, title, text)
+		postServiceEditPost(token, postId, title, text)
 			.then((updatedPost: IPost) => {
 				editPost(updatedPost);
 

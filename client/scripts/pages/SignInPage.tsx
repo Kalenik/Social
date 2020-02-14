@@ -6,7 +6,7 @@ import {
 	addErrorNoticesActionCreator,
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
-import AuthService from '@services/AuthService';
+import login from '@services/AuthService/login';
 import React, { useContext } from 'react';
 
 const SignInPage: React.FC = () => {
@@ -17,7 +17,7 @@ const SignInPage: React.FC = () => {
 	const signIn = (email: string, password: string): void => {
 		setLoading(true);
 
-		AuthService.login(email, password)
+		login(email, password)
 			.then(({ user, accessToken, tokenExpiration }) => {
 				processAuthResponce(user, accessToken, tokenExpiration);
 

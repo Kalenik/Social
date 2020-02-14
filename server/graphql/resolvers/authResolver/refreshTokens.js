@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken'),
 	log = require('../../../helpers/logger/log')(module.filename),
 	HttpError = require('../../../error/HttpError');
 
-const refreshToken = async (args, { req, res }) => {
+const refreshTokens = async (args, { req, res }) => {
 	try {
 		const refreshToken = req.cookies.jid;
 		let decodedRefreshToken = null;
@@ -54,4 +54,4 @@ const refreshToken = async (args, { req, res }) => {
 	}
 };
 
-module.exports = refreshToken;
+module.exports = refreshTokens;

@@ -10,7 +10,7 @@ import IMessage from '@interfaces/IMessage';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import MessageService from '@services/MessageService';
+import fetchMessagesData from '@services/MessageService/fetchMessagesData';
 import dateToNumber from '@utils/dateToNumber';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -59,7 +59,7 @@ const MessagesPage: React.FC = () => {
 		);
 
 	useEffect(() => {
-		MessageService.fetchMessagesData(token, username)
+		fetchMessagesData(token, username)
 			.then(
 				({
 					messagesFromYou,

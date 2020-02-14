@@ -103,7 +103,7 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        refreshToken: AuthData!
+        refreshTokens: AuthData!
         revokeRefreshToken: Boolean!
         deleteRefreshToken: Boolean!
         createUser(createUserInput: CreateUserInput): AuthData!

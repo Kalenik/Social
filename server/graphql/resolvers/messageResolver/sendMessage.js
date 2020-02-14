@@ -1,7 +1,8 @@
 const Message = require('../../../models/message'),
 	User = require('../../../models/user'),
 	log = require('../../../helpers/logger/log')(module.filename),
-	HttpError = require('../../../error/HttpError');
+	HttpError = require('../../../error/HttpError'),
+	dateToNumber = require('../../../utils/dateToNumber');
 
 const sendMessage = async (args, { req, res, io, userSocketIds }) => {
 	try {
@@ -68,8 +69,8 @@ const sendMessage = async (args, { req, res, io, userSocketIds }) => {
 			profileImgSrc: senderUser.profileImgSrc,
 			message: {
 				...addedMessage._doc,
-				created: new Date(addedMessage.created).getTime().toString(),
-				updated: new Date(addedMessage.updated).getTime().toString()
+				created: dateToNumber(addedMessage.created).toString(),
+				updated: dateToNumber(addedMessage.updated).toString()
 			}
 		};
 

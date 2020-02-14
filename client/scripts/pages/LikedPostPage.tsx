@@ -5,7 +5,7 @@ import AuthContext, { IAuthContext } from '@contexts/authContext';
 import NoticeContext from '@contexts/noticeContext';
 import ILikedPost from '@interfaces/ILikedPost';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import LikedPostService from '@services/LikedPostService';
+import fetchLikedPosts from '@services/LikedPostService/fetchLikedPosts';
 import React, { useContext, useEffect, useState } from 'react';
 
 const LikedPostPage: React.FC = () => {
@@ -16,7 +16,7 @@ const LikedPostPage: React.FC = () => {
 		[filteredLikedPosts, setFilteredLikedPosts] = useState(likedPosts);
 
 	useEffect(() => {
-		LikedPostService.fetchLikedPosts(token)
+		fetchLikedPosts(token)
 			.then((likedPosts: Array<ILikedPost>) => setLikedPosts(likedPosts))
 			.catch(err =>
 				noticeContextDispatch(addErrorNoticesActionCreator(err))

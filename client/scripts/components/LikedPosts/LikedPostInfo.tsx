@@ -9,7 +9,7 @@ import {
 	addErrorNoticesActionCreator,
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
-import LikedPostService from '@services/LikedPostService';
+import likedPostServiceDeleteLikedPost from '@services/LikedPostService/deleteLikedPost';
 import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
 import getTimeOrDateString from '@utils/getTimeOrDateString';
 import React, { useContext, useState } from 'react';
@@ -42,7 +42,7 @@ const LikedPostInfo: React.FC<ILikedPostInfoProps> = ({
 
 		setLoading(true);
 
-		LikedPostService.deleteLikedPost(token, likedPostId)
+		likedPostServiceDeleteLikedPost(token, likedPostId)
 			.then((deleteLikedPostRezult: IPost) => {
 				deleteLikedPost(likedPostId);
 

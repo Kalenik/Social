@@ -9,7 +9,7 @@ import ValidationRules from '@helpers/validationRules/SendMessageValidationRules
 import IMessage from '@interfaces/IMessage';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
-import MessageService from '@services/MessageService';
+import sendMessage from '@services/MessageService/sendMessage';
 import React, { useContext, useRef } from 'react';
 import useForm from 'react-hook-form';
 
@@ -38,7 +38,7 @@ const SendMessageForm: React.FC<ISendMessageFormProps> = ({
 
 		isSending.current = true;
 
-		MessageService.sendMessage(token, receiverName, message)
+		sendMessage(token, receiverName, message)
 			.then((addedMessage: IMessage) => {
 				reset({ message: '' });
 				addMessageToListData({

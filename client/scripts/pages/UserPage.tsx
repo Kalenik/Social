@@ -10,7 +10,7 @@ import IUser from '@interfaces/IUser';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
 import userReducer, { initialUser } from '@reducers/UserReducer/UserReducer';
-import UserService from '@services/UserService';
+import fetchUser from '@services/UserService/fetchUser';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router';
 
@@ -30,7 +30,7 @@ const UserPage: React.FC = () => {
 		if (userNameFromRoute) {
 			setLoading(true);
 
-			UserService.fetchUser(userNameFromRoute)
+			fetchUser(userNameFromRoute)
 				.then((fetchedUser: IUser) =>
 					userDispatch(setUserActionCreator(fetchedUser))
 				)

@@ -6,7 +6,7 @@ import {
 	addErrorNoticesActionCreator,
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
-import AuthService from '@services/AuthService';
+import createUser from '@services/AuthService/createUser';
 import React, { useContext } from 'react';
 
 const SignUpPage: React.FC = () => {
@@ -21,7 +21,7 @@ const SignUpPage: React.FC = () => {
 	): void => {
 		setLoading(true);
 
-		AuthService.createUser(username, email, password)
+		createUser(username, email, password)
 			.then(({ user, accessToken, tokenExpiration }) => {
 				processAuthResponce(user, accessToken, tokenExpiration);
 
