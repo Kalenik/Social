@@ -1,5 +1,5 @@
 import UserImage from '@components/Users/UserImage';
-import { getTimeOrDateString } from '@helpers/Utils';
+import getTimeOrDateString from '@utils/getTimeOrDateString';
 import React from 'react';
 
 interface ILastMessageItemProps {

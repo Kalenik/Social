@@ -1,9 +1,7 @@
 import EyeButton from '@components/Buttons/SvgButtons/EyeButton';
-import {
-	getCreatedOrUpdatedDateString,
-	getTimeOrDateString
-} from '@helpers/Utils';
 import IPost from '@interfaces/IPost';
+import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
+import getTimeOrDateString from '@utils/getTimeOrDateString';
 import React from 'react';
 
 interface ILikedPostItemProps {

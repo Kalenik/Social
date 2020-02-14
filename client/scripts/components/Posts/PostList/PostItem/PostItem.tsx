@@ -1,6 +1,7 @@
 import EditPencilButton from '@components/Buttons/SvgButtons/EditPencilButton';
 import EyeButton from '@components/Buttons/SvgButtons/EyeButton';
-import { getCreatedOrUpdatedDateString, processPostText } from '@helpers/Utils';
+import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
+import shortenText from '@utils/shortenText';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -32,7 +33,7 @@ const PostItem: React.FC<IPostItemProps> = ({
 	<li key={postId} className='post-item'>
 		<div className='post-item__content'>
 			<h1 className='post-item__title'>{title}</h1>
-			<div className='post-item__text'>{processPostText(text)}</div>
+			<div className='post-item__text'>{shortenText(text, 100)}</div>
 			<div className='post-item__date'>
 				{getCreatedOrUpdatedDateString(created, updated)}
 			</div>

@@ -1,8 +1,8 @@
 import PostEditor from '@components/Posts/PostEditor';
 import PostInfo from '@components/Posts/PostInfo';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
-import { dateToNumber } from '@helpers/Utils';
 import IPost from '@interfaces/IPost';
+import dateToNumber from '@utils/dateToNumber';
 import React, { useContext, useState } from 'react';
 import PostItem from './PostItem/PostItem';
 

@@ -29,6 +29,7 @@
 			"@components/*": ["scripts/components/*"],
 			"@contexts/*": ["scripts/contexts/*"],
 			"@helpers/*": ["scripts/helpers/*"],
+			"@utils/*": ["scripts/utils/*"],
 			"@interfaces/*": ["scripts/interfaces/*"],
 			"@pages/*": ["scripts/pages/*"],
 			"@reducers/*": ["scripts/reducers/*"],

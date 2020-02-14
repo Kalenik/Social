@@ -5,13 +5,13 @@ import Spinner from '@components/Spinner';
 import AuthContext from '@contexts/authContext';
 import NoticeContext from '@contexts/noticeContext';
 import SocketContext from '@contexts/socketContext';
-import { dateToNumber } from '@helpers/Utils';
 import IDeletedMessageData from '@interfaces/IDeletedMessageData';
 import ILastMessageData from '@interfaces/ILastMessageData';
 import ILastMessageItemData from '@interfaces/ILastMessageItemData';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import MessageService from '@services/MessageService';
+import dateToNumber from '@utils/dateToNumber';
 import React, { useContext, useEffect, useState } from 'react';
 
 interface IFetchAllYourMessagesDataResponce {

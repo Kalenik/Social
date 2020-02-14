@@ -2,7 +2,8 @@ import EditPencilIconButton from '@components/Buttons/SvgIconButtons/EditPencilS
 import TrashCanIconButton from '@components/Buttons/SvgIconButtons/TrashCanIconButton';
 import EditMessageForm from '@components/Forms/EditMessageForm';
 import UserImage from '@components/Users/UserImage';
-import { dateToNumber, getTimeOrDateString } from '@helpers/Utils';
+import dateToNumber from '@utils/dateToNumber';
+import getTimeOrDateString from '@utils/getTimeOrDateString';
 import React from 'react';
 import { Link } from 'react-router-dom';
 

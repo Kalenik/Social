@@ -3,10 +3,6 @@ import Modal from '@components/Modal';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
-import {
-	getCreatedOrUpdatedDateString,
-	getTimeOrDateString
-} from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
 import IPost from '@interfaces/IPost';
 import {
@@ -14,6 +10,8 @@ import {
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import LikedPostService from '@services/LikedPostService';
+import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
+import getTimeOrDateString from '@utils/getTimeOrDateString';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 

@@ -5,13 +5,13 @@ import UserImage from '@components/Users/UserImage';
 import AuthContext from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
-import { dataURLToFile } from '@helpers/Utils';
 import {
 	addErrorNoticesActionCreator,
 	addSuccessNoticesActionCreator
 } from '@reducers/NoticesReducer/NoticeActionCreators';
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
 import UserService from '@services/UserService';
+import dataURLToFile from '@utils/dataURLToFile';
 import React, { useContext, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ImageEditor from '../ImageEditor';

@@ -1,6 +1,6 @@
 import LikedPostInfo from '@components/LikedPosts/LikedPostInfo';
-import { dateToNumber } from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
+import dateToNumber from '@utils/dateToNumber';
 import React, { useState } from 'react';
 import LikedPostItem from './LikedPostItem/LikedPostItem';
 

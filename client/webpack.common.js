@@ -26,6 +26,7 @@ module.exports = {
 			'@components': path.resolve(SRC_DIR, 'scripts/components'),
 			'@contexts': path.resolve(SRC_DIR, 'scripts/contexts'),
 			'@helpers': path.resolve(SRC_DIR, 'scripts/helpers'),
+			'@utils': path.resolve(SRC_DIR, 'scripts/utils'),
 			'@interfaces': path.resolve(SRC_DIR, 'scripts/interfaces'),
 			'@pages': path.resolve(SRC_DIR, 'scripts/pages'),
 			'@reducers': path.resolve(SRC_DIR, 'scripts/reducers'),

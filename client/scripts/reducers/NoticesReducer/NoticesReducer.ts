@@ -32,7 +32,7 @@ const addNotices = (
 	return resultNotiseList;
 };
 
-const deleteNoticeActionCreator = (
+const deleteNotice = (
 	prevNotices: Array<AppNotice>,
 	{ type, message }: AppNotice
 ): Array<AppNotice> =>
@@ -53,10 +53,7 @@ const noticesReducer = (
 		case 'DeleteNotice':
 			return {
 				...state,
-				notices: deleteNoticeActionCreator(
-					state.notices,
-					action.noticeForDelete
-				)
+				notices: deleteNotice(state.notices, action.noticeForDelete)
 			};
 		default:
 			return state;

@@ -1,3 +1,4 @@
+import onInputChangeDebounce from '@utils/onInputChangeDebounce';
 import React from 'react';
 
 interface IItemFilter {
@@ -11,8 +12,11 @@ const ItemFilter: React.FC<IItemFilter> = ({
 	className,
 	placeholder
 }) => {
-	const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void =>
-		setFilterValue(e.target.value);
+	const onChangeHandler = onInputChangeDebounce(
+		(e: React.ChangeEvent<HTMLInputElement>): void =>
+			setFilterValue(e.target.value),
+		400
+	);
 
 	return (
 		<input

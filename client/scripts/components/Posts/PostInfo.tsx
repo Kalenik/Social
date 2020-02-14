@@ -5,7 +5,6 @@ import Modal from '@components/Modal';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import LoadingContext from '@contexts/loadingContext';
 import NoticeContext from '@contexts/noticeContext';
-import { getCreatedOrUpdatedDateString } from '@helpers/Utils';
 import ILikedPost from '@interfaces/ILikedPost';
 import {
 	addErrorNoticesActionCreator,
@@ -14,6 +13,7 @@ import {
 import { deletePostActionCreator } from '@reducers/UserReducer/UserActionCreators';
 import LikedPostService from '@services/LikedPostService';
 import PostService from '@services/PostService';
+import getCreatedOrUpdatedDateString from '@utils/getCreatedOrUpdatedDateString';
 import React, { useContext, useState } from 'react';
 
 interface IPostInfoProps {

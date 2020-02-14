@@ -1,4 +1,5 @@
-import { scrollToTop, throttle } from '@helpers/Utils';
+import scrollToTop from '@utils/scrollToTop';
+import throttle from '@utils/throttle';
 import React, { useEffect, useState } from 'react';
 import AnimationWrapper from '../AnimationWrapper';
 import ArrowUpButton from './SvgButtons/ArrowUpButton';
