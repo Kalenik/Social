@@ -46,9 +46,9 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 				/>
 			</div>
 
-			<p className='last-message-item__username'>{username}</p>
+			<div className='last-message-item__username'>{username}</div>
 
-			<p
+			<div
 				className={
 					isTyping
 						? 'last-message-item__message last-message-item__message_typing'
@@ -56,11 +56,11 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 				}
 			>
 				{isTyping ? 'typing...' : messageText}
-			</p>
+			</div>
 
-			<p className='last-message-item__date'>
+			<div className='last-message-item__date'>
 				{getTimeOrDateString(updated)}
-			</p>
+			</div>
 		</li>
 	);
 };

@@ -1,5 +1,6 @@
 import BackToTopButton from '@components/Buttons/BackToTopButton';
 import ErrorBoundary from '@components/ErrorBoundary';
+import MessageNoticeList from '@components/Messages/MessageNoticeList/MessageNoticeList';
 import SocketContextProvider from '@contexts/contextProviders/SocketContextProvider';
 import React from 'react';
 import Main from './components/Main';
@@ -19,6 +20,7 @@ const App: React.FC = () => (
 							<div className='content'>
 								<Main />
 							</div>
+							<MessageNoticeList />
 						</ErrorBoundary>
 					</SocketContextProvider>
 				</AuthContextProvider>

@@ -14,12 +14,10 @@ import fetchUser from '@services/UserService/fetchUser';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router';
 
-interface IRouteParams {
-	username: string;
-}
-
 const UserPage: React.FC = () => {
-	const { username: userNameFromRoute } = useParams<IRouteParams>(),
+	const { username: userNameFromRoute } = useParams<{
+			username: string;
+		}>(),
 		noticeContextDispatch = useContext(NoticeContext),
 		setLoading = useContext(LoadingContext),
 		{ authUser } = useContext(AuthContext),

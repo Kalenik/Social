@@ -30,12 +30,13 @@
 @buttonHoverColor: @accentColor;
 @buttonBG: linear-gradient(90deg, rgba(76, 76, 76, 0.2) 50%, transparent 50%);
 
+@messageNoticeZIndex: 100;
 @navbarZIndex: 100;
-@backToTopButtonZIndex: @navbarZIndex;
-@backdropZIndex: 200;
-@modalZIndex: 300;
-@noticeZIndex: 400;
-@spinnerZIndex: 500;
+@backToTopButtonZIndex: 200;
+@backdropZIndex: 300;
+@modalZIndex: 400;
+@noticeZIndex: 500;
+@spinnerZIndex: 600;
 
 body,
 h1,
@@ -165,6 +166,8 @@ label {
 @import './components/Messages/NoMessages.less';
 @import './components/Messages/NoLastMessages.less';
 @import './components/Messages/LastMessageListDataFilter.less';
+@import './components/Messages/MessageNoticeList/MessageNoticeItem/MessageNoticeItem.less';
+@import './components/Messages/MessageNoticeList/MessageNoticeList.less';
 
 @import './pages/HomePage.less';
 @import './pages/SignInPage.less';

@@ -74,8 +74,16 @@ const sendMessage = async (args, { req, res, io, userSocketIds }) => {
 			}
 		};
 
+		const newMessageNotice = {
+			messageId: addedMessage._id,
+			messageText: addedMessage.messageText,
+			senderName: senderUser.username,
+			senderProfileImgSrc: senderUser.profileImgSrc
+		};
+
 		const receiverSocketId = userSocketIds[args.receiverName];
 		io.to(receiverSocketId).emit('new_message_item_data', newMessageData);
+		io.to(receiverSocketId).emit('new_message_notice', newMessageNotice);
 
 		return {
 			...addedMessage._doc

@@ -52,7 +52,7 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 			>
 				<UserImage
 					src={profileImgSrc}
-					className='message-item__user-image'
+					className='user-image message-item__user-image'
 					width={40}
 					height={40}
 				/>

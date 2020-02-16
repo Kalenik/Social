@@ -7,14 +7,14 @@ interface INoticeList {
 }
 
 const NoticeList: React.FC<INoticeList> = ({ notices }) => (
-	<div className='notice-list'>
+	<ul className='notice-list'>
 		{[...notices].reverse().map(notice => (
 			<NoticeItem
 				key={`${notice.type}_${notice.message}`}
 				notice={notice}
 			/>
 		))}
-	</div>
+	</ul>
 );
 
 export default NoticeList;

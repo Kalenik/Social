@@ -11,10 +11,20 @@
 	color: @textColor;
 	font-size: 0.9rem;
 	opacity: 0.7;
-	animation: fade-in-notice 0.5s;
 	word-break: break-all;
+	transition: opacity 0.3s ease-in-out;
+	outline: none;
 
-	&_removed {
+	&_shown {
+		animation: fade-in-notice 0.5s;
+
+		&:hover,
+		&:focus {
+			opacity: 1;
+		}
+	}
+
+	&_closed {
 		animation: fade-out-notice 0.5s;
 	}
 
@@ -28,13 +38,6 @@
 		background: @errorBGColor;
 		border: 1px solid fade(@errorBGColor, 50%);
 		box-shadow: 0 0 0.7rem fade(@errorBGColor, 50%);
-	}
-
-	&_hover {
-		&:hover {
-			transition: opacity 0.3s ease-in-out;
-			opacity: 1;
-		}
 	}
 
 	&__button {
