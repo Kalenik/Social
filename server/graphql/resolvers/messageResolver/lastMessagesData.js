@@ -23,6 +23,7 @@ const lastMessagesData = async (args, { req, res }) => {
 					result.push({
 						from: messageData.from,
 						to: messageData.to,
+						isViewed: messageData.isViewed,
 						lastMessage:
 							messageData.messages[
 								messageData.messages.length - 1

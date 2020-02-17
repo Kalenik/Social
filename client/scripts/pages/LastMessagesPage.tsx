@@ -47,7 +47,9 @@ const LastMessagesPage: React.FC = () => {
 									?.profileImgSrc!;
 
 							let lastMessage =
-								lastMessageDataFromYou.lastMessage;
+									lastMessageDataFromYou.lastMessage,
+								isViewed = lastMessageDataFromYou.isViewed,
+								isYour = true;
 
 							const lastMessageDataToYou = lastMessagesDataToYou.find(
 								lastMessageDataToYou =>
@@ -66,12 +68,16 @@ const LastMessagesPage: React.FC = () => {
 									)
 							) {
 								lastMessage = lastMessageDataToYou.lastMessage;
+								isViewed = lastMessageDataToYou.isViewed;
+								isYour = false;
 							}
 
 							return {
 								username,
 								profileImgSrc,
-								lastMessage
+								lastMessage,
+								isViewed,
+								isYour
 							};
 						}
 					);
@@ -88,7 +94,9 @@ const LastMessagesPage: React.FC = () => {
 								username: lastMessageDataToYou.from?.username!,
 								profileImgSrc:
 									lastMessageDataToYou.from?.profileImgSrc,
-								lastMessage: lastMessageDataToYou.lastMessage
+								lastMessage: lastMessageDataToYou.lastMessage,
+								isViewed: lastMessageDataToYou.isViewed,
+								isYour: false
 							});
 						}
 					});
@@ -117,7 +125,9 @@ const LastMessagesPage: React.FC = () => {
 					{
 						username: newMessageItemData.username,
 						profileImgSrc: newMessageItemData.profileImgSrc,
-						lastMessage: newMessageItemData.message
+						lastMessage: newMessageItemData.message,
+						isViewed: false,
+						isYour: false
 					},
 					...prevLastMessageListData.filter(
 						lastMessageItemData =>
@@ -176,9 +186,20 @@ const LastMessagesPage: React.FC = () => {
 			}
 		);
 
+		socket!.on('username_viewed_your_messages', (username: string) => {
+			setLastMessageListData(prevLastMessageListData =>
+				prevLastMessageListData.map(lastMessageItemData =>
+					lastMessageItemData.username === username
+						? { ...lastMessageItemData, isViewed: true }
+						: lastMessageItemData
+				)
+			);
+		});
+
 		return () => {
 			socket!.removeListener('deleted_message_data');
 			socket!.removeListener('updated_message_item_data');
+			socket!.removeListener('username_viewed_your_messages');
 		};
 	}, [lastMessageListData]);
 

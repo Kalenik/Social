@@ -57,6 +57,8 @@ const sendMessage = async (args, { req, res, io, userSocketIds }) => {
 				updated: currentDate
 			});
 
+			messagesFromYou.isViewed = false;
+
 			resultOfMessageSave = await messagesFromYou.save();
 		}
 

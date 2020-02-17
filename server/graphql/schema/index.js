@@ -57,6 +57,7 @@ module.exports = buildSchema(`
     type LastMessageData {
         from: User!
         to: User!
+        isViewed: Boolean!
         lastMessage: Message!
     }
 
@@ -100,6 +101,7 @@ module.exports = buildSchema(`
         likedPosts: [LikedPost!]!
         messagesData(receiverName: String!): MessagesData!
         lastMessagesData: LastMessagesData!
+        usernamesWithUnviewedMessages: [String!]!
     }
 
     type RootMutation {
@@ -118,6 +120,7 @@ module.exports = buildSchema(`
         sendMessage(receiverName: String!, messageText: String!): Message!
         editMessage(editMessageInput: EditMessageInput): Message!
         deleteMessage(receiverName: String!, messageId: ID!): Boolean!
+        messagesViewed(receiverName: String!): Boolean!
     }
 
     schema {

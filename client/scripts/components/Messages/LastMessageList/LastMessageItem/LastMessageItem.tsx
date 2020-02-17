@@ -6,6 +6,8 @@ interface ILastMessageItemProps {
 	username: string;
 	profileImgSrc?: string;
 	messageText: string;
+	isViewed: boolean;
+	isYour: boolean;
 	updated: string;
 	goToUserMessages: (username: string) => void;
 	isOnline: boolean;
@@ -16,6 +18,8 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 	username,
 	profileImgSrc,
 	messageText,
+	isViewed,
+	isYour,
 	updated,
 	goToUserMessages,
 	isOnline,
@@ -25,7 +29,13 @@ const LastMessageItem: React.FC<ILastMessageItemProps> = ({
 
 	return (
 		<li
-			className='last-message-item'
+			className={
+				isViewed
+					? 'last-message-item'
+					: isYour
+					? 'last-message-item last-message-item_your-unviewed'
+					: 'last-message-item last-message-item_unviewed'
+			}
 			onClick={showUserMessages}
 			onKeyPress={showUserMessages}
 			role='menuitem'

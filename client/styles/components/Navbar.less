@@ -25,17 +25,17 @@
 		outline: none;
 		font-style: normal;
 		cursor: pointer;
+		text-align: center;
 
 		&-text {
-			display: block;
+			display: inline-block;
+			vertical-align: middle;
 			max-width: 7rem;
 			color: @linkColor;
 			text-decoration: none;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
-			text-align: center;
-			margin: auto;
 		}
 
 		&:hover,
@@ -69,6 +69,20 @@
 		position: absolute;
 		top: 1.2rem;
 		right: 1rem;
+	}
+
+	&__unviewed-messages-count {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 0.5rem;
+		padding-left: 0.3rem;
+		padding-right: 0.3rem;
+		border-radius: 50%;
+		box-shadow: 0 0 0.7rem #fff;
+		color: #fff;
+		font-weight: 700;
+		text-shadow: 0 0 0.7rem #fff;
+		font-size: 0.8rem;
 	}
 }
 

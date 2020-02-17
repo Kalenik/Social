@@ -1,6 +1,7 @@
 import HamburgerMenuButton from '@components/Buttons/HamburgerMenuButton';
 import NavItemText from '@components/Navbar/NavItemText';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
+import MessagesContext from '@contexts/messageContext';
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -10,7 +11,9 @@ const Navbar: React.FC = () => {
 			token,
 			authUser: { username },
 			logout
-		} = useContext<IAuthContext>(AuthContext);
+		} = useContext<IAuthContext>(AuthContext),
+		{ usernamesWithUnviewedMessages } = useContext(MessagesContext),
+		unviewedMessagesCount = usernamesWithUnviewedMessages.length;
 
 	const hamburgerMenuButtonHandler = (): void =>
 		setMobileMenu(!isMobileMenuOpen);
@@ -46,6 +49,11 @@ const Navbar: React.FC = () => {
 							exact
 						>
 							<NavItemText text='Messages' />
+							{unviewedMessagesCount > 0 && (
+								<span className='main-navigation__unviewed-messages-count'>
+									{unviewedMessagesCount}
+								</span>
+							)}
 						</NavLink>
 					)}
 					<NavLink

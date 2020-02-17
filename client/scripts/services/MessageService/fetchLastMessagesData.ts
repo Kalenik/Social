@@ -12,6 +12,7 @@ export default function fetchLastMessagesData(token: string) {
                             username
                             profileImgSrc
                         }
+                        isViewed
                         lastMessage {
                             _id
                             messageText
@@ -24,6 +25,7 @@ export default function fetchLastMessagesData(token: string) {
                             username
                             profileImgSrc
                         }
+                        isViewed
                         lastMessage {
                             _id
                             messageText

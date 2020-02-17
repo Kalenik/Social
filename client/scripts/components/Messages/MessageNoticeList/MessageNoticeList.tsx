@@ -1,27 +1,22 @@
-import SocketContext from '@contexts/socketContext';
 import IMessageNotice from '@interfaces/IMessageNotice';
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import React from 'react';
+import { useHistory } from 'react-router';
 import MessageNoticeItem from './MessageNoticeItem/MessageNoticeItem';
 
-const MessageNoticeList: React.FC = () => {
+interface IMessageNoticeList {
+	messageNoticeList: Array<IMessageNotice>;
+	setMessageNoticeList: React.Dispatch<
+		React.SetStateAction<IMessageNotice[]>
+	>;
+}
+
+const MessageNoticeList: React.FC<IMessageNoticeList> = ({
+	messageNoticeList,
+	setMessageNoticeList
+}) => {
 	const history = useHistory(),
-		{ socket } = useContext(SocketContext),
-		[messageNoticeList, setMessageNoticeList] = useState<
-			Array<IMessageNotice>
-		>([]),
-		{ pathname } = useLocation(),
-		isUserMessagesPage = pathname.indexOf('/messages/') !== -1,
-		chattingUsername = pathname.split('/').pop();
-
-	const goToUserMessages = (username: string) =>
-		history.push(`/messages/${username}`);
-
-	const addMessageNotice = (newMessageNotice: IMessageNotice): void =>
-		setMessageNoticeList(prevMessageNoticeList => [
-			newMessageNotice,
-			...prevMessageNoticeList
-		]);
+		goToUserMessages = (username: string): void =>
+			history.push(`/messages/${username}`);
 
 	const deleteMessageNotice = (messageId: string): void =>
 		setMessageNoticeList(prevMessageNoticeList =>
@@ -29,23 +24,6 @@ const MessageNoticeList: React.FC = () => {
 				messageNotice => messageNotice.messageId !== messageId
 			)
 		);
-
-	useEffect(() => {
-		socket!.on('new_message_notice', (newMessageNotice: IMessageNotice) => {
-			if (
-				!(
-					isUserMessagesPage &&
-					newMessageNotice.senderName === chattingUsername
-				)
-			) {
-				addMessageNotice(newMessageNotice);
-			}
-		});
-
-		return () => {
-			socket!.removeListener('new_message_notice');
-		};
-	}, [isUserMessagesPage, chattingUsername]);
 
 	return (
 		<ul className='message-notice-list'>

@@ -1,6 +1,6 @@
 import BackToTopButton from '@components/Buttons/BackToTopButton';
 import ErrorBoundary from '@components/ErrorBoundary';
-import MessageNoticeList from '@components/Messages/MessageNoticeList/MessageNoticeList';
+import MessageContextProvider from '@contexts/contextProviders/MessageContextProvider';
 import SocketContextProvider from '@contexts/contextProviders/SocketContextProvider';
 import React from 'react';
 import Main from './components/Main';
@@ -11,23 +11,24 @@ import NoticeContextProvider from './contexts/contextProviders/NoticeContextProv
 
 const App: React.FC = () => (
 	<div className='container'>
-		<NoticeContextProvider>
-			<LoadingContextProvider>
-				<AuthContextProvider>
-					<SocketContextProvider>
-						<ErrorBoundary>
-							<Navbar />
-							<div className='content'>
-								<Main />
-							</div>
-							<MessageNoticeList />
-						</ErrorBoundary>
-					</SocketContextProvider>
-				</AuthContextProvider>
-			</LoadingContextProvider>
-		</NoticeContextProvider>
+		<ErrorBoundary>
+			<NoticeContextProvider>
+				<LoadingContextProvider>
+					<AuthContextProvider>
+						<SocketContextProvider>
+							<MessageContextProvider>
+								<Navbar />
+								<div className='content'>
+									<Main />
+								</div>
+							</MessageContextProvider>
+						</SocketContextProvider>
+					</AuthContextProvider>
+				</LoadingContextProvider>
+			</NoticeContextProvider>
 
-		<BackToTopButton />
+			<BackToTopButton />
+		</ErrorBoundary>
 	</div>
 );
 

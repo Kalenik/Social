@@ -41,13 +41,17 @@ const LastMessageList: React.FC<ILastMessageListProps> = ({
 				({
 					username,
 					profileImgSrc,
-					lastMessage: { messageText, updated }
+					lastMessage: { messageText, updated },
+					isViewed,
+					isYour
 				}) => (
 					<LastMessageItem
 						key={username}
 						username={username}
 						profileImgSrc={profileImgSrc}
 						messageText={messageText}
+						isViewed={isViewed}
+						isYour={isYour}
 						updated={updated}
 						goToUserMessages={goToUserMessages}
 						isOnline={connectedUsernames.indexOf(username!) !== -1}
