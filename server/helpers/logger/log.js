@@ -19,22 +19,22 @@ module.exports = moduleFilename => {
 
 		defaultMeta: { moduleFilename },
 		transports: [
-			new transports.File({
-				filename: './error.log',
-				level: 'error',
-				format: format.combine(format.json())
-			})
-		]
-	});
-
-	if (NODE_ENV !== 'production') {
-		logger.add(
 			new transports.Console({
 				format: format.combine(
 					format.colorize(),
 					format.label({ label: moduleFilename }),
 					myFormat
 				)
+			})
+		]
+	});
+
+	if (NODE_ENV === 'production') {
+		logger.add(
+			new transports.File({
+				filename: './error.log',
+				level: 'error',
+				format: format.combine(format.json())
 			})
 		);
 	}

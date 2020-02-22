@@ -1,6 +1,5 @@
 const Message = require('../../../models/message'),
 	User = require('../../../models/user'),
-	{ transformUser } = require('../common'),
 	log = require('../../../helpers/logger/log')(module.filename),
 	HttpError = require('../../../error/HttpError');
 
@@ -28,7 +27,11 @@ const messagesViewed = async (args, { req, res, io, userSocketIds }) => {
 			$and: [{ from: receiverUser._id }, { to: req.userId }]
 		});
 
-		messagesToYou.isViewed = true;
+		messagesToYou.unviewedCount = 0;
+
+		messagesToYou.messages = messagesToYou.messages.map(message =>
+			message.isViewed ? message : { ...message._doc, isViewed: true }
+		);
 
 		await messagesToYou.save();
 

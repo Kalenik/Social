@@ -23,7 +23,9 @@ const lastMessagesData = async (args, { req, res }) => {
 					result.push({
 						from: messageData.from,
 						to: messageData.to,
-						isViewed: messageData.isViewed,
+						unviewedCount: messageData.messages.filter(
+							m => !m.isViewed
+						).length,
 						lastMessage:
 							messageData.messages[
 								messageData.messages.length - 1

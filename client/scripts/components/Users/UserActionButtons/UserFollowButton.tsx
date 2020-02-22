@@ -64,7 +64,7 @@ const UserFollowButton: React.FC<IUserFollowButtonProps> = ({
 
 					noticeContextDispatch(
 						addSuccessNoticesActionCreator(
-							`You following ${username}`
+							`You are following ${username}`
 						)
 					);
 				}

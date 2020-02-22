@@ -1,0 +1,24 @@
+.last-message-item__unviewed-count-badge {
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translate(50%, -50%);
+	padding: 0.2rem 0.3rem;
+	color: lighten(@accentColor, 20%);
+	text-shadow: 0 0 0.7rem lighten(@accentColor, 20%);
+	font-size: 0.8rem;
+	font-weight: 700;
+	white-space: nowrap;
+	border-radius: 0.4rem;
+	background-color: shade(@accentColor, 50%);
+	border: 1px solid fade(@accentColor, 50%);
+	box-shadow: 0 0 10px fade(@accentColor, 50%);
+
+	&_your {
+		color: #fff;
+		text-shadow: 0 0 0.7rem #fff;
+		background-color: shade(#fff, 50%);
+		border: 1px solid fade(#fff, 50%);
+		box-shadow: 0 0 10px fade(#fff, 50%);
+	}
+}

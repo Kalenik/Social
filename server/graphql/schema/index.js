@@ -44,6 +44,7 @@ module.exports = buildSchema(`
     type Message {
         _id: ID!
         messageText: String!
+        isViewed: Boolean!
         created: String!
         updated: String!
     }
@@ -57,13 +58,18 @@ module.exports = buildSchema(`
     type LastMessageData {
         from: User!
         to: User!
-        isViewed: Boolean!
+        unviewedCount: Int!
         lastMessage: Message!
     }
 
     type LastMessagesData {
         lastMessagesDataFromYou: [LastMessageData!]!
 		lastMessagesDataToYou: [LastMessageData!]!
+    }
+
+    type UsernamesWithUnviewedMessagesCount {
+        username: String!
+        unviewedCount: Int!
     }
 
     input CreateUserInput {
@@ -101,7 +107,7 @@ module.exports = buildSchema(`
         likedPosts: [LikedPost!]!
         messagesData(receiverName: String!): MessagesData!
         lastMessagesData: LastMessagesData!
-        usernamesWithUnviewedMessages: [String!]!
+        usernamesWithUnviewedMessagesCount: [UsernamesWithUnviewedMessagesCount!]!
     }
 
     type RootMutation {

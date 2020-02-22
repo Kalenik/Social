@@ -48,11 +48,15 @@ router.post('/upload', async (req, res, next) => {
 		}
 
 		const avatarImageName = `${
-			user.username
+			user._id
 		}_${Date.now()}.${avatarImg.mimetype.split('/').pop()}`;
 
 		await uploadFile(
-			`${__dirname}/../static/images/avatars/${avatarImageName}`
+			`${__dirname}/../downloads/${
+				process.env.NODE_ENV === 'development'
+					? 'development/images'
+					: 'images'
+			}/avatars/${avatarImageName}`
 		);
 
 		user.profileImgSrc = `/images/avatars/${avatarImageName}`;

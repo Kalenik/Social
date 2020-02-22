@@ -11,17 +11,17 @@ const TerserPlugin = require('terser-webpack-plugin');
 module.exports = merge(common, {
 	mode: 'production',
 
-	devtool: 'source-map',
+	devtool: false /* 'source-map' */,
 
 	output: {
-		filename: 'js/[name].[chunkhash].bundle.js',
-		chunkFilename: 'js/[name].[chunkhash].bundle.js'
+		filename: 'js/[name].[hash].bundle.js',
+		chunkFilename: 'js/[name].[hash].bundle.js'
 	},
 
 	optimization: {
 		minimizer: [
 			new TerserPlugin({
-				sourceMap: true
+				/* sourceMap: true */
 			})
 		]
 	},
@@ -68,6 +68,11 @@ module.exports = merge(common, {
 				]
 			}
 		]
+	},
+
+	performance: {
+		maxEntrypointSize: 350000,
+		maxAssetSize: 350000
 	},
 
 	plugins: [

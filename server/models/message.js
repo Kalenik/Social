@@ -11,15 +11,17 @@ const messageSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	isViewed: {
-		type: Boolean,
-		default: false
-	},
 	messages: [
 		{
 			messageText: {
 				type: String
 			},
+
+			isViewed: {
+				type: Boolean,
+				default: false
+			},
+
 			created: {
 				type: Date,
 				default: new Date()

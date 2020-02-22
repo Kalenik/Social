@@ -7,11 +7,11 @@
 	transform: translateX(50%);
 	z-index: @messageNoticeZIndex;
 	overflow-y: scroll;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
 
 	&::-webkit-scrollbar {
-		display: none;
+		display: none; /* Safari and Chrome */
 	}
 }
 

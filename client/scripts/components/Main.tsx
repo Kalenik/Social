@@ -26,7 +26,7 @@ const Main: React.FC = () => {
 
 	useEffect(() => {
 		document.title =
-			'Social' +
+			'Well' +
 			(pathname !== '/'
 				? pathname.replace(/\/\w/g, m => ' | ' + m[1].toUpperCase())
 				: '');

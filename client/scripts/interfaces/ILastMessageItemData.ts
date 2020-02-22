@@ -4,6 +4,6 @@ export default interface ILastMessageItemData {
 	username: string;
 	profileImgSrc?: string;
 	lastMessage: IMessage;
-	isViewed: boolean;
+	unviewedCount: number;
 	isYour: boolean;
 }

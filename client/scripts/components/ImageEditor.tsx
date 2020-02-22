@@ -47,7 +47,7 @@ const ImageEditor: React.FC<IImageEditor> = ({
 					value={scale}
 					min={1}
 					max={10}
-					step={0.05}
+					step={0.01}
 					onChange={onScaleChange}
 					className={`${className}__scale`}
 				/>

@@ -1,17 +1,20 @@
 {
 	"name": "starter",
 	"version": "1.0.0",
-	"description": "",
+	"description": "well social network",
 	"scripts": {
-		"install:client": "cd ./client && npm run install",
-		"install:server": "cd ./server && npm run install",
-		"install": "npm run install:client && npm run install:server",
-		"start:client": "cd ./client && npm start",
-		"start:server": "cd ./server && npm start",
+		"install:client": "cd ./client && npm install",
+		"install:server": "cd ./server && npm install",
+		"install:all": "npm run install:client && npm run install:server",
+		"start:client:dev": "cd ./client && npm run start:dev",
+		"start:client:prod": "cd ./client && npm run start:prod",
+		"start:server:dev": "cd ./server && npm run start:dev",
+		"start:server:prod": "cd ./server && npm run start:prod",
 		"build:client:stats": "cd ./client && npm run build:stats",
 		"build:client:prod": "cd ./client && npm run build:prod",
 		"build:server": "cd ./server && npm run build",
-		"build:prod": "npm run build:client:prod && npm run build:server"
+		"build:prod": "npm run build:server && npm run build:client:prod"
 	},
-	"author": "Kalenik Pavel"
+	"author": "Kalenik Pavel",
+	"dependencies": {}
 }

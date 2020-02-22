@@ -2,9 +2,16 @@ import Config from '@config';
 import IRequestBody from '@interfaces/IRequestBody';
 import postJSON from '@services/HttpService/jsonMethods/postJSON';
 
-export default function getUsernamesWithUnviewedMessages(token: string) {
+export default function getUsernamesWithUnviewedMessagesCount(token: string) {
 	const requestBody: IRequestBody = {
-		query: `query  { usernamesWithUnviewedMessages }`
+		query: `
+			query {
+				usernamesWithUnviewedMessagesCount {
+					username
+					unviewedCount
+				}
+			}
+		`
 	};
 
 	const options = {
@@ -12,13 +19,13 @@ export default function getUsernamesWithUnviewedMessages(token: string) {
 	};
 
 	return postJSON(Config.graphqlPath, options, token).then(
-		({ data: { usernamesWithUnviewedMessages } }) => {
-			if (usernamesWithUnviewedMessages) {
-				return usernamesWithUnviewedMessages;
+		({ data: { usernamesWithUnviewedMessagesCount } }) => {
+			if (usernamesWithUnviewedMessagesCount) {
+				return usernamesWithUnviewedMessagesCount;
 			} else {
 				const error: Array<Error> = [
 					new Error(
-						'Failed to get the usernames with unviewed messages'
+						'Failed to get the usernames with unviewed messages count'
 					)
 				];
 				throw error;

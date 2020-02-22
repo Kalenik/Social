@@ -42,7 +42,7 @@ const LastMessageList: React.FC<ILastMessageListProps> = ({
 					username,
 					profileImgSrc,
 					lastMessage: { messageText, updated },
-					isViewed,
+					unviewedCount,
 					isYour
 				}) => (
 					<LastMessageItem
@@ -50,7 +50,7 @@ const LastMessageList: React.FC<ILastMessageListProps> = ({
 						username={username}
 						profileImgSrc={profileImgSrc}
 						messageText={messageText}
-						isViewed={isViewed}
+						unviewedCount={unviewedCount}
 						isYour={isYour}
 						updated={updated}
 						goToUserMessages={goToUserMessages}

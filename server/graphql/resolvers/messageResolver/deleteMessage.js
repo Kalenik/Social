@@ -27,9 +27,15 @@ const deleteMessage = async (args, { req, res, io, userSocketIds }) => {
 			$and: [{ from: req.userId }, { to: receiverUser._id }]
 		});
 
-		const indexOfDeletingMessage = messagesFromYou.messages.findIndex(
-			m => m._id == args.messageId
-		);
+		let deletingMessageIsViewed;
+
+		const indexOfDeletingMessage = messagesFromYou.messages.findIndex(m => {
+			if (m._id == args.messageId) {
+				deletingMessageIsViewed = m.isViewed;
+				return true;
+			}
+			return false;
+		});
 
 		if (indexOfDeletingMessage === -1) {
 			throw new HttpError(400, "Can't delete this message");
@@ -46,6 +52,16 @@ const deleteMessage = async (args, { req, res, io, userSocketIds }) => {
 			senderName: senderUser.username
 		});
 
+		if (!deletingMessageIsViewed) {
+			io.to(receiverSocketId).emit(
+				'username_deleted_unviewed_message',
+				senderUser.username
+			);
+			io.to(receiverSocketId).emit(
+				'senderName_deleted_unviewed_message',
+				senderUser.username
+			);
+		}
 		return true;
 	} catch (error) {
 		log.error(error);

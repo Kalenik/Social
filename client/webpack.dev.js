@@ -12,6 +12,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = merge(common, {
 	mode: 'development',
 
+	devtool: 'cheap-inline-module-source-map',
+
 	module: {
 		rules: [
 			{
@@ -43,18 +45,6 @@ module.exports = merge(common, {
 				]
 			}
 		]
-	},
-
-	devtool: 'cheap-inline-module-source-map',
-
-	devServer: {
-		host: 'localhost',
-		port: 3001,
-		contentBase: path.resolve(__dirname, '../dist'),
-		inline: true,
-		hot: true,
-		historyApiFallback: true,
-		open: true
 	},
 
 	plugins: [

@@ -1,15 +1,18 @@
+import IUsernamesWithUnviewedMessagesCount from '@interfaces/IUsernamesWithUnviewedMessagesCount';
 import { createContext } from 'react';
 
 export interface IMessageContext {
-	usernamesWithUnviewedMessages: Array<string>;
-	setUsernamesWithUnviewedMessages: React.Dispatch<
-		React.SetStateAction<string[]>
+	usernamesWithUnviewedMessagesCount: Array<
+		IUsernamesWithUnviewedMessagesCount
+	>;
+	setUsernamesWithUnviewedMessagesCount: React.Dispatch<
+		React.SetStateAction<IUsernamesWithUnviewedMessagesCount[]>
 	>;
 }
 
 const defaultContext = {
-	usernamesWithUnviewedMessages: [],
-	setUsernamesWithUnviewedMessages: (): void => {}
+	usernamesWithUnviewedMessagesCount: [],
+	setUsernamesWithUnviewedMessagesCount: (): void => {}
 };
 
 export default createContext<IMessageContext>(defaultContext);

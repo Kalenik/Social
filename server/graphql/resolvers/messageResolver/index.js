@@ -3,7 +3,7 @@ const lastMessagesData = require('./lastMessagesData'),
 	sendMessage = require('./sendMessage'),
 	editMessage = require('./editMessage'),
 	deleteMessage = require('./deleteMessage'),
-	usernamesWithUnviewedMessages = require('./usernamesWithUnviewedMessages'),
+	usernamesWithUnviewedMessagesCount = require('./usernamesWithUnviewedMessagesCount'),
 	messagesViewed = require('./messagesViewed');
 
 module.exports = {
@@ -12,6 +12,6 @@ module.exports = {
 	sendMessage,
 	editMessage,
 	deleteMessage,
-	usernamesWithUnviewedMessages,
+	usernamesWithUnviewedMessagesCount,
 	messagesViewed
 };

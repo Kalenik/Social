@@ -1,12 +1,13 @@
 const config = require('config'),
-	PORT = process.env.PORT || 5000,
+	PORT = process.env.PORT || 8080,
 	NODE_ENV = process.env.NODE_ENV,
 	express = require('express'),
 	http = require('http'),
 	app = express(),
 	server = http.createServer(app),
 	io = require('socket.io')(server, {
-		pingTimeout: 30000
+		pingTimeout: 30000,
+		cookie: false
 	}),
 	socketManager = require('./socket/socketManager'),
 	bodyParser = require('body-parser'),
@@ -14,6 +15,7 @@ const config = require('config'),
 	graphqlHttp = require('express-graphql'),
 	mongoose = require('mongoose'),
 	fileUpload = require('express-fileupload'),
+	path = require('path'),
 	graphQlSchema = require('./graphql/schema'),
 	graphQlResolvers = require('./graphql/resolvers'),
 	handleGraphqlError = require('./middleware/handleGraphqlError'),
@@ -23,12 +25,22 @@ const config = require('config'),
 	file = require('./routes/file');
 
 app.use((req, res, next) => {
-	res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+	const allowedOrigins = [
+			'https://well.netlify.com',
+			'http://localhost:3001'
+		],
+		origin = req.headers.origin;
+
+	if (allowedOrigins.indexOf(origin) !== -1) {
+		res.setHeader('Access-Control-Allow-Origin', origin);
+	}
+
 	res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE');
 	res.header(
 		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie'
 	);
+	res.header('Access-Control-Expose-Headers', 'Set-Cookie');
 	res.header('Access-Control-Allow-Credentials', true);
 
 	if (req.method === 'OPTIONS') {
@@ -40,14 +52,10 @@ app.use((req, res, next) => {
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-app.use(handleGraphqlError);
-
-app.use(isAuth);
-
 app.use(fileUpload());
 
-app.use('/file', file);
+app.use(handleGraphqlError);
+app.use(isAuth);
 
 app.use(
 	'/graphql',
@@ -73,7 +81,25 @@ app.use(
 	}))
 );
 
-app.use(express.static(__dirname + '/static'));
+app.use('/file', file);
+
+app.use(
+	'/images',
+	express.static(
+		path.join(
+			__dirname,
+			NODE_ENV === 'development'
+				? '/downloads/development/images'
+				: '/downloads/images'
+		)
+	)
+);
+
+app.use(express.static(path.join(__dirname, 'public'))); // public folder will be created by webpack client
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 app.use((err, req, res, next) => {
 	res.status(err.status ? err.status : 500);
@@ -114,7 +140,9 @@ mongoose
 		}
 	)
 	.then(() => {
-		server.listen(PORT, () => log.info(`Server started on port ${PORT}`));
+		server.listen(PORT, () =>
+			log.info(`Server(${NODE_ENV}) started on port ${PORT}`)
+		);
 		socketManager(io, userSocketIds);
 	})
 	.catch(err => log.error(err));

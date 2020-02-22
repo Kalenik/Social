@@ -3,8 +3,9 @@ import AuthContext from '@contexts/authContext';
 import MessagesContext from '@contexts/messageContext';
 import SocketContext from '@contexts/socketContext';
 import IMessageNotice from '@interfaces/IMessageNotice';
-import getUsernamesWithUnviewedMessages from '@services/MessageService/getUsernamesWithUnviewedMessages';
+import IUsernamesWithUnviewedMessagesCount from '@interfaces/IUsernamesWithUnviewedMessagesCount';
 import setMessagesViewed from '@services/MessageService/setMessagesViewed';
+import getUsernamesWithUnviewedMessagesCount from '@services/MessageService/usernamesWithUnviewedMessagesCount';
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
@@ -18,9 +19,9 @@ const MessageContextProvider: React.FC<IMessageContextProvider> = ({
 	const { token } = useContext(AuthContext),
 		{ socket } = useContext(SocketContext),
 		[
-			usernamesWithUnviewedMessages,
-			setUsernamesWithUnviewedMessages
-		] = useState<Array<string>>([]),
+			usernamesWithUnviewedMessagesCount,
+			setUsernamesWithUnviewedMessagesCount
+		] = useState<Array<IUsernamesWithUnviewedMessagesCount>>([]),
 		[messageNoticeList, setMessageNoticeList] = useState<
 			Array<IMessageNotice>
 		>([]),
@@ -37,15 +38,32 @@ const MessageContextProvider: React.FC<IMessageContextProvider> = ({
 	const deleteFromUsernamesWithUnviewedMessages = (
 		deletedUsername: string
 	): void =>
-		setUsernamesWithUnviewedMessages(usernames =>
-			usernames.filter(username => username !== deletedUsername)
+		setUsernamesWithUnviewedMessagesCount(
+			prevUsernamesWithUnviewedMessagesCount =>
+				prevUsernamesWithUnviewedMessagesCount.filter(
+					({ username }) => username !== deletedUsername
+				)
 		);
 
 	const addToUsernamesWithUnviewedMessages = (newUsername: string): void =>
-		setUsernamesWithUnviewedMessages(usernames =>
-			usernames.indexOf(newUsername) === -1
-				? [...usernames, newUsername]
-				: usernames
+		setUsernamesWithUnviewedMessagesCount(
+			prevUsernamesWithUnviewedMessagesCount =>
+				prevUsernamesWithUnviewedMessagesCount.find(
+					({ username }) => username === newUsername
+				)
+					? prevUsernamesWithUnviewedMessagesCount.map(
+							({ username, unviewedCount }) =>
+								username === newUsername
+									? {
+											username,
+											unviewedCount: unviewedCount + 1
+									  }
+									: { username, unviewedCount }
+					  )
+					: [
+							...prevUsernamesWithUnviewedMessagesCount,
+							{ username: newUsername, unviewedCount: 1 }
+					  ]
 		);
 
 	const messagesViewedHandler = (chattingUsername: string): void => {
@@ -58,10 +76,18 @@ const MessageContextProvider: React.FC<IMessageContextProvider> = ({
 
 	useEffect(() => {
 		if (token) {
-			getUsernamesWithUnviewedMessages(token)
-				.then((usernames: Array<string>) => {
-					setUsernamesWithUnviewedMessages(usernames);
-				})
+			getUsernamesWithUnviewedMessagesCount(token)
+				.then(
+					(
+						usernamesWithUnviewedMessagesCount: Array<
+							IUsernamesWithUnviewedMessagesCount
+						>
+					) => {
+						setUsernamesWithUnviewedMessagesCount(
+							usernamesWithUnviewedMessagesCount
+						);
+					}
+				)
 				.catch(err => console.log(err));
 		}
 	}, [token]);
@@ -70,7 +96,9 @@ const MessageContextProvider: React.FC<IMessageContextProvider> = ({
 		if (
 			isUserMessagesPage &&
 			chattingUsername &&
-			usernamesWithUnviewedMessages.indexOf(chattingUsername) !== -1
+			usernamesWithUnviewedMessagesCount.find(
+				({ username }) => username === chattingUsername
+			)
 		) {
 			messagesViewedHandler(chattingUsername);
 		}
@@ -94,11 +122,44 @@ const MessageContextProvider: React.FC<IMessageContextProvider> = ({
 		};
 	}, [isUserMessagesPage, chattingUsername]);
 
+	useEffect(() => {
+		socket!.on('username_deleted_unviewed_message', (senderName: string) =>
+			setUsernamesWithUnviewedMessagesCount(
+				prevUsernamesWithUnviewedMessagesCount => {
+					const usernameWithUnviewedMessagesCount = prevUsernamesWithUnviewedMessagesCount.find(
+						({ username }) => username === senderName
+					);
+
+					return usernameWithUnviewedMessagesCount
+						? usernameWithUnviewedMessagesCount.unviewedCount === 1
+							? prevUsernamesWithUnviewedMessagesCount.filter(
+									({ username }) => username !== senderName
+							  )
+							: prevUsernamesWithUnviewedMessagesCount.map(
+									({ username, unviewedCount }) =>
+										username === senderName
+											? {
+													username,
+													unviewedCount:
+														unviewedCount - 1
+											  }
+											: { username, unviewedCount }
+							  )
+						: prevUsernamesWithUnviewedMessagesCount;
+				}
+			)
+		);
+
+		return () => {
+			socket!.removeListener('username_deleted_unviewed_message');
+		};
+	}, []);
+
 	return (
 		<MessagesContext.Provider
 			value={{
-				usernamesWithUnviewedMessages,
-				setUsernamesWithUnviewedMessages
+				usernamesWithUnviewedMessagesCount,
+				setUsernamesWithUnviewedMessagesCount
 			}}
 		>
 			{children}

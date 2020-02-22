@@ -1,12 +1,13 @@
 {
 	"name": "starter-server",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "well social network",
+	"main": "app.js",
 	"scripts": {
-		"install": "npm install",
-		"start": "nodemon app.js",
-		"build": "rimraf ../dist/server/ && mkdir -p ../dist/server/ && rsync -r ./* ../dist/server --exclude='node_modules' --exclude='package-lock.json'"
+		"start": "node app.js",
+		"start:dev": "NODE_ENV=development nodemon app.js",
+		"start:prod": "NODE_ENV=production nodemon app.js",
+		"build": "rimraf ../dist/ && mkdir -p ../dist/ && rsync -r ./* ../dist --exclude='node_modules' --exclude='nodemon.json' --exclude='error.log' --exclude='downloads/development'"
 	},
 	"author": "Kalenik Pavel",
 	"license": "ISC",
@@ -27,5 +28,8 @@
 	"devDependencies": {
 		"nodemon": "^1.19.4",
 		"rimraf": "^3.0.1"
+	},
+	"engines": {
+		"node": "12.x"
 	}
 }

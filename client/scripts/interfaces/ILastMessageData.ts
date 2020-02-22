@@ -5,5 +5,5 @@ export default interface ILastMessageData {
 	from?: IUser;
 	to?: IUser;
 	lastMessage: IMessage;
-	isViewed: boolean;
+	unviewedCount: number;
 }

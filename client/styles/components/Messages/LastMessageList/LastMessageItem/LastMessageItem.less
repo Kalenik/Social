@@ -1,4 +1,7 @@
+@import './LastMessageItemUnviewedCountBadge.less';
+
 .last-message-item {
+	position: relative;
 	display: grid;
 	grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
 	grid-column-gap: 1rem;
@@ -11,39 +14,6 @@
 	transition: 0.5s ease-in-out;
 	cursor: pointer;
 	outline: none;
-
-	&_unviewed,
-	&_your-unviewed {
-		position: relative;
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			right: 0;
-			transform: translate(50%, -50%);
-			display: block;
-			width: 1rem;
-			height: 1rem;
-			border-radius: 50%;
-		}
-	}
-
-	&_unviewed {
-		&::after {
-			background-color: shade(@accentColor, 50%);
-			border: 1px solid fade(@accentColor, 50%);
-			box-shadow: 0 0 10px fade(@accentColor, 50%);
-		}
-	}
-
-	&_your-unviewed {
-		&::after {
-			background-color: shade(#fff, 50%);
-			border: 1px solid fade(#fff, 50%);
-			box-shadow: 0 0 10px fade(#fff, 50%);
-		}
-	}
 
 	&:hover,
 	&:focus {

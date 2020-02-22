@@ -12,8 +12,10 @@ const Navbar: React.FC = () => {
 			authUser: { username },
 			logout
 		} = useContext<IAuthContext>(AuthContext),
-		{ usernamesWithUnviewedMessages } = useContext(MessagesContext),
-		unviewedMessagesCount = usernamesWithUnviewedMessages.length;
+		{ usernamesWithUnviewedMessagesCount } = useContext(MessagesContext),
+		unviewedMessagesCount = usernamesWithUnviewedMessagesCount
+			.map(({ unviewedCount }) => unviewedCount)
+			.reduce((acc, v) => acc + v, 0);
 
 	const hamburgerMenuButtonHandler = (): void =>
 		setMobileMenu(!isMobileMenuOpen);
@@ -30,7 +32,7 @@ const Navbar: React.FC = () => {
 					onClick={closeMobileMenu}
 					tabIndex={0}
 				>
-					<NavItemText text={username || 'Social'} />
+					<NavItemText text={username || 'Well'} />
 				</NavLink>
 				<div
 					className={

@@ -48,7 +48,8 @@ const LastMessagesPage: React.FC = () => {
 
 							let lastMessage =
 									lastMessageDataFromYou.lastMessage,
-								isViewed = lastMessageDataFromYou.isViewed,
+								unviewedCount =
+									lastMessageDataFromYou.unviewedCount,
 								isYour = true;
 
 							const lastMessageDataToYou = lastMessagesDataToYou.find(
@@ -68,7 +69,8 @@ const LastMessagesPage: React.FC = () => {
 									)
 							) {
 								lastMessage = lastMessageDataToYou.lastMessage;
-								isViewed = lastMessageDataToYou.isViewed;
+								unviewedCount =
+									lastMessageDataToYou.unviewedCount;
 								isYour = false;
 							}
 
@@ -76,7 +78,7 @@ const LastMessagesPage: React.FC = () => {
 								username,
 								profileImgSrc,
 								lastMessage,
-								isViewed,
+								unviewedCount,
 								isYour
 							};
 						}
@@ -95,7 +97,8 @@ const LastMessagesPage: React.FC = () => {
 								profileImgSrc:
 									lastMessageDataToYou.from?.profileImgSrc,
 								lastMessage: lastMessageDataToYou.lastMessage,
-								isViewed: lastMessageDataToYou.isViewed,
+								unviewedCount:
+									lastMessageDataToYou.unviewedCount,
 								isYour: false
 							});
 						}
@@ -121,20 +124,41 @@ const LastMessagesPage: React.FC = () => {
 		socket!.on(
 			'new_message_item_data',
 			(newMessageItemData: IMessageItemData) =>
-				setLastMessageListData(prevLastMessageListData => [
-					{
-						username: newMessageItemData.username,
-						profileImgSrc: newMessageItemData.profileImgSrc,
-						lastMessage: newMessageItemData.message,
-						isViewed: false,
-						isYour: false
-					},
-					...prevLastMessageListData.filter(
-						lastMessageItemData =>
-							lastMessageItemData.username !==
-							newMessageItemData.username
-					)
-				])
+				setLastMessageListData(prevLastMessageListData => {
+					const prevLastMessageItemData = prevLastMessageListData.find(
+						({ username }) =>
+							username === newMessageItemData.username
+					);
+
+					return prevLastMessageItemData
+						? [
+								{
+									username: newMessageItemData.username,
+									profileImgSrc:
+										newMessageItemData.profileImgSrc,
+									lastMessage: newMessageItemData.message,
+									unviewedCount:
+										prevLastMessageItemData.unviewedCount +
+										1,
+									isYour: false
+								},
+								...prevLastMessageListData.filter(
+									({ username }) =>
+										username !== newMessageItemData.username
+								)
+						  ]
+						: [
+								{
+									username: newMessageItemData.username,
+									profileImgSrc:
+										newMessageItemData.profileImgSrc,
+									lastMessage: newMessageItemData.message,
+									unviewedCount: 1,
+									isYour: false
+								},
+								...prevLastMessageListData
+						  ];
+				})
 		);
 
 		return () => {
@@ -148,10 +172,9 @@ const LastMessagesPage: React.FC = () => {
 			({ senderName, deletedMessageId }: IDeletedMessageData) => {
 				if (
 					lastMessageListData.some(
-						lastMessageItemData =>
-							lastMessageItemData.username === senderName &&
-							lastMessageItemData.lastMessage._id ===
-								deletedMessageId
+						({ username, lastMessage }) =>
+							username === senderName &&
+							lastMessage._id === deletedMessageId
 					)
 				) {
 					getLastMessagesData();
@@ -186,20 +209,39 @@ const LastMessagesPage: React.FC = () => {
 			}
 		);
 
-		socket!.on('username_viewed_your_messages', (username: string) => {
+		socket!.on('username_viewed_your_messages', (username: string) =>
 			setLastMessageListData(prevLastMessageListData =>
 				prevLastMessageListData.map(lastMessageItemData =>
 					lastMessageItemData.username === username
-						? { ...lastMessageItemData, isViewed: true }
+						? { ...lastMessageItemData, unviewedCount: 0 }
 						: lastMessageItemData
 				)
-			);
-		});
+			)
+		);
+
+		socket!.on(
+			'senderName_deleted_unviewed_message',
+			(senderName: string) => {
+				setLastMessageListData(prevLastMessageListData =>
+					prevLastMessageListData.map(lastMessageItemData =>
+						lastMessageItemData.username === senderName &&
+						lastMessageItemData.unviewedCount > 0
+							? {
+									...lastMessageItemData,
+									unviewedCount:
+										lastMessageItemData.unviewedCount - 1
+							  }
+							: lastMessageItemData
+					)
+				);
+			}
+		);
 
 		return () => {
 			socket!.removeListener('deleted_message_data');
 			socket!.removeListener('updated_message_item_data');
 			socket!.removeListener('username_viewed_your_messages');
+			socket!.removeListener('senderName_deleted_unviewed_message');
 		};
 	}, [lastMessageListData]);
 

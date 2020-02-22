@@ -11,7 +11,10 @@ const deleteRefreshToken = (args, { req, res }) => {
 			throw new HttpError(401);
 		}
 
-		res.clearCookie('jid');
+		res.clearCookie('jid', {
+			secure: process.env.NODE_ENV === 'production', // send only on https
+			sameSite: 'Strict'
+		});
 
 		return true;
 	} catch (error) {

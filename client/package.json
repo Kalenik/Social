@@ -1,13 +1,14 @@
 {
 	"name": "starter-client",
 	"version": "1.0.0",
-	"description": "",
+	"description": "well social network",
 	"main": "index.js",
 	"scripts": {
-		"install": "npm install",
 		"start": "webpack-dev-server --config webpack.dev.js",
-		"build:stats": "rimraf  ../dist/client/ && webpack --profile --json --config webpack.prod.js > ../dist/stats.json",
-		"build:prod": "rimraf  ../dist/client/ && webpack --config webpack.prod.js"
+		"start:dev": "webpack-dev-server --config webpack.dev.js",
+		"start:prod": "webpack-dev-server --config webpack.prod.js",
+		"build:stats": "webpack --profile --json --config webpack.prod.js > ../dist/stats.json",
+		"build:prod": "rimraf  ../dist/public/ && webpack --config webpack.prod.js"
 	},
 	"author": "Kalenik Pavel",
 	"license": "ISC",

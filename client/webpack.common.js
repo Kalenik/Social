@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const DIST_DIR = path.resolve(__dirname, '../dist/client');
+const DIST_DIR = path.resolve(__dirname, '../dist/public');
 const SRC_DIR = __dirname;
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
-				vendor: {
+				reactVendor: {
 					test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
 					name: 'react-vendor',
 					chunks: 'all'
@@ -67,6 +67,16 @@ module.exports = {
 				exclude: /node_modules/
 			}
 		]
+	},
+
+	devServer: {
+		host: 'localhost',
+		port: 3001,
+		contentBase: path.resolve(__dirname, '../dist'),
+		inline: true,
+		hot: true,
+		historyApiFallback: true,
+		open: true
 	},
 
 	plugins: [

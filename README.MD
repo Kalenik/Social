@@ -1,4 +1,4 @@
-# Social
+# Well
 
 Social network in which you can:
 
@@ -7,6 +7,7 @@ Social network in which you can:
 -   Save other users' posts
 -   Make friends, follow, unfollow users
 -   Send, edit, delete messages
+-   See unread messages to you and from you, message notifications
 
 ## Technologies
 
@@ -18,12 +19,17 @@ Supports the development and the production environments.
 
 JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-graphql/).
 
+## Deployed
+
+Server: https://server-well.herokuapp.com
+Client: https://well.netlify.com
+
 ## Usage
 
 From the root folder, install the dependencies
 
 ```sh
-$ npm run install
+$ npm run install:all
 ```
 
 Or from client and server folders
@@ -34,18 +40,32 @@ $ npm install
 
 For server you need provide: mongo.db, mongo.user, mongo.password, jwt.accessToken, jwt.refreshToken.
 
-To run the server
+To run the server in development mode
 
 ```sh
-$ npm run start:server
+$ npm run start:server:dev
 ```
 
-To run the client
+To run the client in development mode
 
 ```sh
-$ npm run start:client
+$ npm run start:client:dev
 ```
 
+To run the server in production mode
+
+```sh
+$ npm run start:server:prod
+```
+
+To run the client in production mode
+
+```sh
+$ npm run start:client:prod
+```
+
+Urls for start:
+Server: http://localhost:8080
 Client: http://localhost:3001
 
 To build App for production
