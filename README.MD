@@ -1,4 +1,4 @@
-# Well
+# Innet
 
 Social network in which you can:
 
@@ -7,7 +7,7 @@ Social network in which you can:
 -   Save other users' posts
 -   Make friends, follow, unfollow users
 -   Send, edit, delete messages
--   See unread messages to you and from you, message notifications
+-   See count of unread messages to you and from you, message notifications
 
 ## Technologies
 
@@ -21,8 +21,7 @@ JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-grap
 
 ## Deployed
 
-Server: https://server-well.herokuapp.com
-Client: https://well.netlify.com
+https://innet.herokuapp.com/
 
 ## Usage
 

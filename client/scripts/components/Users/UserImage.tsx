@@ -1,5 +1,4 @@
 import Image from '@components/Image';
-import Config from '@config';
 import React, { useEffect, useState } from 'react';
 
 interface IUserImageProps {
@@ -16,13 +15,11 @@ const UserImage: React.FC<IUserImageProps> = ({
 	className = 'user-image'
 }) => {
 	const [imageSrc, setImageSrc] = useState(
-		src ? Config.host + src : require('@images/user.svg')
+		src || require('@images/user.svg')
 	);
 
 	useEffect(() => {
-		setImageSrc(() =>
-			src ? Config.host + src : require('@images/user.svg')
-		);
+		setImageSrc(() => src || require('@images/user.svg'));
 	}, [src]);
 
 	const handleError = () => setImageSrc(() => require('@images/user.svg'));

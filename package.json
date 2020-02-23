@@ -1,7 +1,7 @@
 {
 	"name": "starter",
 	"version": "1.0.0",
-	"description": "well social network",
+	"description": "innet social network",
 	"scripts": {
 		"install:client": "cd ./client && npm install",
 		"install:server": "cd ./server && npm install",

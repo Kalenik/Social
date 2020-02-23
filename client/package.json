@@ -1,7 +1,7 @@
 {
 	"name": "starter-client",
 	"version": "1.0.0",
-	"description": "well social network",
+	"description": "innet social network",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server --config webpack.dev.js",

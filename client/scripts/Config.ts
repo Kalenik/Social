@@ -1,4 +1,4 @@
-const host = 'http://localhost:8080'; //https://server-well.herokuapp.com
+const host = 'http://localhost:8080'; //https://innet.herokuapp.com
 
 export default {
 	host,

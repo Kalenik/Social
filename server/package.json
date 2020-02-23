@@ -1,23 +1,23 @@
 {
 	"name": "starter-server",
 	"version": "1.0.0",
-	"description": "well social network",
+	"description": "innet social network",
 	"main": "app.js",
 	"scripts": {
 		"start": "node app.js",
 		"start:dev": "NODE_ENV=development nodemon app.js",
 		"start:prod": "NODE_ENV=production nodemon app.js",
-		"build": "rimraf ../dist/ && mkdir -p ../dist/ && rsync -r ./* ../dist --exclude='node_modules' --exclude='nodemon.json' --exclude='error.log' --exclude='downloads/development'"
+		"build": "rimraf ../dist/ && mkdir -p ../dist/ && rsync -r ./* ../dist --exclude='node_modules' --exclude='nodemon.json' --exclude='error.log'"
 	},
 	"author": "Kalenik Pavel",
 	"license": "ISC",
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
+		"cloudinary": "^1.19.0",
 		"config": "^3.2.5",
 		"cookie-parser": "^1.4.4",
 		"express": "^4.17.1",
-		"express-fileupload": "^1.1.6",
 		"express-graphql": "^0.9.0",
 		"graphql": "^14.6.0",
 		"jsonwebtoken": "^8.5.1",

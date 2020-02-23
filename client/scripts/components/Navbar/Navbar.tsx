@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
 					onClick={closeMobileMenu}
 					tabIndex={0}
 				>
-					<NavItemText text={username || 'Well'} />
+					<NavItemText text={username || 'Innet'} />
 				</NavLink>
 				<div
 					className={

@@ -3,7 +3,7 @@ import processJSON from '@services/HttpService/base/processJSON';
 import baseDelete from '@services/HttpService/baseMethods/baseDelete';
 
 export default function deleteAvatar(token: string) {
-	return baseDelete(Config.host + '/file/delete', {}, token)
+	return baseDelete(Config.host + '/avatar/delete', {}, token)
 		.then(processJSON)
 		.then(isDeleted => {
 			if (isDeleted) {

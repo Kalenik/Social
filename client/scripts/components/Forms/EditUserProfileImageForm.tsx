@@ -12,7 +12,6 @@ import {
 import { setUserActionCreator } from '@reducers/UserReducer/UserActionCreators';
 import userServiceDeleteAvatar from '@services/UserService/deleteAvatar';
 import uploadAvatar from '@services/UserService/uploadAvatar';
-import dataURLToFile from '@utils/dataURLToFile';
 import React, { useContext, useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import ImageEditor from '../ImageEditor';
@@ -31,16 +30,9 @@ const EditUserProfileImageForm: React.FC = () => {
 	const closeImageEditor = (): void => setAvatarImage(null);
 
 	const handleEditing = (imageEditor: AvatarEditor): void => {
-		const formData = new FormData();
-
-		formData.append(
-			'avatarImg',
-			dataURLToFile(imageEditor.getImageScaledToCanvas().toDataURL())
-		);
-
 		setLoading(true);
 
-		uploadAvatar(token, formData)
+		uploadAvatar(token, imageEditor.getImageScaledToCanvas().toDataURL())
 			.then((profileImgSrc: string) => {
 				authUserDispatch(setUserActionCreator({ profileImgSrc }));
 

@@ -14,15 +14,15 @@ const config = require('config'),
 	cookieParser = require('cookie-parser'),
 	graphqlHttp = require('express-graphql'),
 	mongoose = require('mongoose'),
-	fileUpload = require('express-fileupload'),
 	path = require('path'),
 	graphQlSchema = require('./graphql/schema'),
 	graphQlResolvers = require('./graphql/resolvers'),
-	handleGraphqlError = require('./middleware/handleGraphqlError'),
 	isAuth = require('./middleware/is-auth'),
+	handleGraphqlError = require('./middleware/handleGraphqlError'),
+	setCloudinary = require('./middleware/setCloudinary'),
 	log = require('./helpers/logger/log')(module.filename),
 	userSocketIds = {},
-	file = require('./routes/file');
+	avatar = require('./routes/avatar');
 
 app.use((req, res, next) => {
 	const allowedOrigins = [
@@ -51,11 +51,11 @@ app.use((req, res, next) => {
 });
 
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(fileUpload());
+app.use(bodyParser.json({ limit: 1024 * 1024 * 1 }));
 
-app.use(handleGraphqlError);
 app.use(isAuth);
+app.use(handleGraphqlError);
+app.use(setCloudinary);
 
 app.use(
 	'/graphql',
@@ -81,19 +81,7 @@ app.use(
 	}))
 );
 
-app.use('/file', file);
-
-app.use(
-	'/images',
-	express.static(
-		path.join(
-			__dirname,
-			NODE_ENV === 'development'
-				? '/downloads/development/images'
-				: '/downloads/images'
-		)
-	)
-);
+app.use('/avatar', avatar);
 
 app.use(express.static(path.join(__dirname, 'public'))); // public folder will be created by webpack client
 

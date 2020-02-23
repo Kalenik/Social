@@ -1,15 +1,13 @@
 import Config from '@config';
-import processJSON from '@services/HttpService/base/processJSON';
-import basePost from '@services/HttpService/baseMethods/basePost';
+import postJSON from '@services/HttpService/jsonMethods/postJSON';
 
-export default function uploadAvatar(token: string, formData: FormData) {
+export default function uploadAvatar(token: string, avatarImgDataURL: string) {
 	const options = {
-		body: formData
+		body: JSON.stringify({ avatarImgDataURL: avatarImgDataURL })
 	};
 
-	return basePost(Config.host + '/file/upload', options, token)
-		.then(processJSON)
-		.then(({ profileImgSrc }) => {
+	return postJSON(Config.host + '/avatar/upload', options, token).then(
+		({ profileImgSrc }) => {
 			if (profileImgSrc) {
 				return profileImgSrc;
 			} else {
@@ -18,5 +16,6 @@ export default function uploadAvatar(token: string, formData: FormData) {
 				];
 				throw error;
 			}
-		});
+		}
+	);
 }

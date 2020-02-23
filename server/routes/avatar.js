@@ -1,16 +1,12 @@
-const express = require('express'),
+const config = require('config'),
+	express = require('express'),
 	router = express.Router(),
-	fs = require('fs'),
-	{ promisify } = require('util'),
+	getMimeStringFromDataURL = require('../utils/getMimeStringFromDataURL'),
+	getPublicIdFromUrl = require('../utils/getPublicIdFromUrl'),
 	User = require('../models/user'),
 	log = require('../helpers/logger/log')(module.filename),
-	HttpError = require('../error/HttpError');
-
-const deleteFile = path => {
-	if (fs.existsSync(path)) {
-		fs.unlinkSync(path);
-	}
-};
+	HttpError = require('../error/HttpError'),
+	avatarsFolder = config.get('cloudinary.avatarsFolder');
 
 router.post('/upload', async (req, res, next) => {
 	try {
@@ -24,42 +20,33 @@ router.post('/upload', async (req, res, next) => {
 			throw new HttpError(404, "Can't update nonexistent User");
 		}
 
-		if (!req.files || Object.keys(req.files).length === 0) {
-			throw new HttpError(400, 'No files were uploaded');
-		}
-
-		user.profileImgSrc &&
-			deleteFile(`${__dirname}/../static${user.profileImgSrc}`);
-
-		const avatarImg = req.files.avatarImg;
-
-		const uploadFile = promisify(avatarImg.mv);
+		const avatarImgDataURL = req.body.avatarImgDataURL;
 
 		if (
-			!['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'].includes(
-				avatarImg.mimetype
-			)
+			['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml'].indexOf(
+				getMimeStringFromDataURL(avatarImgDataURL)
+			) === -1
 		) {
 			throw new HttpError(400, 'Only images are allowed');
 		}
 
-		if (avatarImg.size > 1 * 1024 * 1024) {
+		if (avatarImgDataURL.size > 1 * 1024 * 1024) {
 			throw new HttpError(400, 'File must be less than 1MB');
 		}
 
-		const avatarImageName = `${
-			user._id
-		}_${Date.now()}.${avatarImg.mimetype.split('/').pop()}`;
+		if (user.profileImgSrc) {
+			await req.deleteFileFromCloudinary(
+				getPublicIdFromUrl(user.profileImgSrc, avatarsFolder)
+			);
+		}
 
-		await uploadFile(
-			`${__dirname}/../downloads/${
-				process.env.NODE_ENV === 'development'
-					? 'development/images'
-					: 'images'
-			}/avatars/${avatarImageName}`
+		const rezultOfUploadImg = await req.uploadFileToCloudinary(
+			avatarImgDataURL,
+			`${user._id}_${Date.now()}`,
+			avatarsFolder
 		);
 
-		user.profileImgSrc = `/images/avatars/${avatarImageName}`;
+		user.profileImgSrc = rezultOfUploadImg.url;
 
 		const rezultOfUserSave = await user.save();
 
@@ -88,7 +75,9 @@ router.delete('/delete', async (req, res, next) => {
 			throw new HttpError(400, "You don't have Avatar");
 		}
 
-		deleteFile(`${__dirname}/../static${user.profileImgSrc}`);
+		await req.deleteFileFromCloudinary(
+			getPublicIdFromUrl(user.profileImgSrc, avatarsFolder)
+		);
 
 		user.profileImgSrc = '';
 

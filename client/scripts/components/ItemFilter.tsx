@@ -19,11 +19,19 @@ const ItemFilter: React.FC<IItemFilter> = ({
 	);
 
 	return (
-		<input
-			placeholder={placeholder || 'Search...'}
-			onChange={onChangeHandler}
-			className={className ? `item-filter ${className}` : 'item-filter'}
-		/>
+		<div
+			className={
+				className
+					? `item-filter__wrapper ${className}`
+					: 'item-filter__wrapper'
+			}
+		>
+			<input
+				placeholder={placeholder || 'Search...'}
+				onChange={onChangeHandler}
+				className='item-filter'
+			/>
+		</div>
 	);
 };
 
