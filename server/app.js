@@ -24,6 +24,14 @@ const config = require('config'),
 	userSocketIds = {},
 	avatar = require('./routes/avatar');
 
+if (NODE_ENV === 'production') {
+	app.use((req, res, next) => {
+		if (req.header('x-forwarded-proto') !== 'https')
+			res.redirect(`https://${req.header('host')}${req.url}`);
+		else next();
+	});
+}
+
 app.use((req, res, next) => {
 	const allowedOrigins = [
 			'https://well.netlify.com',
