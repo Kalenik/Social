@@ -2,11 +2,6 @@
   <a href="https://innet.herokuapp.com/">
     <img width="100%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582542751/innet/intro.png">
   </a>
-  <a href="https://innet.herokuapp.com/">
-    <img width="100%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582543652/innet/intromessages.png">
-  </a>
-  
-  <br>
 </div>
 
 # Innet
