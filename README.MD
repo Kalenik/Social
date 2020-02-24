@@ -23,9 +23,9 @@ Front-end: React + Typescript + Webpack + Less
 
 Supports the development and the production environments.
 
-Messages(Socket.io).
+Messages (Socket.io).
 
-JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-graphql/).
+JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-graphql).
 
 ## Deployed
 
