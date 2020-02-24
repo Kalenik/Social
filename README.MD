@@ -1,9 +1,9 @@
 <div align="center">
   <a href="https://innet.herokuapp.com/">
-    <img width="400" src="https://res.cloudinary.com/socialbalance/image/upload/v1582542751/innet/intro.png">
-  </a> 
+    <img width="50%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582542751/innet/intro.png">
+  </a>&nbsp;
   <a href="https://innet.herokuapp.com/">
-    <img width="400" src="https://res.cloudinary.com/socialbalance/image/upload/v1582543652/innet/intromessages.png">
+    <img width="50%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582543652/innet/intromessages.png">
   </a>
   
   <br>
