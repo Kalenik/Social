@@ -86,6 +86,8 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			});
 	};
 
+	const closeModalWithAnimation = () => setCloseModal(true);
+
 	const modalActions = token ? (
 		isYourPost ? (
 			<TrashCanButton onClick={deletePostHandler} />
@@ -93,7 +95,7 @@ const PostInfo: React.FC<IPostInfoProps> = ({
 			<HeartPlusButton onClick={likePostHandler} />
 		)
 	) : (
-		<XMarkButton onClick={modalCancelHandler} />
+		<XMarkButton onClick={closeModalWithAnimation} />
 	);
 
 	return (

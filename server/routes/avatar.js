@@ -46,7 +46,7 @@ router.post('/upload', async (req, res, next) => {
 			avatarsFolder
 		);
 
-		user.profileImgSrc = rezultOfUploadImg.url;
+		user.profileImgSrc = rezultOfUploadImg.secure_url;
 
 		const rezultOfUserSave = await user.save();
 

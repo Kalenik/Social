@@ -30,13 +30,14 @@
 		top: 0;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		padding: 0.7rem 2rem;
 		background-color: fade(@backgroundColor, 95%);
 
 		h1 {
+			flex: 1;
 			color: @accentColor;
-			word-break: break-all;
+			word-break: break-word;
+			word-wrap: break-word;
 			font-size: 1.3rem;
 			margin-top: 0.5rem;
 			margin-bottom: 0.5rem;
@@ -56,7 +57,7 @@
 	&__button {
 		width: 0.6rem;
 		height: 0.6rem;
-		margin-left: 0.5rem;
+		margin-left: 1rem;
 
 		&:hover,
 		&:focus {

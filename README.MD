@@ -1,3 +1,9 @@
+<div align="center">
+  <a href="https://innet.herokuapp.com/">
+    <img width="100%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582542751/innet/intro.png">
+  </a>
+</div>
+
 # Innet
 
 Social network in which you can:
@@ -7,21 +13,23 @@ Social network in which you can:
 -   Save other users' posts
 -   Make friends, follow, unfollow users
 -   Send, edit, delete messages
--   See count of unread messages to you and from you, message notifications
+-   See count of unread messages to you and from you, message notifications, other user is typing
 
 ## Technologies
 
-Back-end: GraphQL + NodeJs + Express + MongoDB
+Back-end: NodeJs + Express + GraphQL + MongoDB
 
-Front-end: React + Typescript + Less + Webpack
+Front-end: React + Typescript + Webpack + Less
 
 Supports the development and the production environments.
+
+Messages(Socket.io).
 
 JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-graphql/).
 
 ## Deployed
 
-https://innet.herokuapp.com/
+https://innet.herokuapp.com
 
 ## Usage
 
@@ -37,7 +45,13 @@ Or from client and server folders
 $ npm install
 ```
 
-For server you need provide: mongo.db, mongo.user, mongo.password, jwt.accessToken, jwt.refreshToken.
+For server you need provide config (https://github.com/lorenwest/node-config) with:
+
+-   mongo.db, mongo.user, mongo.password
+-   jwt.accessToken, jwt.refreshToken
+-   cloudinary.cloudName, cloudinary.apiKey, cloudinary.apiSecret, cloudinary.avatarsFolder
+
+For client you need provide config with host (e.g. "innet.herokuapp.com").
 
 To run the server in development mode
 

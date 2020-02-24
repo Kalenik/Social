@@ -43,8 +43,8 @@ export const passwordBaseValidationRules = {
 
 export const postTitleBaseValidationRules = {
 	maxLength: {
-		value: 40,
-		message: 'Max length is 40'
+		value: 50,
+		message: 'Max length is 50'
 	}
 };
 

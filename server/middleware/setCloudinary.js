@@ -1,5 +1,6 @@
 const config = require('config'),
-	cloudinary = require('cloudinary').v2;
+	cloudinary = require('cloudinary').v2,
+	HttpError = require('../error/HttpError');
 
 cloudinary.config({
 	cloud_name: config.get('cloudinary.cloudName'),
