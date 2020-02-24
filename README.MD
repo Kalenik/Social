@@ -78,8 +78,9 @@ $ npm run start:client:prod
 ```
 
 Urls for start:
-Server: http://localhost:8080
-Client: http://localhost:3001
+
+-   Server: http://localhost:8080
+-   Client: http://localhost:3001
 
 To build App for production
 
