@@ -41,6 +41,46 @@
 		}
 	}
 
+	&__image-wrapper,
+	&__image,
+	&__username-link {
+		outline: none;
+	}
+
+	&__image,
+	&__username-link {
+		cursor: pointer;
+		transition: 0.3s ease-in-out;
+	}
+
+	&__image-wrapper {
+		&:focus {
+			.user-item__image {
+				border: 1px solid fade(@accentColor, 90%);
+				box-shadow: 0 0 10px fade(@accentColor, 90%);
+			}
+		}
+	}
+
+	&__image {
+		padding: 0.2rem;
+
+		&:hover {
+			border: 1px solid fade(@accentColor, 90%);
+			box-shadow: 0 0 10px fade(@accentColor, 90%);
+		}
+	}
+
+	&__username-link {
+		color: darken(@accentColor, 10%);
+		font-style: normal;
+
+		&:hover,
+		&:focus {
+			color: @accentColor;
+		}
+	}
+
 	&__content {
 		margin-left: 1rem;
 		margin-right: 1rem;

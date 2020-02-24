@@ -5,6 +5,7 @@ import UserImage from '@components/Users/UserImage';
 import AuthContext from '@contexts/authContext';
 import IUser from '@interfaces/IUser';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 interface IUserItemProps {
 	user: IUser;
@@ -40,6 +41,10 @@ const UserItem: React.FC<IUserItemProps> = ({
 							? 'user-item__image-wrapper user-item__image-wrapper_online'
 							: 'user-item__image-wrapper'
 					}
+					onClick={goToUserPage.bind(null, user.username!)}
+					onKeyPress={goToUserPage.bind(null, user.username!)}
+					role='button'
+					tabIndex={0}
 				>
 					<UserImage
 						src={user.profileImgSrc}
@@ -50,7 +55,12 @@ const UserItem: React.FC<IUserItemProps> = ({
 				</div>
 
 				<div className='user-item__content'>
-					<p>{user.username}</p>
+					<Link
+						className='user-item__username-link'
+						to={`/user/${user.username}`}
+					>
+						{user.username}
+					</Link>
 					<p>{user.email}</p>
 				</div>
 			</div>
