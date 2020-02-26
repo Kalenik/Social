@@ -23,7 +23,7 @@ https://innet.herokuapp.com
 
 Back-end: NodeJs + Express + GraphQL + MongoDB
 
-Front-end: React + Typescript + Webpack + Less
+Front-end: React(Context API/Hooks) + Typescript + Webpack + Less
 
 Supports the development and the production environments.
 
