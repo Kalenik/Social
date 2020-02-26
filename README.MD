@@ -13,7 +13,11 @@ Social network in which you can:
 -   Save other users' posts
 -   Make friends, follow, unfollow users
 -   Send, edit, delete messages
--   See count of unread messages to you and from you, message notifications, other user is typing
+-   See count of unread messages to you and from you, message notifications, see that other user is typing to you
+
+## Deployed
+
+https://innet.herokuapp.com
 
 ## Technologies
 
@@ -26,10 +30,6 @@ Supports the development and the production environments.
 Messages (Socket.io).
 
 JWT Authentication (https://blog.hasura.io/best-practices-of-using-jwt-with-graphql).
-
-## Deployed
-
-https://innet.herokuapp.com
 
 ## Usage
 
