@@ -6,7 +6,7 @@
 
 # Innet
 
-Social network in which you can:
+Social network in which you can(<a href="https://www.linkedin.com/posts/pavelkalenik_socialnetwork-webdevelopment-webdesign-activity-6638114247496790016-0uYY">Video presentation</a>):
 
 -   Create and edit your account
 -   Create, edit, delete posts
@@ -14,6 +14,9 @@ Social network in which you can:
 -   Make friends, follow, unfollow users
 -   Send, edit, delete messages
 -   See count of unread messages to you and from you, message notifications, see that other user is typing to you
+
+https://www.linkedin.com/posts/pavelkalenik_socialnetwork-webdevelopment-webdesign-activity-6638114247496790016-0uYY
+video presentation
 
 ## Deployed
 
