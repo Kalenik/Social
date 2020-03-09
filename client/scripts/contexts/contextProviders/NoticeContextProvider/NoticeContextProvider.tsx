@@ -4,15 +4,13 @@ import noticesReducer from '@reducers/NoticesReducer/NoticesReducer';
 import React, { useReducer } from 'react';
 
 interface INoticeContextProvider {
-	children?: React.ReactNode;
+	children: React.ReactNode;
 }
 
 const NoticeContextProvider: React.FC<INoticeContextProvider> = ({
 	children
 }) => {
-	const [{ notices }, noticeContextDispatch] = useReducer(noticesReducer, {
-		notices: []
-	});
+	const [notices, noticeContextDispatch] = useReducer(noticesReducer, []);
 
 	return (
 		<NoticeContext.Provider value={noticeContextDispatch}>

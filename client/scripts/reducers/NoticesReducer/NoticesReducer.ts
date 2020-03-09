@@ -6,10 +6,6 @@ export type noticesReducerActionType =
 	| { type: 'AddNotices'; newNotices: Array<AppNotice> }
 	| { type: 'DeleteNotice'; noticeForDelete: AppNotice };
 
-type noticesReducerStateType = {
-	notices: Array<AppNotice>;
-};
-
 const addNotices = (
 	prevNotices: Array<AppNotice>,
 	newNotices: Array<AppNotice>
@@ -17,15 +13,11 @@ const addNotices = (
 	const resultNotiseList: Array<AppNotice> = [],
 		noticeMessages: { [key: string]: NoticeType } = {};
 
-	[...prevNotices, ...newNotices].forEach(notice => {
+	[...prevNotices, ...newNotices].forEach(({ message, type }) => {
 		// Notices can have the same message only if they have different type
-		if (
-			!noticeMessages[notice.message] ||
-			noticeMessages[notice.message] !== notice.type
-		) {
-			noticeMessages[notice.message] = notice.type;
-
-			resultNotiseList.push(notice);
+		if (!noticeMessages[message] || noticeMessages[message] !== type) {
+			noticeMessages[message] = type;
+			resultNotiseList.push({ message, type });
 		}
 	});
 
@@ -41,20 +33,14 @@ const deleteNotice = (
 	);
 
 const noticesReducer = (
-	state: noticesReducerStateType,
+	state: Array<AppNotice>,
 	action: noticesReducerActionType
 ) => {
 	switch (action.type) {
 		case 'AddNotices':
-			return {
-				...state,
-				notices: addNotices(state.notices, action.newNotices)
-			};
+			return addNotices(state, action.newNotices);
 		case 'DeleteNotice':
-			return {
-				...state,
-				notices: deleteNotice(state.notices, action.noticeForDelete)
-			};
+			return deleteNotice(state, action.noticeForDelete);
 		default:
 			return state;
 	}
