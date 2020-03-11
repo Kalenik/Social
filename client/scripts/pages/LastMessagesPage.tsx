@@ -184,7 +184,7 @@ const LastMessagesPage: React.FC = () => {
 		return () => {
 			socket!.removeListener('deleted_message_data');
 			socket!.removeListener('updated_message_item_data');
-			socket!.removeListener('username_viewed_your_messages');
+			socket!.removeListener('senderName_viewed_your_messages');
 			socket!.removeListener('senderName_deleted_unviewed_message');
 		};
 	}, [lastMessageListData]);
