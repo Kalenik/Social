@@ -9,10 +9,17 @@ import IDeletedMessageData from '@interfaces/IDeletedMessageData';
 import IMessage from '@interfaces/IMessage';
 import IMessageItemData from '@interfaces/IMessageItemData';
 import IUser from '@interfaces/IUser';
+import {
+	addMessageActionCreator,
+	deleteMessageActionCreator,
+	setMessageListDataActionCreator,
+	updateMessageActionCreator
+} from '@reducers/MessagesReducer/messageActionCreators';
+import messagesReducer from '@reducers/MessagesReducer/messagesReducer';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import fetchMessagesData from '@services/MessageService/fetchMessagesData';
 import dateToNumber from '@utils/dateToNumber';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router';
 
 interface IFetchUserMessagesResponce {
@@ -31,32 +38,17 @@ const MessagesPage: React.FC = () => {
 		{ socket } = useContext(SocketContext),
 		{ token, authUser } = useContext(AuthContext),
 		[isLoading, setLoading] = useState(true),
-		[messageListData, setMessageListData] = useState<
-			Array<IMessageItemData>
-		>([]),
+		[messageListData, messageDispatch] = useReducer(messagesReducer, []),
 		[isError, setError] = useState(false);
 
 	const addMessageToListData = (newMessageItemData: IMessageItemData): void =>
-		setMessageListData(prevMessageListData => [
-			...prevMessageListData,
-			newMessageItemData
-		]);
+		messageDispatch(addMessageActionCreator(newMessageItemData));
 
 	const updateMessageInListData = (updatedMessage: IMessage): void =>
-		setMessageListData(prevMessageListData =>
-			prevMessageListData.map(messageItemData =>
-				messageItemData.message._id !== updatedMessage._id
-					? messageItemData
-					: { ...messageItemData, message: updatedMessage }
-			)
-		);
+		messageDispatch(updateMessageActionCreator(updatedMessage));
 
 	const deleteMessageFromListData = (messageId: string): void =>
-		setMessageListData(prevMessageListData =>
-			prevMessageListData.filter(
-				messageItemData => messageItemData.message._id !== messageId
-			)
-		);
+		messageDispatch(deleteMessageActionCreator(messageId));
 
 	useEffect(() => {
 		fetchMessagesData(token, username)
@@ -82,14 +74,16 @@ const MessagesPage: React.FC = () => {
 						})
 					);
 
-					setMessageListData(() =>
-						[
-							...messageItemDataFromYou,
-							...messageItemDataToYou
-						].sort(
-							(a, b) =>
-								dateToNumber(a.message.created) -
-								dateToNumber(b.message.created)
+					messageDispatch(
+						setMessageListDataActionCreator(
+							[
+								...messageItemDataFromYou,
+								...messageItemDataToYou
+							].sort(
+								(a, b) =>
+									dateToNumber(a.message.created) -
+									dateToNumber(b.message.created)
+							)
 						)
 					);
 				}
@@ -104,29 +98,23 @@ const MessagesPage: React.FC = () => {
 	useEffect(() => {
 		socket!.on(
 			'new_message_item_data',
-			(newMessageItemData: IMessageItemData) => {
-				if (newMessageItemData.username === username) {
-					addMessageToListData(newMessageItemData);
-				}
-			}
+			(newMessageItemData: IMessageItemData) =>
+				newMessageItemData.username === username &&
+				addMessageToListData(newMessageItemData)
 		);
 
 		socket!.on(
 			'deleted_message_data',
-			({ senderName, deletedMessageId }: IDeletedMessageData) => {
-				if (senderName === username) {
-					deleteMessageFromListData(deletedMessageId);
-				}
-			}
+			({ senderName, deletedMessageId }: IDeletedMessageData) =>
+				senderName === username &&
+				deleteMessageFromListData(deletedMessageId)
 		);
 
 		socket!.on(
 			'updated_message_item_data',
-			(upatedMessageItemData: IMessageItemData) => {
-				if (upatedMessageItemData.username === username) {
-					updateMessageInListData(upatedMessageItemData.message);
-				}
-			}
+			(upatedMessageItemData: IMessageItemData) =>
+				upatedMessageItemData.username === username &&
+				updateMessageInListData(upatedMessageItemData.message)
 		);
 
 		return () => {
