@@ -9,10 +9,18 @@ import IDeletedMessageData from '@interfaces/IDeletedMessageData';
 import ILastMessageData from '@interfaces/ILastMessageData';
 import ILastMessageItemData from '@interfaces/ILastMessageItemData';
 import IMessageItemData from '@interfaces/IMessageItemData';
+import {
+	addMessageActionCreator,
+	senderDeletedUnviewedMessageActionCreator,
+	senderViewedYourMessagesActionCreator,
+	setLastMessageListDataActionCreator,
+	updateMessageActionCreator
+} from '@reducers/LastMessagesReducer/lastMessageActionCreators';
+import lastMessagesReducer from '@reducers/LastMessagesReducer/lastMessagesReducer';
 import { addErrorNoticesActionCreator } from '@reducers/NoticesReducer/NoticeActionCreators';
 import fetchLastMessagesData from '@services/MessageService/fetchLastMessagesData';
 import dateToNumber from '@utils/dateToNumber';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 
 interface IFetchAllYourMessagesDataResponce {
 	lastMessagesDataFromYou: Array<ILastMessageData>;
@@ -24,9 +32,10 @@ const LastMessagesPage: React.FC = () => {
 		[isLoading, setLoading] = useState(true),
 		{ socket } = useContext(SocketContext),
 		{ token } = useContext(AuthContext),
-		[lastMessageListData, setLastMessageListData] = useState<
-			Array<ILastMessageItemData>
-		>([]),
+		[lastMessageListData, lastMessageDispatch] = useReducer(
+			lastMessagesReducer,
+			[]
+		),
 		[
 			filteredLastMessageListData,
 			setFilteredLastMessageListData
@@ -104,11 +113,13 @@ const LastMessagesPage: React.FC = () => {
 						}
 					});
 
-					setLastMessageListData(() =>
-						unsortedLastMessageListData.sort(
-							(a, b) =>
-								dateToNumber(b.lastMessage.updated) -
-								dateToNumber(a.lastMessage.updated)
+					lastMessageDispatch(
+						setLastMessageListDataActionCreator(
+							unsortedLastMessageListData.sort(
+								(a, b) =>
+									dateToNumber(b.lastMessage.updated) -
+									dateToNumber(a.lastMessage.updated)
+							)
 						)
 					);
 				}
@@ -124,41 +135,7 @@ const LastMessagesPage: React.FC = () => {
 		socket!.on(
 			'new_message_item_data',
 			(newMessageItemData: IMessageItemData) =>
-				setLastMessageListData(prevLastMessageListData => {
-					const prevLastMessageItemData = prevLastMessageListData.find(
-						({ username }) =>
-							username === newMessageItemData.username
-					);
-
-					return prevLastMessageItemData
-						? [
-								{
-									username: newMessageItemData.username,
-									profileImgSrc:
-										newMessageItemData.profileImgSrc,
-									lastMessage: newMessageItemData.message,
-									unviewedCount:
-										prevLastMessageItemData.unviewedCount +
-										1,
-									isYour: false
-								},
-								...prevLastMessageListData.filter(
-									({ username }) =>
-										username !== newMessageItemData.username
-								)
-						  ]
-						: [
-								{
-									username: newMessageItemData.username,
-									profileImgSrc:
-										newMessageItemData.profileImgSrc,
-									lastMessage: newMessageItemData.message,
-									unviewedCount: 1,
-									isYour: false
-								},
-								...prevLastMessageListData
-						  ];
-				})
+				lastMessageDispatch(addMessageActionCreator(newMessageItemData))
 		);
 
 		return () => {
@@ -184,57 +161,24 @@ const LastMessagesPage: React.FC = () => {
 
 		socket!.on(
 			'updated_message_item_data',
-			(upatedMessageItemData: IMessageItemData) => {
-				const lastMessageItemDataToUpdate = lastMessageListData.find(
-					lastMessageItemData =>
-						lastMessageItemData.username ===
-							upatedMessageItemData.username &&
-						lastMessageItemData.lastMessage._id ===
-							upatedMessageItemData.message._id
-				);
-
-				if (lastMessageItemDataToUpdate) {
-					setLastMessageListData(prevLastMessageListData => [
-						{
-							...lastMessageItemDataToUpdate,
-							lastMessage: upatedMessageItemData.message
-						},
-						...prevLastMessageListData.filter(
-							lastMessageItemData =>
-								lastMessageItemData.username !==
-								upatedMessageItemData.username
-						)
-					]);
-				}
-			}
+			(upatedMessageItemData: IMessageItemData) =>
+				lastMessageDispatch(
+					updateMessageActionCreator(upatedMessageItemData)
+				)
 		);
 
-		socket!.on('username_viewed_your_messages', (username: string) =>
-			setLastMessageListData(prevLastMessageListData =>
-				prevLastMessageListData.map(lastMessageItemData =>
-					lastMessageItemData.username === username
-						? { ...lastMessageItemData, unviewedCount: 0 }
-						: lastMessageItemData
-				)
+		socket!.on('senderName_viewed_your_messages', (senderName: string) =>
+			lastMessageDispatch(
+				senderViewedYourMessagesActionCreator(senderName)
 			)
 		);
 
 		socket!.on(
 			'senderName_deleted_unviewed_message',
-			(senderName: string) => {
-				setLastMessageListData(prevLastMessageListData =>
-					prevLastMessageListData.map(lastMessageItemData =>
-						lastMessageItemData.username === senderName &&
-						lastMessageItemData.unviewedCount > 0
-							? {
-									...lastMessageItemData,
-									unviewedCount:
-										lastMessageItemData.unviewedCount - 1
-							  }
-							: lastMessageItemData
-					)
-				);
-			}
+			(senderName: string) =>
+				lastMessageDispatch(
+					senderDeletedUnviewedMessageActionCreator(senderName)
+				)
 		);
 
 		return () => {

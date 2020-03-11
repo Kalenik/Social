@@ -37,7 +37,7 @@ const messagesViewed = async (args, { req, res, io, userSocketIds }) => {
 
 		const receiverSocketId = userSocketIds[args.receiverName];
 		io.to(receiverSocketId).emit(
-			'username_viewed_your_messages',
+			'senderName_viewed_your_messages',
 			senderUser.username
 		);
 
