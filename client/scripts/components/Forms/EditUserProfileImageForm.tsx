@@ -93,7 +93,16 @@ const EditUserProfileImageForm: React.FC = () => {
 				</div>
 			) : (
 				<div className='edit-user-profile-image-form__image-actions'>
-					<UserImage src={profileImgSrc} width={150} height={150} />
+					<UserImage
+						className='user-image edit-user-profile-image-form__user-image'
+						src={profileImgSrc}
+						width={150}
+						height={150}
+						onClick={uploadImage}
+						onKeyPress={uploadImage}
+						role='button'
+						tabIndex={0}
+					/>
 
 					<div className='edit-user-profile-image-form__actions'>
 						<input

@@ -9,7 +9,6 @@
 	padding: 1rem;
 	word-break: break-word;
 	word-wrap: break-word;
-
 	border-radius: 0.5rem;
 	box-shadow: @boxShadow;
 
@@ -19,11 +18,7 @@
 		align-items: center;
 	}
 
-	&__image {
-		padding: 0.3rem;
-	}
-
-	&__image-wrapper {
+	&__user-image-wrapper {
 		position: relative;
 
 		&_online::after {
@@ -41,31 +36,18 @@
 		}
 	}
 
-	&__image-wrapper,
-	&__image,
+	&__user-image,
 	&__username-link {
 		outline: none;
-	}
-
-	&__image,
-	&__username-link {
 		cursor: pointer;
 		transition: 0.3s ease-in-out;
 	}
 
-	&__image-wrapper {
-		&:focus {
-			.user-item__image {
-				border: 1px solid fade(@accentColor, 90%);
-				box-shadow: 0 0 10px fade(@accentColor, 90%);
-			}
-		}
-	}
-
-	&__image {
+	&__user-image {
 		padding: 0.2rem;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			border: 1px solid fade(@accentColor, 90%);
 			box-shadow: 0 0 10px fade(@accentColor, 90%);
 		}

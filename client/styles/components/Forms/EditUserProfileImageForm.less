@@ -4,6 +4,18 @@
 		text-align: center;
 	}
 
+	&__user-image {
+		outline: none;
+		cursor: pointer;
+		transition: 0.3s ease-in-out;
+
+		&:hover,
+		&:focus {
+			border: 1px solid fade(@accentColor, 90%);
+			box-shadow: 0 0 10px fade(@accentColor, 90%);
+		}
+	}
+
 	&__avatar-iput {
 		display: none;
 	}

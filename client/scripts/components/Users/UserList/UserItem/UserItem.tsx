@@ -38,19 +38,19 @@ const UserItem: React.FC<IUserItemProps> = ({
 				<div
 					className={
 						isOnline
-							? 'user-item__image-wrapper user-item__image-wrapper_online'
-							: 'user-item__image-wrapper'
+							? 'user-item__user-image-wrapper user-item__user-image-wrapper_online'
+							: 'user-item__user-image-wrapper'
 					}
-					onClick={goToUserPage.bind(null, user.username!)}
-					onKeyPress={goToUserPage.bind(null, user.username!)}
-					role='button'
-					tabIndex={0}
 				>
 					<UserImage
 						src={user.profileImgSrc}
-						className='user-image user-item__image'
+						className='user-image user-item__user-image'
 						width={75}
 						height={75}
+						onClick={goToUserPage.bind(null, user.username!)}
+						onKeyPress={goToUserPage.bind(null, user.username!)}
+						role='button'
+						tabIndex={0}
 					/>
 				</div>
 

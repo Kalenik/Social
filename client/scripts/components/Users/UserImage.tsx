@@ -1,18 +1,16 @@
 import Image from '@components/Image';
 import React, { useEffect, useState } from 'react';
 
-interface IUserImageProps {
-	src?: string;
-	width?: number;
-	height?: number;
-	className?: string;
-}
+interface IUserImageProps
+	extends React.DetailedHTMLProps<
+		React.ImgHTMLAttributes<HTMLImageElement>,
+		HTMLImageElement
+	> {}
 
 const UserImage: React.FC<IUserImageProps> = ({
 	src,
-	width,
-	height,
-	className = 'user-image'
+	className = 'user-image',
+	...props
 }) => {
 	const [imageSrc, setImageSrc] = useState(
 		src || require('@images/user.svg')
@@ -26,11 +24,10 @@ const UserImage: React.FC<IUserImageProps> = ({
 
 	return (
 		<Image
+			{...props}
 			src={imageSrc}
 			alt='user image'
 			className={className}
-			width={width}
-			height={height}
 			circle
 			onError={handleError}
 		/>

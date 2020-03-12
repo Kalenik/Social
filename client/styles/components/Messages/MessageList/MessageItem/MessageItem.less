@@ -10,29 +10,9 @@
 	border-radius: 0.5rem;
 	box-shadow: @boxShadow;
 
-	&__user-image-wrapper,
-	&__date,
-	&__actions {
-		justify-self: end;
-	}
-
-	&__user-image-wrapper,
 	&__user-image,
 	&__username-link {
 		outline: none;
-	}
-
-	&__user-image-wrapper {
-		&:focus {
-			.message-item__user-image {
-				border: 1px solid fade(@accentColor, 90%);
-				box-shadow: 0 0 10px fade(@accentColor, 90%);
-			}
-		}
-	}
-
-	&__user-image,
-	&__username-link {
 		cursor: pointer;
 		transition: 0.3s ease-in-out;
 	}
@@ -40,7 +20,8 @@
 	&__user-image {
 		padding: 0.2rem;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			border: 1px solid fade(@accentColor, 90%);
 			box-shadow: 0 0 10px fade(@accentColor, 90%);
 		}
@@ -67,6 +48,10 @@
 		grid-column-start: 2;
 		grid-column-end: 3;
 		grid-row-start: 2;
+	}
+
+	&__actions {
+		justify-self: end;
 	}
 
 	&__actions,

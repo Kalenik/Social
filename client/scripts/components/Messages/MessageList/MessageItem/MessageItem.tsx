@@ -43,20 +43,16 @@ const MessageItem: React.FC<IMessageItemProps> = ({
 
 	return (
 		<li className='message-item'>
-			<div
-				className='message-item__user-image-wrapper'
+			<UserImage
+				src={profileImgSrc}
+				className='user-image message-item__user-image'
+				width={40}
+				height={40}
 				onClick={goToUserPage.bind(null, username)}
 				onKeyPress={goToUserPage.bind(null, username)}
 				role='button'
 				tabIndex={0}
-			>
-				<UserImage
-					src={profileImgSrc}
-					className='user-image message-item__user-image'
-					width={40}
-					height={40}
-				/>
-			</div>
+			/>
 
 			<div className='message-item__username'>
 				<Link
