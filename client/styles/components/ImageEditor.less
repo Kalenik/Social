@@ -2,16 +2,27 @@
 	display: inline-flex;
 	flex-direction: column;
 
-	&__scale-actions {
+	&__editors-actions {
 		margin-top: 1rem;
 	}
 
+	&__editors {
+		display: flex;
+		align-items: center;
+	}
+
 	&__scale {
-		text-align: left;
+		flex: 1;
 
 		input {
 			padding: 0;
 		}
+	}
+
+	&__rotate {
+		margin-left: 1rem;
+		width: 1rem;
+		height: 1rem;
 	}
 
 	&__actions {
