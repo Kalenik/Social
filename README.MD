@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://innet.herokuapp.com/">
-    <img width="100%" src="https://res.cloudinary.com/socialbalance/image/upload/v1582578684/innet/intro.png">
+    <img width="100%" src="https://res.cloudinary.com/socialbalance/image/upload/v1584217391/innet/intropage.png">
   </a>
 </div>
 
