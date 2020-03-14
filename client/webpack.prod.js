@@ -71,8 +71,8 @@ module.exports = merge(common, {
 	},
 
 	performance: {
-		maxEntrypointSize: 350000,
-		maxAssetSize: 350000
+		maxEntrypointSize: 400000,
+		maxAssetSize: 400000
 	},
 
 	plugins: [
