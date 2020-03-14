@@ -1,7 +1,6 @@
 .main-navigation {
-	overflow: hidden;
+	display: flex;
 	background-color: @menuBackgroundColor;
-	width: 100%;
 
 	&__header {
 		position: sticky;
@@ -9,100 +8,67 @@
 		z-index: @navbarZIndex;
 	}
 
-	&__items {
-		max-height: 0;
-		transition: max-height 0.7s ease-out;
-
-		&_open {
-			max-height: 26rem;
-		}
-	}
-
 	&__item {
-		display: block;
-		padding: 1rem 1.2rem;
-		border-bottom: 0.5px solid lighten(@menuBackgroundColor, 10%);
-		outline: none;
-		font-style: normal;
-		cursor: pointer;
+		flex: 1;
 		text-align: center;
+		padding: 1rem 0;
+		outline: none;
+		white-space: nowrap;
+		transition: 0.3s;
 
-		&-text {
-			display: inline-block;
-			vertical-align: middle;
-			max-width: 7rem;
-			color: @linkColor;
-			text-decoration: none;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		&:hover,
-		&:focus,
 		&:active,
-		&.active {
-			.main-navigation__item-text {
-				color: @linkHoverColor;
+		&.active,
+		&:focus,
+		&:hover {
+			.main-navigation__item-svg {
+				fill: @accentColor;
 			}
 		}
 
-		&:hover,
-		&:focus {
-			background: @linkMenuHoverBackgroundColor;
+		&:focus,
+		&:hover {
+			background-color: @linkMenuHoverBackgroundColor;
 		}
 
-		&:active,
-		&.active {
-			background: @linkMenuActiveBackgroundColor;
+		&_message {
+			position: relative;
 		}
 
-		&_logo {
+		&_sign-up {
+			margin-left: auto;
 		}
 
 		&_logout {
 			cursor: pointer;
+			margin-left: auto;
 		}
 	}
 
-	&__hamburger-menu-button {
-		position: absolute;
-		top: 1.2rem;
-		right: 1.5rem;
+	&__item-svg {
+		fill: @linkColor;
 	}
 
 	&__unviewed-messages-count {
-		display: inline-block;
-		vertical-align: middle;
-		margin-left: 0.5rem;
-		padding: 0.1rem 0.3rem;
-		border-radius: 0.4rem;
-		box-shadow: 0 0 0.7rem #fff;
-		color: #fff;
+		position: absolute;
+		top: 15%;
+		left: 55%;
+		padding: 0 0.3rem;
+		font-size: 0.7rem;
 		font-weight: 700;
-		text-shadow: 0 0 0.7rem #fff;
-		font-size: 0.8rem;
+		border-radius: 0.4rem;
+		color: lighten(@accentColor, 20%);
+		text-shadow: 0 0 0.7rem lighten(@accentColor, 20%);
+		background-color: shade(@accentColor, 50%);
+		border: 1px solid fade(@accentColor, 50%);
+		box-shadow: 0 0 10px fade(@accentColor, 50%);
 	}
 }
 
-@media screen and (min-width: 602px) {
+@media screen and (min-width: 375px) {
 	.main-navigation {
-		&__items {
-			&_right {
-				float: right;
-			}
-		}
 		&__item {
-			float: left;
-			border-bottom: none;
-
-			&_logout {
-				float: right;
-			}
-		}
-
-		&__hamburger-menu-button {
-			display: none;
+			flex: 0;
+			padding: 1rem 1.2rem;
 		}
 	}
 }

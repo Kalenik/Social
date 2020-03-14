@@ -1,13 +1,19 @@
-import HamburgerMenuButton from '@components/Buttons/HamburgerMenuButton';
-import NavItemText from '@components/Navbar/NavItemText';
+import EmailSvg from '@components/SVG/EmailSvg';
+import HeartSvg from '@components/SVG/HeartSvg';
+import HomeSvg from '@components/SVG/HomeSvg';
+import KeySvg from '@components/SVG/KeySvg';
+import LogoutSvg from '@components/SVG/LogoutSvg';
+import PostsSvg from '@components/SVG/PostsSvg';
+import UserPlusSvg from '@components/SVG/UserPlusSvg';
+import UsersSvg from '@components/SVG/UsersSvg';
+import UserSvg from '@components/SVG/UserSvg';
 import AuthContext, { IAuthContext } from '@contexts/authContext';
 import MessagesContext from '@contexts/messageContext';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
-	const [isMobileMenuOpen, setMobileMenu] = useState<boolean>(false),
-		{
+	const {
 			token,
 			authUser: { username },
 			logout
@@ -17,106 +23,89 @@ const Navbar: React.FC = () => {
 			.map(({ unviewedCount }) => unviewedCount)
 			.reduce((acc, v) => acc + v, 0);
 
-	const hamburgerMenuButtonHandler = (): void =>
-		setMobileMenu(!isMobileMenuOpen);
-
-	const closeMobileMenu = () => setMobileMenu(false);
-
 	return (
 		<header className='main-navigation__header'>
 			<nav className='main-navigation'>
 				<NavLink
-					className='main-navigation__item main-navigation__item_logo'
+					className='main-navigation__item'
 					exact
 					to={username ? '/user/' + username : '/'}
-					onClick={closeMobileMenu}
 					tabIndex={0}
 				>
-					<NavItemText text={username || 'Innet'} />
+					{username ? (
+						<UserSvg className='main-navigation__item-svg' />
+					) : (
+						<HomeSvg className='main-navigation__item-svg' />
+					)}
 				</NavLink>
-				<div
-					className={
-						isMobileMenuOpen
-							? 'main-navigation__items main-navigation__items_open'
-							: 'main-navigation__items'
-					}
-					onClick={closeMobileMenu}
-					role='presentation'
+
+				{token && (
+					<NavLink
+						className='main-navigation__item main-navigation__item_message'
+						to='/messages'
+						tabIndex={0}
+						exact
+					>
+						<EmailSvg className='main-navigation__item-svg' />
+						{unviewedMessagesCount > 0 && (
+							<span className='main-navigation__unviewed-messages-count'>
+								{unviewedMessagesCount}
+							</span>
+						)}
+					</NavLink>
+				)}
+				<NavLink
+					className='main-navigation__item'
+					to='/posts'
+					tabIndex={0}
 				>
-					{token && (
-						<NavLink
-							className='main-navigation__item'
-							to='/messages'
-							tabIndex={0}
-							exact
-						>
-							<NavItemText text='Messages' />
-							{unviewedMessagesCount > 0 && (
-								<span className='main-navigation__unviewed-messages-count'>
-									{unviewedMessagesCount}
-								</span>
-							)}
-						</NavLink>
-					)}
+					<PostsSvg className='main-navigation__item-svg' />
+				</NavLink>
+				{token && (
 					<NavLink
 						className='main-navigation__item'
-						to='/posts'
+						to='/likedposts'
 						tabIndex={0}
 					>
-						<NavItemText text='Posts' />
+						<HeartSvg className='main-navigation__item-svg' />
 					</NavLink>
-					{token && (
+				)}
+				<NavLink
+					className='main-navigation__item'
+					to='/users'
+					tabIndex={0}
+				>
+					<UsersSvg className='main-navigation__item-svg' />
+				</NavLink>
+				{!token && (
+					<>
+						<NavLink
+							className='main-navigation__item main-navigation__item_sign-up'
+							to='/signup'
+							tabIndex={0}
+						>
+							<UserPlusSvg className='main-navigation__item-svg' />
+						</NavLink>
 						<NavLink
 							className='main-navigation__item'
-							to='/likedposts'
+							to='/signin'
 							tabIndex={0}
 						>
-							<NavItemText text='Liked' />
+							<KeySvg className='main-navigation__item-svg' />
 						</NavLink>
-					)}
-					<NavLink
-						className='main-navigation__item'
-						to='/users'
+					</>
+				)}
+				{token && (
+					<div
+						className='main-navigation__item main-navigation__item_logout'
+						onClick={logout}
+						onKeyPress={logout}
+						role='button'
 						tabIndex={0}
 					>
-						<NavItemText text='Users' />
-					</NavLink>
-					{!token && (
-						<div className='main-navigation__items_right'>
-							<NavLink
-								className='main-navigation__item'
-								to='/signup'
-								tabIndex={0}
-							>
-								<NavItemText text='Sign up' />
-							</NavLink>
-							<NavLink
-								className='main-navigation__item'
-								to='/signin'
-								tabIndex={0}
-							>
-								<NavItemText text='Sign in' />
-							</NavLink>
-						</div>
-					)}
-					{token && (
-						<div
-							className='main-navigation__item main-navigation__item_logout'
-							onClick={logout}
-							onKeyPress={logout}
-							role='button'
-							tabIndex={0}
-						>
-							<NavItemText text='Logout' />
-						</div>
-					)}
-				</div>
-				<div className='main-navigation__hamburger-menu-button'>
-					<HamburgerMenuButton
-						click={hamburgerMenuButtonHandler}
-						isOpen={isMobileMenuOpen}
-					/>
-				</div>
+						<LogoutSvg className='main-navigation__item-svg' />
+					</div>
+				)}
 			</nav>
 		</header>
 	);
