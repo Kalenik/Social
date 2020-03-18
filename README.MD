@@ -82,7 +82,7 @@ Urls for start:
 -   Server: http://localhost:8080
 -   Client: http://localhost:3001
 
-To build App for production
+To build App for production (rsync command doesn't work on Windows)
 
 ```sh
 $ npm run build:prod
