@@ -5,8 +5,8 @@
 	"main": "app.js",
 	"scripts": {
 		"start": "node app.js",
-		"start:dev": "NODE_ENV=development nodemon app.js",
-		"start:prod": "NODE_ENV=production nodemon app.js",
+		"start:dev": "cross-env NODE_ENV=development nodemon app.js",
+		"start:prod": "cross-env NODE_ENV=production nodemon app.js",
 		"build": "rimraf ../dist/ && mkdir -p ../dist/ && rsync -r ./* ../dist --exclude='node_modules' --exclude='nodemon.json' --exclude='error.log'"
 	},
 	"author": "Kalenik Pavel",

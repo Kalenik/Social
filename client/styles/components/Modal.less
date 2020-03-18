@@ -7,6 +7,13 @@
 	overflow: scroll;
 	z-index: @modalZIndex;
 	animation: fade-in-modal 0.5s;
+	
+	-ms-overflow-style: none; /* Internet Explorer 10+ */
+	scrollbar-width: none; /* Firefox */
+
+	&::-webkit-scrollbar {
+		display: none; /* Safari and Chrome */
+	}
 
 	&__wrapper {
 		display: flex;
