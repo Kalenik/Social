@@ -16,8 +16,5 @@
 		"build:prod": "npm run build:server && npm run build:client:prod"
 	},
 	"author": "Kalenik Pavel",
-	"dependencies": {},
-	"devDependencies": {
-		"cross-env": "^7.0.2"
-	}
+	"dependencies": {}
 }
